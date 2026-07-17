@@ -1,0 +1,19 @@
+# MANIFEST — vault files that ship in the public repo.
+# One vault-relative path per line; directories end with /.
+# tools/sync.sh copies exactly these paths from the private vault into this
+# repo. Anything not listed here never leaves the vault. Adding a line is a
+# publishing decision — get the user's approval first.
+#
+# Special case: ISSUES.md is synced convention-only — sync.sh strips the
+# live open-issue list (it points into the private .state/issues/).
+
+CLAUDE.md
+CONSTITUTION.md
+ISSUES.md
+templates/default.md
+.state/README.md
+.claude/skills/
+meta/README.md
+meta/HANDOFF.md
+meta/VAULT-DOCTRINE.md
+meta/OKF-SPEC.md

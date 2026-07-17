@@ -1,0 +1,4 @@
+# Machine-local publishing config — never ships.
+tools/*.local.conf
+tools/*.local.txt
+.DS_Store

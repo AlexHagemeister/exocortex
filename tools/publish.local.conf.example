@@ -1,0 +1,8 @@
+# Copy to publish.local.conf (gitignored) and fill in for your machine.
+
+# Absolute path to your private vault (the directory containing CLAUDE.md).
+VAULT_PATH="$HOME/path/to/your/vault"
+
+# Substring your public origin URL must contain before sync.sh --push will
+# push. Guards against pushing to the wrong remote (e.g. a private mirror).
+EXPECTED_REMOTE="yourname/exocortex"
