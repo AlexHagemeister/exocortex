@@ -47,7 +47,13 @@ Via Claude Code scheduled tasks (or any runner), on whatever machine you designa
 | `lint` | weekly |
 | `digest` | weekly |
 
-For unattended runs, maintain a machine-local permission allowlist (e.g. `.claude/settings.local.json`) so scheduled runs don't stall on prompts — and deliberately leave deletions out of it, so those always prompt a human.
+**Task prompts are pointers, not copies.** Every rule has exactly one home — the skill file in the vault — so a scheduled task must never paste skill text into its prompt (a copy silently drifts the first time the skill is amended). The whole prompt is a pointer:
+
+> Unattended scheduled maintainer run for the exocortex vault at `/path/to/your/vault` — read CLAUDE.md at the vault root first (its rules bind the run), then work inside that directory and execute `.claude/skills/process-inbox/SKILL.md` exactly, including its unattended-runs rules. Everything normative lives in the vault, not here.
+
+The "read CLAUDE.md first" instruction is deliberately in the prompt even though each maintenance skill's own unattended-runs line also demands it: a scheduled agent wakes up *without* the vault rules in context (unlike an interactive session opened in the vault, where CLAUDE.md auto-loads), and an agent that skips that read will improvise writes the rules forbid. State it in both places; it's the one duplication that pays for itself, and the skill line remains the normative home.
+
+For unattended runs, also maintain a machine-local permission allowlist (e.g. `.claude/settings.local.json`) so scheduled runs don't stall on prompts — and deliberately leave deletions out of it, so those always prompt a human.
 
 ## 6. Set up frictionless capture
 
