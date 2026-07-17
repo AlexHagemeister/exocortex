@@ -49,9 +49,21 @@ Via Claude Code scheduled tasks (or any runner), on whatever machine you designa
 
 For unattended runs, maintain a machine-local permission allowlist (e.g. `.claude/settings.local.json`) so scheduled runs don't stall on prompts — and deliberately leave deletions out of it, so those always prompt a human.
 
-## 6. Use it
+## 6. Set up frictionless capture
 
-- **Capture:** drop anything (clipped articles, meeting notes, statements) as files into `sources/inbox/`, then run `process-inbox` — or just tell the maintainer "remember this."
+The inbox is multi-tenant: *any* tool that drops a markdown file into `sources/inbox/` works, and the ingest validation gate applies regardless. That said, the smoothest setup we know is the [Obsidian Web Clipper](https://obsidian.md/clipper) (free browser extension for Chrome, Firefox, Edge, and Safari — including Safari on iOS), configured once so every clip lands ingest-ready:
+
+- **Save location.** Point the clipper at your vault with note location `sources/inbox/`. Clips then flow through the normal pipeline on the next `process-inbox` run — no manual filing.
+- **A capture template with provenance built in.** The wiki cites provenance forever, so capture it at clip time. Add frontmatter properties to your clipper template: `title: {{title}}`, `source: {{url}}`, `author: {{author}}`, `published: {{published}}`, `clipped: {{date}}`. Use a date-prefixed note name (ingest files sources as `YYYY-MM-DD-title-slug.md`, so arriving that way helps).
+- **Clip the content, not the link.** The ingest gate quarantines empty or boilerplate-only clips. Capture the full article body (the clipper converts it to clean markdown), or use **highlight capture** to clip just the passages that matter — both are substantive; a bare URL is not.
+- **Template triggers.** The clipper can auto-select a template by site — useful if you want, say, recipes or papers pre-tagged toward different wiki folders while everything still routes through the same inbox.
+- **Interpreter (optional LLM tidy pass).** The clipper's Interpreter feature runs your clip through a model you configure (your own API key — Anthropic, OpenAI, or a local model) to strip boilerplate, summarize, or extract fields per your template prompts. A tidier clip sails through ingest validation; the gate stays in place either way, so this is polish, not a requirement.
+
+Record whatever you choose in the **Capture tool** row of `meta/DEPLOYMENT.md`.
+
+## 7. Use it
+
+- **Capture:** clip from the browser (above), or drop anything (meeting notes, statements, exports) as files into `sources/inbox/`, then run `process-inbox` — or just tell the maintainer "remember this."
 - **Write:** your `notes/` are yours alone; the sweep picks up changes without ever editing your words.
 - **Ask:** the `query` skill answers from the vault with status-weighted citations.
 - **Review:** the weekly `digest` is your curation surface — promote drafts, adjudicate disputes, review friction. Promotion to `verified` is the one job that stays human.

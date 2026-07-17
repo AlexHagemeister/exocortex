@@ -40,7 +40,7 @@ cd exocortex
 ./tools/bootstrap.sh /path/to/your/vault
 ```
 
-…and follow [SETUP.md](SETUP.md) from there: fill in your `meta/DEPLOYMENT.md` bindings, set up the private git mirror, optionally schedule the maintenance skills, and start dropping things into `sources/inbox/`.
+…and follow [SETUP.md](SETUP.md) from there: fill in your `meta/DEPLOYMENT.md` bindings, set up the private git mirror, optionally schedule the maintenance skills, and start dropping things into `sources/inbox/`. For everyday capture, the [Obsidian Web Clipper](https://obsidian.md/clipper) pointed straight at your inbox — with a provenance-carrying template and its optional LLM tidy pass — makes clipping a one-click act; SETUP.md § 6 has the exact configuration.
 
 ## License
 
