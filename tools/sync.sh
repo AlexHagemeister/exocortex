@@ -70,8 +70,11 @@ done < "$REPO_ROOT/MANIFEST"
 # Built-in structural patterns + local private patterns, over every file git
 # would publish (tracked + untracked-unignored). LICENSE is exempt from the
 # local patterns (the copyright line legitimately carries the author's name).
+# Structural = absolute home paths (/Users/...), which identify a person;
+# generic macOS iCloud container paths in tilde form are documentation, not
+# leaks, and are deliberately not flagged.
 scan_failed=0
-builtin_patterns='/Users/|Mobile Documents|iCloud~'
+builtin_patterns='/Users/'
 files="$(git -C "$REPO_ROOT" ls-files -co --exclude-standard)"
 while IFS= read -r f; do
   [ -f "$REPO_ROOT/$f" ] || continue
