@@ -22,6 +22,7 @@ The rules are a pact the user authored and may renegotiate — never a cage, and
 5. **Guard the budget**: CLAUDE.md has a hard budget of one page. If an amendment grows it past that, something on it belongs in a skill or README instead — move it, don't squeeze it.
 6. **Verify**: run lint's surface-consistency check (check 9) over the touched surfaces.
 7. **Log** the amendment in the day log, `wiki/log/<YYYY-MM-DD>.md` (what changed, why, who approved), and close any issues it resolves (`status: resolved` + `resolved_by` in the `.state/issues/` file, regenerate the ISSUES.md index).
+8. **Monitor** — a shipped amendment is a hypothesis, not a settled fact. For any change with observable downstream behavior, open a tracking issue in `.state/issues/` linking the day-log entry and the issues or sources where the objectives were first stated: what each change should do, what evidence of working looks like and where it accrues (day logs, lint reports), and a close condition a few cycles out. Evaluate against both the original friction and the principles the change claimed to serve. Close on evidence; if the evidence goes the other way, propose the adjustment or revert — don't wait for friction to re-accumulate.
 
 ## Folder refactors are migrations
 

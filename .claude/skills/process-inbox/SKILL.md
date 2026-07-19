@@ -21,14 +21,14 @@ Run the `ingest` skill on each remaining item, oldest first. If a session is int
 
 ## Pass 2 — notes sweep
 
-The cursor lives at `.state/notes-cursor.txt`: one line per known note — `<sha256>  <read-timestamp ISO 8601>  <path>`. Create it on first run.
+The cursor lives at `.state/notes-cursor.txt`: one line per known note — `<sha256>  <read-timestamp ISO 8601>  <path relative to notes/>`. Create it on first run.
 
-1. Walk `notes/` recursively.
+1. Walk `notes/` recursively. OS artifacts (`.DS_Store`, `Thumbs.db`, `desktop.ini`) are invisible to the sweep — never walked, ingested, or carried in the cursor.
 2. **iCloud eviction is not deletion.** A `.<name>.icloud` placeholder means the file is evicted but present — record it as "evicted, unchanged" and skip; never treat it as new, changed, or deleted. (The user should keep the vault pinned "Keep Downloaded"; this check exists because that setting is one toggle from undone.)
 3. Skip sync-conflict filenames (same patterns as above) — flag, don't ingest.
 4. **Respect the opt-out:** any note carrying the `#no-ingest` tag (inline or in frontmatter `tags:` — check both) is skipped entirely. That tag is the user's only curation gate on this stream, in both directions: honor it absolutely, and never impose your own — untagged notes ingest regardless of subject matter.
 5. For each new or changed file (hash differs from cursor): run `ingest` on the delta — cite `notes/<path>` plus the read timestamp. Then write back frontmatter metadata: `related:` wikilinks (tags where apt) to the wiki pages the note fed or clearly relates to; fill `description:` if blank and obvious. Additive only — never remove or reword user-authored values, point only at existing wiki pages, never touch the body. Notes are never moved or filed; the note stays live, the citation is pinned.
-6. For each cursor entry whose file is gone (no file AND no `.icloud` placeholder): record the path in `.state/deleted-notes.txt`. Deletion is withdrawal — a speech act the wiki must hear; `lint` walks the consequences (claims resting solely on a deleted note demote to disputed).
+6. For each cursor entry whose file is gone (no file AND no `.icloud` placeholder): record the path in `.state/deleted-notes.txt`. Deletion is withdrawal — a speech act the wiki must hear; `lint` walks the consequences (claims resting solely on a deleted note demote to disputed). A sweep that finds a large share of the cursor deleted at once is almost certainly bugged, not right — stop and report instead of recording.
 7. Rewrite the cursor with current hashes and read timestamps.
 
 ## Close out
