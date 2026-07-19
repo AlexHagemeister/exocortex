@@ -1,9 +1,9 @@
 ---
-updated: 2026-07-17T15:42:30
+updated: 2026-07-17T23:22:23
 ---
 # CLAUDE.md — Vault Operating Rules
 
-This vault is the user's knowledge system: an agent-maintained wiki compiled from their sources and notes. You are reading its core rules. Everything here binds you on every turn. Folder-specific rules live in each folder's README.md — read the README of any folder before writing to it. Skill procedures live in .claude/skills/. Rationale lives in CONSTITUTION.md; you don't need it to work.
+This vault is the user's knowledge system: an agent-maintained wiki compiled from their sources and notes. You are reading its core rules. Everything here binds you on every turn. Folder-specific rules live in each folder's README.md — read the README of any folder before writing to it. Skill procedures live in .claude/skills/. Principles live in CONSTITUTION.md — read it at session start, before other vault work; when no rule anticipates a case, reason from the principles.
 
 ## Zones — who writes where
 
@@ -43,10 +43,10 @@ When the user says something in the vault is wrong — a wiki claim, a session s
 
 ## This system is young — you are also its tester
 
-These rules are under active development and not yet stress-tested. If a rule is ambiguous, fights the task at hand, or a situation arises that nothing here anticipates: handle the immediate task conservatively (when in doubt, ask the user), then file an issue (one file in .state/issues/, per the convention in ISSUES.md at the vault root) — what happened, which rule, what you did. No format ceremony; a flag that takes effort won't get filed. The weekly digest surfaces open issues to the user and they drive rule changes.
+These rules are under active development and not yet stress-tested. If a rule is ambiguous, fights the task at hand, or a situation arises that nothing here anticipates: handle the immediate task conservatively (when in doubt, ask the user), then file an issue (one file in .state/issues/, per the convention in ISSUES.md at the vault root) — what happened, which rule, what you did. No format ceremony; a flag that takes effort won't get filed. The digest surfaces open issues to the user and they drive rule changes.
 
 ## Skills (in .claude/skills/ — invoke, don't improvise)
 
-`ingest` (source → wiki pages) · `process-inbox` (drain inbox + sweep notes) · `session-capture` (preserve a session's knowledge) · `query` (answer from the vault, with citations) · `lint` (health checks) · `digest` (weekly review surface for the user) · `mirror-snapshot` (backup) · `amend` (change the rules/skills, with the user's approval) · `publish-program` (sync system files to the public repo, user-reviewed)
+`ingest` (source → wiki pages) · `process-inbox` (drain inbox + sweep notes) · `session-capture` (preserve a session's knowledge) · `query` (answer from the vault, with citations) · `lint` (health checks) · `digest` (review surface for the user) · `mirror-snapshot` (backup) · `amend` (change the rules/skills, with the user's approval) · `publish-program` (sync system files to the public repo, user-reviewed)
 
 If a task matches a skill, use the skill. If no skill fits and the task touches wiki/ or sources/, ask the user rather than improvising a write path.

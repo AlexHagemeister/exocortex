@@ -21,7 +21,7 @@ Note deltas skip quarantine (notes/ is the user's zone — never move a note or 
 
 Move the inbox item to its permanent stream folder — `sources/articles/` (external material), `sources/sessions/` (session captures), `sources/life/` (personal exports) — choosing by the stream READMEs. Use a stable, descriptive, date-prefixed filename (`2026-07-16-title-slug.md`); this path is cited forever.
 
-**File before you cite.** Provenance always references the final path. Before filing, inbox items are freely editable; after filing, the source is frozen — never edit or delete it, because a source records what was said, not what's true. Append the new hash to the ledger.
+**File before you cite.** Provenance always references the final path. Before filing, inbox items are freely editable; after filing, the source is frozen — never edit or delete it, because a source records what was said, not what's true. Append the new hash to the ledger. After filing, grep `wiki/` for the item's old inbox path and rewrite any citations to the filed path.
 
 Notes are never filed — they stay in `notes/`, and you cite `notes/<path>` **plus the timestamp you read it** (mutability for the user, pinned provenance for the wiki).
 
@@ -69,7 +69,7 @@ Find existing wiki pages the source bears on (start from `wiki/index.md`, drill 
 
 - Same frontmatter template as above, with `type: Concept` (or another descriptive type).
 - **`status: draft`, always.** Sole exception: a claim quoting the user **verbatim** is born `verified` (set `verified_at`). Paraphrases are NOT — paraphrase is where misstatement lives.
-- **No claim without provenance.** Every substantive claim traces to a `sources:` entry or is explicitly marked as your inference. Never write a guess with the typography of a fact.
+- **No claim without provenance.** Every substantive claim traces to a `sources:` entry or is explicitly marked as your inference. Never write a guess with the typography of a fact. State each claim plainly; mark its epistemic status once — one attribution sentence per claim-cluster, not hedges woven into every clause.
 - **Standard markdown links only, file-relative paths** (same folder: `[orders](orders.md)`; other folder: `[orders](../concepts/orders.md)`) — never wikilinks, and never leading-slash paths: Obsidian resolves `/...` from the vault root, not the bundle root, so those links are dead in the viewer and clicking them spawns phantom files. File-relative is OKF-legal (spec §5.2). Dangling links are legal and useful: red links are the backlog of known-missing knowledge.
 - `depends_on:` lists the concept paths this page's claims rest on.
 
