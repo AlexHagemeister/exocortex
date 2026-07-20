@@ -43,6 +43,15 @@ Ask up front, in one batch, with the defaults stated:
 - Smoke test the pipeline: drop a small markdown note into `sources/inbox/` and run `process-inbox` — a wiki page should appear as `draft`, citing the filed source.
 - If a remote is set: run the `vault-snapshot` skill once and confirm the push.
 
+## Updating (agent procedure)
+
+When the user asks to update an existing installation:
+
+1. `git pull` in the program clone (its path is in the vault's `meta/DEPLOYMENT.md`). Read the CHANGELOG.md entries between the previously installed version and the new one — that's what you're about to apply, and what you summarize to the user.
+2. **Reconcile before overwriting.** Diff the shipped `CLAUDE.md` and `.claude/skills/` against the vault's copies. Every difference is one of two things: an upstream change (apply it) or the user's local amendment made via the `amend` skill (theirs — surface it and ask: keep local, take upstream, or merge). Never silently overwrite a local amendment.
+3. Run `./tools/bootstrap.sh <vault> --update`, then re-apply any kept-local or merged files from step 2.
+4. Verify as in § 3 (rules recital in a vault session). Report what changed, old version → new.
+
 ## 4. Hand off
 
 Leave the user knowing, in a few sentences: capture goes into `sources/inbox/` (or just "remember this" in a vault session); their `notes/` are theirs alone — swept for knowledge, never edited; the `digest` is their review surface, and promoting a page to `verified` is the one job that stays human; the rules are theirs to renegotiate via the `amend` skill; updates arrive with `git pull` in this repo + `bootstrap.sh <vault> --update`, which refreshes program files only and never touches their data.

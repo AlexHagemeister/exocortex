@@ -10,7 +10,7 @@ Paste this into [Claude Code](https://claude.com/claude-code) — or whatever co
 
 > Clone `<this repo's URL>`, read its INSTALL.md, and help me set up my own exocortex vault on this machine.
 
-That's the install. The agent interviews you (vault location, sync, private remote, scheduling), runs the setup, fills in your deployment bindings, and smoke-tests the pipeline before handing you the keys. [INSTALL.md](INSTALL.md) is its script; [SETUP.md](SETUP.md) is the same procedure as a manual guide. (Claude Code is the maintainer runtime the system is built for — the skills register automatically in its vault sessions — but any capable agent can run the install.)
+That's the install. The agent interviews you (vault location, sync, private remote, scheduling), runs the setup, fills in your deployment bindings, and smoke-tests the pipeline before handing you the keys. [INSTALL.md](INSTALL.md) is its script; [SETUP.md](SETUP.md) is the same procedure as a manual guide. Updating later is the same move — one prompt to your agent; releases are announced in [CHANGELOG.md](CHANGELOG.md) (watch the repo to get notified). (Claude Code is the maintainer runtime the system is built for — the skills register automatically in its vault sessions — but any capable agent can run the install.)
 
 ## What you get
 

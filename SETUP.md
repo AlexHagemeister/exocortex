@@ -90,14 +90,20 @@ Finer throttle, if you want everything present immediately: move the whole corpu
 
 ## Updating an existing deployment
 
-When this repo updates:
+New versions are announced as GitHub releases with notes in [CHANGELOG.md](CHANGELOG.md) — watch the repo (**Watch → Custom → Releases**) to be notified. Versions follow semantic versioning; pre-1.0, expect the rules themselves to still be evolving.
+
+**The agent path (recommended):** paste into your agent —
+
+> Update my exocortex: pull the latest release of the program repo (my clone is at `<path>`), read its CHANGELOG and INSTALL.md § Updating, and apply the update to my vault at `<path>` — reconciling any of my local amendments before overwriting.
+
+**By hand:**
 
 ```sh
-git pull
+git -C /path/to/program-clone pull
 ./tools/bootstrap.sh /path/to/your/vault --update
 ```
 
-`--update` overwrites the **program files only** (CLAUDE.md, CONSTITUTION.md, skills, meta reference docs) and never touches your data or your `meta/DEPLOYMENT.md`. If you've locally amended rules via the `amend` skill, diff before pulling — your local amendments are yours to keep or reconcile.
+`--update` overwrites the **program files only** (CLAUDE.md, CONSTITUTION.md, skills, meta reference docs) and never touches your data or your `meta/DEPLOYMENT.md`. One caution, and it's the reason the agent path exists: **`--update` replaces shipped skill files wholesale.** If you've locally amended rules via the `amend` skill, diff first and reconcile — keep yours, take upstream, or merge. Your amendments are legitimate forks of the rules; an update should never silently undo them.
 
 ## Publishing your own fork (maintainers of the program)
 
