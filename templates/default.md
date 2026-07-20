@@ -1,6 +1,6 @@
 ---
-created: <% tp.date.now("YYYY-MM-DD[T]HH:mm:ss") %>
-updated: <% tp.date.now("YYYY-MM-DD[T]HH:mm:ss") %>
+created: <% tp.date.now("YYYY-MM-DD ddd, MMM D — h:mm A") %>
+updated: <% tp.date.now("YYYY-MM-DD ddd, MMM D — h:mm A") %>
 description: 
 tags: []
 ---

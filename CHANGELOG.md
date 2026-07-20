@@ -6,7 +6,17 @@ To update an installed vault, see [SETUP.md § Updating](SETUP.md#updating-an-ex
 
 ## [Unreleased]
 
+### Added
+- **Voice — your maintainer's communication style is now yours to choose.** The setup interview asks how your maintainer should talk to you; INSTALL.md § 1a elicits it by example (the same digest message in three voices — pick, blend, or write your own) and saves a confirmed spec, never just a label. The spec lives in your `meta/DEPLOYMENT.md` `## Voice` section (user-owned, survives updates); CLAUDE.md binds sessions to adopt it — tone only, never the epistemic rules: status labels, provenance, disputes, and corrections stay plain in every voice.
+- Zone rows for `attachments/` and `templates/` in CLAUDE.md — both user-owned; the agent reads freely, writes only with explicit approval.
+- Digest skill: retroactive review markers — when act-evidence shows a review that never got its marker, reconstruct it (dated to the acts, noted as reconstructed); unattended runs surface the evidence instead.
+- Ingest: verbatim user quotes carry an inline source link at the quote; lint check 1 enforces it.
+- Lint check 5: consuming a deleted note re-reads every citing page — standing flags sourced to withdrawn evidence are queued, never silently kept; annotated tombstones recognized as already reconciled.
+
+### Changed
+- Status-weighting ladder now lives only in CLAUDE.md; the query skill points to it instead of restating it.
 - `publish-program` skill now carries the release protocol: changelog maintenance, version tagging, and GitHub releases are part of the publish procedure.
+- Note template timestamps use a human-readable date format.
 
 ## [0.1.0] — 2026-07-19
 

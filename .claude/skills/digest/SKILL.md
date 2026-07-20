@@ -37,7 +37,7 @@ For each shortlist item the user **explicitly confirms**: set `status: verified`
 
 For each **staged addition** the user confirms: merge it into the page's core prose (integrated, not appended), delete the annex section, clear `pending_review` when no annex sections remain, log. If the user corrects it instead, route their statement through the correction flow; if they reject it, delete the annex section and log the rejection. Explicit assent only — a nod at the digest as a whole promotes nothing. Disputes: apply whatever the user adjudicates (which claim wins, what demotes), via the correction flow where their ruling is new speech (write it to `sources/inbox/` with provenance `"the user, <date>"`).
 
-**When the user finishes reviewing** (says so, or has acted on the items): write the marker `.state/review-markers/<YYYY-MM-DD>` (second review same day: `-2`, then `-3`, …) — this review event is what connection-expiry and draft-lifecycle clocks count. Never write a marker for an unreviewed digest.
+**When the user finishes reviewing** (says so, or has acted on the items): write the marker `.state/review-markers/<YYYY-MM-DD>` (second review same day: `-2`, then `-3`, …) — this review event is what connection-expiry and draft-lifecycle clocks count. Never write a marker for an unreviewed digest. If act-evidence shows a review that never got its marker (`verified_at` stamps or day-log review entries since the last marker), write it retroactively — dated to the acts, noted as reconstructed. Unattended runs surface the evidence in the digest instead of writing the marker.
 
 ## The 15-minute tripwire
 
