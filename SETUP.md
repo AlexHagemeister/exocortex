@@ -76,6 +76,18 @@ Record whatever you choose in the **Capture tool** row of `meta/DEPLOYMENT.md`.
 - **Ask:** the `query` skill answers from the vault with status-weighted citations.
 - **Review:** the weekly `digest` is your curation surface — promote drafts, adjudicate disputes, review friction. Promotion to `verified` is the one job that stays human.
 
+## 8. Migrating an existing notes corpus
+
+If you arrive with hundreds of notes in another app, plan a *gradual* migration, not a bulk import. The system's quality comes from a human reviewing what the maintainer writes — a 1,000-note dump produces a wall of unreviewed drafts and a digest nobody will read. Migration speed is bounded by your review speed, on purpose. Budget weeks of light, steady work, not an afternoon. (Field-tested: the original vault's corpus went in at ~20 notes per batch, each round followed by a digest review.)
+
+1. **Export and stage.** Export from the old app to markdown (your agent can help convert). Put the corpus in a staging folder *outside* the vault's `notes/` — anything inside `notes/` gets swept on the next maintenance run, so the staging area is your throttle.
+2. **Triage with the agent.** Not everything deserves to move — skip dead todos, duplicates, notes you'd never reach for again. Split the keepers by what they are: **your own words** (journals, ideas, project notes) go to `notes/`; **captured external material** (clipped articles, quotes, others' documents) goes to `sources/inbox/`, where ingest's validation gate applies.
+3. **Move in topic-coherent batches of ~10–20.** Related notes that land together link together — batch by project or theme, not alphabetically. Move a batch in, run `process-inbox`, let the maintainer file, summarize, and cross-link.
+4. **Review the digest after every few batches — this is the actual work.** Correct what the maintainer misread (a correction is one line to the agent; it flows in as a new source), add the context your old notes assumed, promote what's solid. Skipping review is allowed — a mostly-draft wiki is healthy — but early review pays compound interest: it fixes systematic misreadings before they replicate across hundreds of pages, and it teaches you what the maintainer does with your material.
+5. **Don't block daily use on the backlog.** Start capturing new material from day one and drain the old corpus opportunistically, highest-value first — the notes about active projects and people you'll actually query. There is no "migration complete" gate; a half-migrated vault is fully useful.
+
+Finer throttle, if you want everything present immediately: move the whole corpus into `notes/` tagged `#no-ingest` (the sweep's one opt-out gate), then untag in batches. Your notes are all searchable and synced from day one; the wiki grows at review speed.
+
 ## Updating an existing deployment
 
 When this repo updates:

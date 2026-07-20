@@ -23,7 +23,7 @@ That's the install. The agent interviews you (vault location, sync, private remo
 
 ## What using it feels like
 
-**Capture without ceremony.** Clip an article from your browser, drop a meeting transcript in the inbox, or just tell the agent "remember this" mid-conversation. Provenance is recorded at capture time; nothing needs tidying first.
+**Capture without ceremony.** Clip an article from your browser, drop a meeting transcript in the inbox, or just tell the agent "remember this" mid-conversation. Provenance is recorded at capture time; nothing needs tidying first. Bringing years of notes from another app? There's a migration workflow for that — batched and review-paced ([SETUP.md § 8](SETUP.md)).
 
 **Maintenance happens while you're not looking.** Scheduled runs drain the inbox, sweep your notes for changes, snapshot history to a private git remote, and lint the wiki for contradictions and staleness. You wake up to a vault that's more organized than you left it.
 
