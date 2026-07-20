@@ -91,5 +91,5 @@ A correction file (provenance `"the user, <date>"`) reconciles rather than adds:
 ## Don'ts
 
 - **Laundered inference** — a guess written as a fact. Status fields and the observation/inference split exist to prevent it.
-- **Promiscuous capture** — never pull in external content the user didn't deliberately capture. (notes/ and life exports are exempt: the user's own speech and scheduled personal exports are pre-curated by definition.)
+- **Promiscuous capture** — the user's sources decide the wiki's topics; lookups never open new ones. On a page the user's material justifies, cited external reference content is welcome — who an entity is, established background, corroboration of a claim. Lookup-derived content doesn't cascade: nothing found via lookup justifies creating further pages or importing further material. (notes/ and life exports are exempt: the user's own speech and scheduled personal exports are pre-curated by definition.)
 - **Never edit a filed source, ever** — corrections arrive as new sources.

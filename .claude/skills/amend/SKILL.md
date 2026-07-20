@@ -31,7 +31,7 @@ A wiki page's path IS its identity — a rename breaks every inbound link, so wi
 1. **Propose**: old → new mapping for every affected path, and why the new shape earns the breakage. Top-level folders are the user's choice, few and stable.
 2. **User approves.** No approval, no move.
 3. **Execute atomically**: move files; rewrite every inbound link vault-wide (grep old paths across wiki/ — links are file-relative standard markdown, so a move changes both the moved page's outbound links and every inbound link); regenerate every touched `index.md`; update `.state/` records citing old paths.
-4. **Log** the migration in the day log with the full mapping. Consider running `mirror-snapshot` first so there's a pre-migration point to roll back to.
+4. **Log** the migration in the day log with the full mapping. Consider running `vault-snapshot` first so there's a pre-migration point to roll back to.
 
 ## Don'ts
 
