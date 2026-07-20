@@ -25,8 +25,10 @@ TARGET="$(cd "$TARGET" && pwd)"
 
 case "$TARGET" in
   *"Mobile Documents"*|*iCloud*)
-    echo "NOTE: this path looks iCloud-synced. That works, but NEVER git-init inside it"
-    echo "      (sync eviction corrupts repos — see SETUP.md), and pin it 'Keep Downloaded'." ;;
+    echo "WARNING: this path looks iCloud-synced. The vault is designed to be a git repo,"
+    echo "         and iCloud corrupts repos (eviction, conflict copies). Pick a non-synced"
+    echo "         path; for devices use a dotfolder-ignoring layer like Obsidian Sync."
+    echo "         See SETUP.md." ;;
 esac
 
 # Data skeleton — created empty, owned by you from here on.
@@ -64,6 +66,6 @@ echo
 echo "Next steps (details in SETUP.md):"
 echo "  1. Fill in $TARGET/meta/DEPLOYMENT.md — every UNSET row."
 echo "  2. Open Claude Code in the vault; the skills in .claude/skills/ register automatically."
-echo "  3. Set up the git mirror (OUTSIDE any synced folder) and run the mirror-snapshot skill."
-echo "  4. Optionally schedule process-inbox / lint / digest / mirror-snapshot runs."
+echo "  3. git init the vault, add a PRIVATE remote, and run the vault-snapshot skill."
+echo "  4. Optionally schedule process-inbox / lint / digest / vault-snapshot runs."
 echo "  5. Drop something into sources/inbox/ and run process-inbox."
