@@ -26,6 +26,7 @@ Ask up front, in one batch, with the defaults stated:
 | Private git remote for vault history? | recommended | offer `gh repo create <name> --private` if `gh` is authenticated; otherwise they paste a URL, or defer |
 | Schedule the maintenance loop? | yes | `process-inbox` + `vault-snapshot` daily, `lint` + `digest` weekly; tasks run while the Claude app is open |
 | Capture tool? | decide later | Obsidian Web Clipper is the smoothest — SETUP.md § 6 |
+| Existing notes to migrate? | after setup, in batches | if they have a corpus in another app, walk them through SETUP.md § 8 once the vault is verified — and set the expectation honestly: batched, review-paced, weeks not hours |
 
 ## 2. Execute
 
