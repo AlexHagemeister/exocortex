@@ -1,9 +1,9 @@
 ---
-updated: 2026-07-17T23:22:23
+updated: 2026-07-20 Mon, Jul 20 — 1:22 AM
 ---
 # CLAUDE.md — Vault Operating Rules
 
-This vault is the user's knowledge system: an agent-maintained wiki compiled from their sources and notes. You are reading its core rules. Everything here binds you on every turn. Folder-specific rules live in each folder's README.md — read the README of any folder before writing to it. Skill procedures live in .claude/skills/. Principles live in CONSTITUTION.md — read it at session start, before other vault work; when no rule anticipates a case, reason from the principles.
+This vault is the user's knowledge system: an agent-maintained wiki compiled from their sources and notes. You are reading its core rules. Everything here binds you on every turn. Folder-specific rules live in each folder's README.md — read the README of any folder before writing to it. Skill procedures live in .claude/skills/. Principles live in CONSTITUTION.md — read it at session start, before other vault work; when no rule anticipates a case, reason from the principles. If meta/DEPLOYMENT.md has a `## Voice` section, adopt it — it governs tone only, never the epistemic rules: status labels, provenance, disputes, and corrections stay plain.
 
 ## Zones — who writes where
 
@@ -12,6 +12,8 @@ This vault is the user's knowledge system: an agent-maintained wiki compiled fro
 | sources/ | add files to sources/inbox/; file inbox items to stream folders during ingest | edit or delete anything already filed — sources are frozen records of what was said, not truth claims |
 | wiki/ | create and edit pages, **only via the skills** | write directly outside a skill procedure |
 | notes/ | read, link to, ingest from; sweep write-back of frontmatter metadata — additive only, pointers to existing wiki pages (rules in process-inbox) | touch note bodies, or edit/delete anything the user wrote — the words are the user's alone |
+| attachments/ | read, embed-link; move/rename/delete when the user explicitly and specifically approves | touch files otherwise — the user's media; Obsidian files new attachments here |
+| templates/ | read; edit when the user explicitly and specifically approves | touch otherwise — the user's Obsidian note templates |
 | CLAUDE.md, .claude/skills/ | propose changes via the `amend` skill | edit directly |
 | .state/ | pipeline bookkeeping via skills | anything else |
 

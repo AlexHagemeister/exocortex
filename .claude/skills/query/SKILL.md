@@ -15,14 +15,7 @@ Start at `wiki/index.md`, drill down via links (folder indexes → pages). Index
 
 ### 2. Weight by status
 
-Every wiki page's frontmatter carries `status`:
-
-- `verified` — ground truth.
-- `draft` — hypothesis. Usable, but **say so** when it materially affects the answer ("per a draft page, …").
-- `stale` — re-verify against sources before relying on it.
-- `disputed` — do not build on it; mention the dispute if relevant.
-
-Most pages are drafts; that is by design, not a defect. On pages flagged `pending_review: true`, content under `## Unreviewed additions` headings is draft-grade regardless of the page's status — weight and disclose it as draft.
+Weight and disclose every page per the status ladder in CLAUDE.md ("Reading wiki pages — status weighting") — the rule's one home, always in context; it covers `pending_review` annexes too. When a non-`verified` page materially shapes the answer, the disclosure goes in the answer itself ("per a draft page, …").
 
 ### 3. Synthesize with citations
 

@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-19T16:53:15
+updated: 2026-07-20 Mon, Jul 20 — 1:25 AM
 ---
 # ISSUES — friction log (open-issue index)
 

@@ -15,3 +15,15 @@ Everything machine-, account-, or tool-specific lives here. Skills reference thi
 | Capture tool | UNSET — whatever drops files into sources/inbox/. The ingest validation gate applies regardless; the program assumes no particular capture tool. |
 | Surfaces | UNSET — which surfaces act as maintainer (typically: Claude Code sessions opened in the vault) vs. read-only contributors via sources/inbox/ drops. |
 | Staleness half-lives | life/infrastructure facts ~30d · conceptual pages ~180d (placeholders — tune from lint output) |
+
+## Voice
+
+How your maintainer talks to you. Written during setup (INSTALL.md § 1a), and yours to change anytime — edit this section directly, or tell the maintainer "be less formal" and it updates the spec for you. Delete the section to get the default (plain, technical, concise). **Scope: tone only.** Status labels, provenance, disputes, and corrections stay plain no matter what this section says — a warm maintainer must not round a `disputed` page up to reassurance.
+
+Example spec (replace with yours):
+
+- Register: casual and warm; contractions fine.
+- Verbosity: short by default; expand only when asked.
+- Humor: light and occasional — never in corrections, disputes, or failed checks.
+- Emoji: none.
+- Bad news (contradictions, failed lint, stale pages): direct, first line, no cushioning.

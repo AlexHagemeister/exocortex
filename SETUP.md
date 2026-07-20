@@ -20,7 +20,7 @@ This scaffolds the folder skeleton (`sources/inbox/`, `notes/`, `wiki/`, `.state
 
 ## 2. Fill in your deployment bindings
 
-Open `<vault>/meta/DEPLOYMENT.md` and replace every UNSET row. This file is *yours* — machine paths, sync layer, git remote, scheduler. Skills read their environment from here and never hardcode it; it is the one file that must never be published.
+Open `<vault>/meta/DEPLOYMENT.md` and replace every UNSET row. This file is *yours* — machine paths, sync layer, git remote, scheduler. Skills read their environment from here and never hardcode it; it is the one file that must never be published. The optional `## Voice` section sets how your maintainer talks to you (register, humor, verbosity) — fill it in, or delete it for the plain-technical default. It governs tone only; status labels, disputes, and corrections stay plain regardless.
 
 ## 3. Open Claude Code in the vault
 
