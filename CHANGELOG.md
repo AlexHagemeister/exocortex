@@ -6,6 +6,8 @@ To update an installed vault, see [SETUP.md § Updating](SETUP.md#updating-an-ex
 
 ## [Unreleased]
 
+- `publish-program` skill now carries the release protocol: changelog maintenance, version tagging, and GitHub releases are part of the publish procedure.
+
 ## [0.1.0] — 2026-07-19
 
 First versioned release: the system as it stands after the vault-as-repo migration.
