@@ -4,7 +4,7 @@ An agent-maintained personal knowledge system, shipped as pure markdown.
 
 An **exocortex** is one vault playing three roles at once: a *research brain* (compiled knowledge of the world), a *memory brain* (compiled knowledge of your work and life), and an *agent substrate* (the context that lets an AI agent act as a colleague rather than a smart stranger). You drop sources in and write notes; an AI maintainer — Claude Code, running a small set of skills — compiles them into a wiki with epistemic guardrails built into every write path.
 
-This repository is the **program**: the rules, principles, and skill procedures that govern the maintainer, plus setup tooling. It contains no personal data. Your knowledge — sources, notes, the compiled wiki — stays in your own vault (and, if you like, your own private mirror repo). The two never mix: the boundary is defined in [CONSTITUTION.md](CONSTITUTION.md) § *Sharing and boundaries*.
+This repository is the **program**: the rules, principles, and skill procedures that govern the maintainer, plus setup tooling. It contains no personal data. Your knowledge — sources, notes, the compiled wiki — stays in your own vault (itself a git repo with a private remote, if you keep history). The two never mix: the boundary is defined in [CONSTITUTION.md](CONSTITUTION.md) § *Sharing and boundaries*.
 
 **Lineage:** Karpathy's LLM-wiki pattern (Apr 2026) → Google's [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog) v0.1 (Jun 2026) → this system.
 
@@ -16,7 +16,7 @@ This repository is the **program**: the rules, principles, and skill procedures 
 - **Rules live where they bind.** Invariants in [CLAUDE.md](CLAUDE.md) (one page, hard budget), procedures in [.claude/skills/](.claude/skills/), folder law in each folder's README, principles in [CONSTITUTION.md](CONSTITUTION.md). No rule lives twice.
 - **The system is its own tester.** Friction gets filed as issues ([ISSUES.md](ISSUES.md)); repeated rule overrides trigger amendment proposals; a weekly digest surfaces everything for human review. The rules are a pact you authored and may renegotiate — never a cage.
 
-The maintainer's skill set: `ingest` · `process-inbox` · `session-capture` · `query` · `lint` · `digest` · `mirror-snapshot` · `amend`.
+The maintainer's skill set: `ingest` · `process-inbox` · `session-capture` · `query` · `lint` · `digest` · `vault-snapshot` · `amend`.
 
 ## What's in this repo
 
@@ -40,7 +40,7 @@ cd exocortex
 ./tools/bootstrap.sh /path/to/your/vault
 ```
 
-…and follow [SETUP.md](SETUP.md) from there: fill in your `meta/DEPLOYMENT.md` bindings, set up the private git mirror, optionally schedule the maintenance skills, and start dropping things into `sources/inbox/`. For everyday capture, the [Obsidian Web Clipper](https://obsidian.md/clipper) pointed straight at your inbox — with a provenance-carrying template and its optional LLM tidy pass — makes clipping a one-click act; SETUP.md § 6 has the exact configuration.
+…and follow [SETUP.md](SETUP.md) from there: fill in your `meta/DEPLOYMENT.md` bindings, git-init the vault with a private remote, optionally schedule the maintenance skills, and start dropping things into `sources/inbox/`. For everyday capture, the [Obsidian Web Clipper](https://obsidian.md/clipper) pointed straight at your inbox — with a provenance-carrying template and its optional LLM tidy pass — makes clipping a one-click act; SETUP.md § 6 has the exact configuration.
 
 ## License
 

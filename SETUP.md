@@ -6,9 +6,7 @@ Read [README.md](README.md) first for what the system is. This is the mechanical
 
 - **[Claude Code](https://claude.com/claude-code)** — the maintainer agent. The skills in this repo register automatically when a session opens inside the vault.
 - **A vault directory.** Any folder works. [Obsidian](https://obsidian.md) is a pleasant viewer (the note template uses [Templater](https://github.com/SilentVoid13/Templater) syntax), but nothing depends on it — the files are the interface.
-- **A sync layer, if you want one** (iCloud, Syncthing, …). One hard rule if you use one: **never put a git repo inside a sync-managed folder.** Sync eviction and conflict resolution corrupt repos. Git lives outside the vault (step 4). If your sync layer evicts files (iCloud does), pin the vault "Keep Downloaded" on every machine.
-
-> **iCloud + Obsidian mobile: create the vault on the phone first.** The special "Obsidian" folder in iCloud Drive (`~/Library/Mobile Documents/iCloud~md~obsidian/Documents/` on a Mac) is an app container that only the iOS/iPadOS app creates — it doesn't exist on a fresh Mac, and a folder you hand-create with the same name is a plain folder the mobile app won't sync (Obsidian's docs require the vault inside the app-icon Obsidian folder, not a lookalike). The reliable order: install Obsidian on the iPhone/iPad, create the vault there with **Store in iCloud** on, wait for it to appear on the Mac, then run `bootstrap.sh` against that path — the scaffold syncs down to mobile from there. Also stop iCloud from evicting it: macOS 14 and earlier, disable "Optimize Mac Storage"; macOS 15+, right-click the Obsidian folder → "Keep Downloaded". (This deployment path is field-tested — the original vault hit exactly this quirk.)
+- **A device-sync layer, if you want one — it must ignore dotfolders.** The vault is itself a git repo (step 4), and sync eviction and conflict resolution corrupt anything that syncs `.git/`. [Obsidian Sync](https://obsidian.md/sync) qualifies: it ignores `.git/`, `.claude/`, and `.state/` (those travel via git), though mind its per-file size limit (5 MB on the Standard plan — resize large images). iCloud, Dropbox, and default Syncthing do **not** qualify — never put the vault inside them. (The original vault started life in iCloud with a separate mirror repo and migrated out; the current architecture is the result.)
 
 ## 1. Clone and bootstrap
 
@@ -22,21 +20,23 @@ This scaffolds the folder skeleton (`sources/inbox/`, `notes/`, `wiki/`, `.state
 
 ## 2. Fill in your deployment bindings
 
-Open `<vault>/meta/DEPLOYMENT.md` and replace every UNSET row. This file is *yours* — machine paths, sync layer, mirror location, scheduler. Skills read their environment from here and never hardcode it; it is the one file that must never be published.
+Open `<vault>/meta/DEPLOYMENT.md` and replace every UNSET row. This file is *yours* — machine paths, sync layer, git remote, scheduler. Skills read their environment from here and never hardcode it; it is the one file that must never be published.
 
 ## 3. Open Claude Code in the vault
 
 Start a session in the vault directory. CLAUDE.md loads as the session's operating rules and the skills register. Sanity check: ask it *"what are your vault rules?"* — it should recite the zone table, not improvise.
 
-## 4. Set up the private mirror
+## 4. Make the vault a git repo
 
-The mirror is a separate git repo holding your vault's history — diffs, rollback, recovery for expired pages. It is observational only, never a gate.
+The vault is itself a git repo; its history is your backup — diffs, rollback, recovery for expired pages. Snapshots are observational only, never a gate.
 
 ```sh
-git init ~/your-vault-mirror        # non-synced path; NOT inside the vault
+cd /path/to/your/vault
+git init
+printf '.obsidian/\n.state/maintainer.lock\n' >> .gitignore
 ```
 
-Record the path in `meta/DEPLOYMENT.md`, optionally add a **private** remote, then ask the maintainer to run the `mirror-snapshot` skill. Your mirror will contain your personal data — it must never share a remote with a public repo.
+Add a **private** remote, record it in `meta/DEPLOYMENT.md`, then ask the maintainer to run the `vault-snapshot` skill (commit + pull --rebase + push, daily). Your vault repo contains your personal data — it must never share a remote with a public repo.
 
 ## 5. Schedule the maintenance loop (optional but recommended)
 
@@ -45,7 +45,7 @@ Via Claude Code scheduled tasks (or any runner), on whatever machine you designa
 | Skill | Suggested cadence |
 |---|---|
 | `process-inbox` | daily |
-| `mirror-snapshot` | daily |
+| `vault-snapshot` | daily |
 | `lint` | weekly |
 | `digest` | weekly |
 
