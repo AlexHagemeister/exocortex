@@ -9,13 +9,13 @@ The public program repo carries the system's shippable surface — per CONSTITUT
 
 ## Bindings
 
-Read `meta/DEPLOYMENT.md` for the public program repo's local clone path. **If it is UNSET, stop and ask the user.** The clone is a separate repo from the private mirror; the two never share a remote or a command.
+Read `meta/DEPLOYMENT.md` for the public program repo's local clone path. **If it is UNSET, stop and ask the user.** The clone is a separate repo from the private vault repo; the two never share a remote or a command.
 
 ## Procedure
 
 1. **Sync.** Run `tools/sync.sh` in the clone. It copies only MANIFEST-allowlisted paths and leak-scans the result. A scan failure stops everything — report the hits to the user; never "fix" a hit by weakening the scan.
 2. **Review.** Show the user the resulting `git diff` (or state "no changes"). Wait for their approval — publishing is their act, every time.
-3. **Push.** On approval: commit in the clone (`sync from vault <ISO 8601 date>`), then `tools/sync.sh --push` — the script verifies the remote is the public repo, not the mirror, before pushing.
+3. **Push.** On approval: commit in the clone (`sync from vault <ISO 8601 date>`), then `tools/sync.sh --push` — the script verifies the remote is the public repo, not the private vault repo, before pushing.
 4. **Log.** One line in the day log (`wiki/log/<YYYY-MM-DD>.md`).
 
 ## Scope changes are publishing decisions
