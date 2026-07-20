@@ -15,8 +15,9 @@ Read `meta/DEPLOYMENT.md` for the public program repo's local clone path. **If i
 
 1. **Sync.** Run `tools/sync.sh` in the clone. It copies only MANIFEST-allowlisted paths and leak-scans the result. A scan failure stops everything — report the hits to the user; never "fix" a hit by weakening the scan.
 2. **Review.** Show the user the resulting `git diff` (or state "no changes"). Wait for their approval — publishing is their act, every time.
-3. **Push.** On approval: commit in the clone (`sync from vault <ISO 8601 date>`), then `tools/sync.sh --push` — the script verifies the remote is the public repo, not the private vault repo, before pushing.
-4. **Log.** One line in the day log (`wiki/log/<YYYY-MM-DD>.md`).
+3. **Version.** Record user-visible changes in the repo's `CHANGELOG.md` before committing — append to `[Unreleased]`, or roll into a new `x.y.z` section when the user wants a release. On a release, after pushing: tag `vX.Y.Z`, push the tag, `gh release create` with the changelog entry as notes. Consumers update per the repo's SETUP.md § Updating.
+4. **Push.** On approval: commit in the clone (`sync from vault <ISO 8601 date>`), then `tools/sync.sh --push` — the script verifies the remote is the public repo, not the private vault repo, before pushing.
+5. **Log.** One line in the day log (`wiki/log/<YYYY-MM-DD>.md`).
 
 ## Scope changes are publishing decisions
 
