@@ -1,6 +1,6 @@
 # SETUP — deploying an exocortex vault
 
-Read [README.md](README.md) first for what the system is. This is the mechanical guide.
+Read [README.md](README.md) first for what the system is. This is the mechanical guide — if you'd rather have Claude Code walk you through it interactively, use [INSTALL.md](INSTALL.md) instead (one pasted prompt; the agent runs this guide for you).
 
 ## Prerequisites
 
