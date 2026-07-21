@@ -66,6 +66,22 @@ done < "$REPO_ROOT/MANIFEST"
 [ ! -e "$REPO_ROOT/meta/DEPLOYMENT.md" ] \
   || die "meta/DEPLOYMENT.md found in repo — only DEPLOYMENT.template.md may ship"
 
+# --- glossary drift: README Key terms vs GLOSSARY.md -----------------------
+glossary="$REPO_ROOT/GLOSSARY.md"
+readme="$REPO_ROOT/README.md"
+[ -f "$glossary" ] || die "GLOSSARY.md missing after sync"
+while IFS= read -r line; do
+  [ -z "$line" ] && continue
+  term="$(sed -n 's/^- \*\*\([^*]*\)\*\* — \(.*\)/\1/p' <<< "$line")"
+  def="$(sed -n 's/^- \*\*\([^*]*\)\*\* — \(.*\)/\2/p' <<< "$line")"
+  [ -z "$term" ] && continue
+  expected="**${term}** — ${def}"
+  gloss_line="$(grep -F "**${term}** —" "$glossary" | head -1 || true)"
+  if [ "$gloss_line" != "$expected" ]; then
+    die "glossary drift on '${term}': README and GLOSSARY.md one-liners must match exactly"
+  fi
+done < <(awk '/^## Key terms$/{in_section=1; next} in_section && /^## /{exit} in_section && /^- \*\*/{print}' "$readme")
+
 # --- leak scan -------------------------------------------------------------
 # Built-in structural patterns + local private patterns, over every file git
 # would publish (tracked + untracked-unignored). LICENSE is exempt from the

@@ -7,6 +7,9 @@ To update an installed vault, see [SETUP.md § Updating](SETUP.md#updating-an-ex
 ## [Unreleased]
 
 ### Added
+- **GLOSSARY.md** — canonical system vocabulary (term meanings with Avoid/Home pointers). Ships with the program; CLAUDE.md points agents at it when jargon is ambiguous. Public README gains a Key terms skim subset; `tools/sync.sh` fails the publish if those one-liners drift from GLOSSARY.md.
+- Folder law READMEs for `attachments/` and `templates/` (zone rows already existed; agents can now satisfy "read the README before writing").
+- **Onboarding posture** (INSTALL §4 Hand off + SETUP §7): minimum viable use first; invite "explain it simply"; rules change via `amend` with approval — not freestyle; principle tension → plain-language tradeoff brief, then the user decides.
 - **Voice — your maintainer's communication style is now yours to choose.** The setup interview asks how your maintainer should talk to you; INSTALL.md § 1a elicits it by example (the same digest message in three voices — pick, blend, or write your own) and saves a confirmed spec, never just a label. The spec lives in your `meta/DEPLOYMENT.md` `## Voice` section (user-owned, survives updates); CLAUDE.md binds sessions to adopt it — tone only, never the epistemic rules: status labels, provenance, disputes, and corrections stay plain in every voice.
 - Zone rows for `attachments/` and `templates/` in CLAUDE.md — both user-owned; the agent reads freely, writes only with explicit approval.
 - Digest skill: retroactive review markers — when act-evidence shows a review that never got its marker, reconstruct it (dated to the acts, noted as reconstructed); unattended runs surface the evidence instead.
@@ -14,6 +17,11 @@ To update an installed vault, see [SETUP.md § Updating](SETUP.md#updating-an-ex
 - Lint check 5: consuming a deleted note re-reads every citing page — standing flags sourced to withdrawn evidence are queued, never silently kept; annotated tombstones recognized as already reconciled.
 
 ### Changed
+- CONSTITUTION § Sharing: program definition matches MANIFEST (shippable system markdown; `.state/` contents never ship, its README may).
+- Amend skill: when a proposal tensions with a principle, push back with tradeoffs before asking for approval; jargon changes update GLOSSARY.md in the same pass.
+- Issue-workflow residence: `~3` cluster threshold lives in amend; close procedure lives in ISSUES.md; digest points.
+- Digest last-call for connection expiry points at lint check 7 instead of deriving a duplicate number.
+- Lint check 1: folder `README.md` files exempt from the `sources:` requirement (Meta documentation, not claim pages).
 - Status-weighting ladder now lives only in CLAUDE.md; the query skill points to it instead of restating it.
 - `publish-program` skill now carries the release protocol: changelog maintenance, version tagging, and GitHub releases are part of the publish procedure.
 - Note template timestamps use a human-readable date format.

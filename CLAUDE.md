@@ -1,9 +1,9 @@
 ---
-updated: 2026-07-20 Mon, Jul 20 — 1:22 AM
+updated: 2026-07-20 Mon, Jul 20 — 9:30 PM
 ---
 # CLAUDE.md — Vault Operating Rules
 
-This vault is the user's knowledge system: an agent-maintained wiki compiled from their sources and notes. You are reading its core rules. Everything here binds you on every turn. Folder-specific rules live in each folder's README.md — read the README of any folder before writing to it. Skill procedures live in .claude/skills/. Principles live in CONSTITUTION.md — read it at session start, before other vault work; when no rule anticipates a case, reason from the principles. If meta/DEPLOYMENT.md has a `## Voice` section, adopt it — it governs tone only, never the epistemic rules: status labels, provenance, disputes, and corrections stay plain.
+This vault is the user's knowledge system: an agent-maintained wiki compiled from their sources and notes. You are reading its core rules. Everything here binds you on every turn. Folder-specific rules live in each folder's README.md — read the README of any folder before writing to it. Skill procedures live in .claude/skills/. Principles live in CONSTITUTION.md — read it at session start, before other vault work; when no rule anticipates a case, reason from the principles. When a system term is ambiguous, or when amending vocabulary, read GLOSSARY.md — do not paste definitions here. When using a term the user may not know, give the one-liner once or point at the entry. If meta/DEPLOYMENT.md has a `## Voice` section, adopt it — it governs tone only, never the epistemic rules: status labels, provenance, disputes, and corrections stay plain.
 
 ## Zones — who writes where
 

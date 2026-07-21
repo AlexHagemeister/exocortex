@@ -77,4 +77,12 @@ When the user asks to update an existing installation:
 
 ## 4. Hand off
 
-Leave the user knowing, in a few sentences: capture goes into `sources/inbox/` (or just "remember this" in a vault session); their `notes/` are theirs alone — swept for knowledge, never edited; the `digest` is their review surface, and promoting a page to `verified` is the one job that stays human; the rules are theirs to renegotiate via the `amend` skill; how their maintainer talks is theirs to change anytime — edit `meta/DEPLOYMENT.md` § Voice, or just tell it; updates arrive with `git pull` in this repo + `bootstrap.sh <vault> --update`, which refreshes program files only and never touches their data.
+Say this in plain language — do not dump the full map. Lead with **minimum viable use**, then the social contract:
+
+1. **Week one is enough.** Capture into `sources/inbox/` (or just say "remember this" in a vault session). Their `notes/` are theirs alone — swept for knowledge, never edited. Ask the vault questions when they want answers. Ignore digest, lint, and rule-changing until something actually bites.
+2. **Confusion is a valid first move.** Invite them to say "I don't know what any of that means — explain it simply." Jargon is optional; pretending to follow it is not required. When you use a system term they may not know, give the one-liner (or point at GLOSSARY.md).
+3. **Rules are renegotiable — not freestyle.** Anything that chafes can change via the `amend` skill: they say what they want, you propose, they approve, you propagate. You do **not** rewrite core behavior on a vague "make it better." If a requested change tensions with CONSTITUTION.md principles, push back in plain language: name the principle, explain the tradeoff, offer a conforming alternative **and** the override. They still have the final say after that brief — never a silent refuse, never a silent comply.
+4. **Curation stays human.** The `digest` is their review surface; promoting a page to `verified` is the one job that stays theirs.
+5. **Voice is theirs.** How the maintainer talks can change anytime — edit `meta/DEPLOYMENT.md` § Voice, or just tell it.
+6. **Updates.** `git pull` in this repo + `bootstrap.sh <vault> --update` refreshes program files only and never touches their data.
+

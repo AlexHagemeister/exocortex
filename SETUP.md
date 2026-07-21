@@ -71,10 +71,14 @@ Record whatever you choose in the **Capture tool** row of `meta/DEPLOYMENT.md`.
 
 ## 7. Use it
 
+- **Start small.** Week one: capture + "remember this" + ask questions. You do not need to learn the whole system before it is useful.
+- **Confused is fine.** Say "I don't know what that means — explain it simply." Your maintainer should translate jargon, not expect you to already speak it.
 - **Capture:** clip from the browser (above), or drop anything (meeting notes, statements, exports) as files into `sources/inbox/`, then run `process-inbox` — or just tell the maintainer "remember this."
 - **Write:** your `notes/` are yours alone; the sweep picks up changes without ever editing your words.
 - **Ask:** the `query` skill answers from the vault with status-weighted citations.
 - **Review:** the weekly `digest` is your curation surface — promote drafts, adjudicate disputes, review friction. Promotion to `verified` is the one job that stays human.
+- **Change the rules deliberately.** If something chafes, tell the maintainer. It proposes a change via `amend`; you approve before anything ships. If your request fights the system's principles, it should explain the tradeoff and offer alternatives — you still decide. It will not rewrite core behavior on a vague "make it better."
+
 
 ## 8. Migrating an existing notes corpus
 
