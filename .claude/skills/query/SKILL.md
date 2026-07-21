@@ -21,6 +21,8 @@ Weight and disclose every page per the status ladder in CLAUDE.md ("Reading wiki
 
 Answer, citing the pages (and where useful, the underlying sources) each claim rests on. Distinguish what pages state from what you are inferring across them — never blend a guess into cited fact. <!-- constitution: laundered inference -->
 
+On long multi-page syntheses, place the fetched content above the question in any context you assemble, and quote the load-bearing passages before reasoning over them — both measurably improve long-context accuracy.
+
 ### 4. Write good answers back
 
 If the answer required real synthesis (connected pages, resolved something, filled a gap), file it into the wiki as a new page so explorations compound — `status: draft`, standard markdown links, provenance listing every page and source used:

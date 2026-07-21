@@ -17,6 +17,10 @@ To update an installed vault, see [SETUP.md § Updating](SETUP.md#updating-an-ex
 - Status-weighting ladder now lives only in CLAUDE.md; the query skill points to it instead of restating it.
 - `publish-program` skill now carries the release protocol: changelog maintenance, version tagging, and GitHub releases are part of the publish procedure.
 - Note template timestamps use a human-readable date format.
+- Ingest: page `description` fields are written as retrieval hooks — third person, what the page holds + when to fetch it — since that line is often all an agent sees when deciding whether to load the page (per Anthropic's context-engineering guidance).
+- Query: long multi-page syntheses place fetched content above the question and quote load-bearing passages before reasoning — both measurably improve long-context accuracy.
+- Lint and process-inbox eviction guards generalized to sync-layer-neutral wording (iCloud kept as a filename example, dropped as an environment assumption).
+- Two stale path references corrected: CONSTITUTION's residence map now names `meta/OKF-SPEC.md`; meta/README's move-instructions name the real dependents instead of a deleted skill.
 
 ## [0.1.0] — 2026-07-19
 

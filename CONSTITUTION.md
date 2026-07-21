@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-17T23:22:28
+updated: 2026-07-20 Mon, Jul 20 — 1:18 PM
 ---
 # CONSTITUTION — Principles of the Vault System
 
@@ -55,7 +55,7 @@ The **program** is this document, CLAUDE.md, and .claude/skills/ — pure markdo
 | Procedures and their rules | the owning skill in .claude/skills/ |
 | Folder-local law (stream modality, connection policy) | that folder's README.md |
 | Principles, rationale, roles, sharing semantics, this map | here |
-| File-format conformance target | OKF SPEC.md (external; never loaded at runtime — compiled into templates) |
+| File-format conformance target | meta/OKF-SPEC.md (pinned copy of an external spec; never loaded at runtime — compiled into templates) |
 | Environment bindings (machines, paths, sync, surfaces) | deployment profile — meta/DEPLOYMENT.md (skills reference it, never hardcode; deployment config may point at the program but never contain it) |
 
 Changing a rule = editing its one home, via `amend`, with the Curator's approval. Changing a principle = editing this document, which should be rare and deliberate — principles are what the rules are *for*.

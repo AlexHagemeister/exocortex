@@ -11,7 +11,7 @@ You are the vault's immune system. Run every check below, fix what is mechanical
 
 Output: report to `.state/lint/<YYYY-MM-DD>.md` (findings + actions), items needing the user to `.state/lint/queue.md` (append; digest consumes this), one summary line to the day log (`wiki/log/<YYYY-MM-DD>.md`).
 
-**Eviction guard, applies to every check:** a `.<name>.icloud` placeholder file means iCloud evicted the content — the file is *present*, just not local. Treat it as existing-but-unreadable; never as deleted, never as empty. If placeholders block a check, note it in the report and ask the user to pin the vault ("Keep Downloaded").
+**Eviction guard, applies to every check:** a sync-layer placeholder file (e.g. `.<name>.icloud`) means the content was evicted — the file is *present*, just not local. Treat it as existing-but-unreadable; never as deleted, never as empty. If placeholders block a check, note it in the report and tell the user which files — none should appear on the current deployment.
 
 ## Checks
 
@@ -34,7 +34,7 @@ Scan for incompatible claim pairs across pages (same subject, conflicting values
 For every wiki citation of `notes/<path> + read-timestamp`: if the note's current content hash differs from what the cursor recorded after that timestamp — the note changed since it was read. Queue the delta for re-ingest (note it in the report; `process-inbox` picks it up next sweep).
 
 ### 5. Deleted-note withdrawal
-Consume `.state/deleted-notes.txt` (written by the sweep) plus any citation whose notes/ target has neither file nor `.icloud` placeholder. Deletion is withdrawal — a speech act, not a broken link to tolerate. Claims resting **solely** on a deleted note → page `status: disputed`, queued. Claims with surviving corroboration keep their status; remove the dead citation, log. Re-read every citing page at consumption: standing flags or action items sourced to the deleted note are queued for the user — withdrawn evidence must never keep flagging. A citation deliberately kept as an annotated tombstone ("deleted <date>") is already reconciled: keep it, don't re-flag.
+Consume `.state/deleted-notes.txt` (written by the sweep) plus any citation whose notes/ target has neither file nor sync placeholder. Deletion is withdrawal — a speech act, not a broken link to tolerate. Claims resting **solely** on a deleted note → page `status: disputed`, queued. Claims with surviving corroboration keep their status; remove the dead citation, log. Re-read every citing page at consumption: standing flags or action items sourced to the deleted note are queued for the user — withdrawn evidence must never keep flagging. A citation deliberately kept as an annotated tombstone ("deleted <date>") is already reconciled: keep it, don't re-flag.
 
 ### 6. Retraction walk
 For every page disputed or invalidated this run: walk its inbound links (grep for links to its path) and every page listing it in `depends_on`; re-examine each dependent — does its claim still stand without the retracted support? Demote to `draft` or `disputed` accordingly. Never retract silently: local healing is global poisoning. Log every retraction.
