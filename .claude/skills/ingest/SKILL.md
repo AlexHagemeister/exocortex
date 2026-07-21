@@ -51,6 +51,8 @@ sources: ["<final filed path, or notes/<path> + read timestamp, or URL>"]
 
 **YAML discipline**: double-quote any frontmatter value containing `": "` (colon-space) or starting with a special character — an unquoted colon silently breaks the mapping and the page stops rendering in Obsidian.
 
+**Description is the retrieval hook**: write it in third person as *what the page holds + when to fetch it* — for an agent deciding whether to load the page (search results, indexes, MCP), this line is often all it sees.
+
 Body sections — keep observation and inference under separate headings, always: <!-- constitution: laundered inference -->
 
 ```markdown
