@@ -9,8 +9,11 @@
 
 CLAUDE.md
 CONSTITUTION.md
+GLOSSARY.md
 ISSUES.md
 templates/default.md
+templates/README.md
+attachments/README.md
 .state/README.md
 .claude/skills/
 meta/README.md

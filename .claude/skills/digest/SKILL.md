@@ -13,14 +13,16 @@ The last review marker in `.state/review-markers/` defines "since last review" f
 
 ## Compile
 
+**Decision budget: ~10–15 items total per digest**, leverage-ranked across sections 2–4 using the triage scoring below. Everything past the budget carries over, ranked, to the next digest, with a one-line count of what carried — carried items are not a backlog. The review's value is depth per item, not coverage (the user, 2026-07-20: it's "basically akin to journaling", and doing it well "takes time for each file") — size every digest for unhurried engagement.
+
 Write to `.state/digests/<YYYY-MM-DD>.md` and present it in full to the user:
 
 1. **Recap** — a few lines: what entered the wiki since last review (ingests, syntheses, notable log entries).
-2. **New connection pages** — every `wiki/connections/` page created since last review, with its one-line description. Also note connections nearing expiry (2 reviewed digests without promotion) — last call.
+2. **New connection pages** — every `wiki/connections/` page created since last review, with its one-line description. Also note connections one review short of lint check 7's expiry bar — last call.
 3. **Disputes and withdrawals** — everything in `.state/lint/queue.md`: contradiction pairs, deleted-note demotions, judgment calls. These need adjudication.
 3b. **Verified pages with unreviewed additions** — every `pending_review: true` page, with one line per staged addition (and any flagged contradictions with the core called out).
 4. **Promotion shortlist** — see triage below. **Hard cap: 5–10 items.**
-5. **Open issues** — everything `status: open` in `.state/issues/` (ISSUES.md is the derived index); these drive rule changes. When the user settles one, close it: flip `status`, fill `resolved_by`, regenerate ISSUES.md.
+5. **Issues needing the user** — open issues explicitly queued for his decision or at the amend skill's cluster threshold; the rest of the open set is a one-line count (routine evidence-based closures belong to issue grooming, not this surface). When the user settles one, close it per ISSUES.md.
 
 ## Promotion triage (leverage-ranked, hard-capped)
 
@@ -41,4 +43,4 @@ For each **staged addition** the user confirms: merge it into the page's core pr
 
 ## The 15-minute tripwire
 
-If review runs past ~15 minutes (or the user says it's too long): the cap or the scoring is wrong. Tighten via an `amend` proposal — **fix the digest, never the user's schedule.** Do not ask the user to review more often or longer.
+If review runs past ~15 minutes (or the user says it's too long): the cap or the scoring is wrong. Tighten via an `amend` proposal — **fix the digest, never the user's schedule.** Do not ask the user to review more often or longer. (The user choosing to review in smaller, more frequent sittings is a different thing — expected and healthy; the weekly schedule is an anchor, not a batch size, and each sitting writes a marker and advances the clocks.)

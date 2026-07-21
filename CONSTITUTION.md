@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-20 Mon, Jul 20 — 1:18 PM
+updated: 2026-07-20 Mon, Jul 20 — 9:30 PM
 ---
 # CONSTITUTION — Principles of the Vault System
 
@@ -35,7 +35,7 @@ Everything operational instantiates one of these. When rules conflict or a novel
 
 ## Sharing and boundaries
 
-The **program** is this document, CLAUDE.md, and .claude/skills/ — pure markdown, no personal data, shippable. The **bundle** is wiki/ alone (OKF-conformant). sources/ and notes/ are external referenced resources; an exported bundle carries dangling references to them by design (OKF consumers must tolerate broken links). notes/ and .state/ never ship. The boundary is file-level, not knowledge-level: wiki pages distill note content, so sharing a bundle publicly is a redaction pass, not a folder exclusion.
+The **program** is the shippable system markdown listed in MANIFEST — principles (this document), invariants (CLAUDE.md), term meanings (GLOSSARY.md), procedures (.claude/skills/), friction-log conventions (ISSUES.md), bookkeeping conventions (.state/README.md), templates, and selected meta/ reference docs — pure markdown, no personal data. The **bundle** is wiki/ alone (OKF-conformant). sources/ and notes/ are external referenced resources; an exported bundle carries dangling references to them by design (OKF consumers must tolerate broken links). notes/ and .state/ contents never ship; the program may ship .state/README.md (conventions only). The boundary is file-level, not knowledge-level: wiki pages distill note content, so sharing a bundle publicly is a redaction pass, not a folder exclusion.
 
 ## Anti-patterns (named failure modes, with reasons)
 
@@ -52,6 +52,7 @@ The **program** is this document, CLAUDE.md, and .claude/skills/ — pure markdo
 | Concern | Surface |
 |---|---|
 | Invariants: zones, single pipeline, status weighting, conflict protocol, corrections trigger | CLAUDE.md (one page, hard budget) |
+| Term meanings (not procedures) | GLOSSARY.md |
 | Procedures and their rules | the owning skill in .claude/skills/ |
 | Folder-local law (stream modality, connection policy) | that folder's README.md |
 | Principles, rationale, roles, sharing semantics, this map | here |

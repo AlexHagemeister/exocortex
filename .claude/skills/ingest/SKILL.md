@@ -19,7 +19,7 @@ Note deltas skip quarantine (notes/ is the user's zone — never move a note or 
 
 ### 2. File (freeze happens here)
 
-Move the inbox item to its permanent stream folder — `sources/articles/` (external material), `sources/sessions/` (session captures), `sources/life/` (personal exports) — choosing by the stream READMEs. Use a stable, descriptive, date-prefixed filename (`2026-07-16-title-slug.md`); this path is cited forever.
+Move the inbox item to its permanent stream folder — `sources/articles/` (external material), `sources/sessions/` (session captures), `sources/meetings/` (recorded conversation transcripts), `sources/life/` (personal exports) — choosing by the stream READMEs. Use a stable, descriptive, date-prefixed filename (`2026-07-16-title-slug.md`); this path is cited forever.
 
 **File before you cite.** Provenance always references the final path. Before filing, inbox items are freely editable; after filing, the source is frozen — never edit or delete it, because a source records what was said, not what's true. Append the new hash to the ledger. After filing, grep `wiki/` for the item's old inbox path and rewrite any citations to the filed path.
 

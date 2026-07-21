@@ -49,12 +49,28 @@ This repository is the **program**: the rules, principles, and skill procedures 
 
 The maintainer's skill set: `ingest` · `process-inbox` · `session-capture` · `query` · `lint` · `digest` · `vault-snapshot` · `amend`.
 
+## Key terms
+
+- **program** — shippable system markdown per MANIFEST: rules, skills, glossary, and supporting conventions; no personal data.
+- **bundle** — wiki/ alone, OKF-conformant export surface; not the vault and not the program.
+- **vault** — the whole personal knowledge installation: sources, notes, wiki, attachments, and pipeline bookkeeping.
+- **wiki** — agent-maintained compiled knowledge layer in wiki/; claims carry status and provenance.
+- **ingest** — skill that files a source and compiles it into wiki pages.
+- **digest** — skill that compiles the user-facing review surface from pipeline output.
+- **lint** — skill that runs vault health checks and queues fixes.
+- **draft** — wiki status: hypothesis-grade; usable but say so when it matters.
+- **verified** — wiki status: human-promoted ground truth; scarce by design.
+- **provenance** — traceable origin of a claim (source path, URL, or the user's dated words).
+
+Full glossary → [GLOSSARY.md](GLOSSARY.md)
+
 ## What's in this repo
 
 | Path | What it is |
 |---|---|
 | [CLAUDE.md](CLAUDE.md) | The one-page invariant core every agent session loads |
 | [CONSTITUTION.md](CONSTITUTION.md) | Principles, roles, anti-patterns, residence map |
+| [GLOSSARY.md](GLOSSARY.md) | Canonical system vocabulary (term meanings, not procedures) |
 | [.claude/skills/](.claude/skills/) | The maintainer skill procedures |
 | [ISSUES.md](ISSUES.md), [.state/README.md](.state/README.md) | Friction-log and bookkeeping conventions |
 | [templates/](templates/) | Note frontmatter template |
