@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-20 Mon, Jul 20 — 9:25 PM
+updated: 2026-07-22 Wed, Jul 22 — 12:55 PM
 ---
 # GLOSSARY — system vocabulary
 
@@ -13,9 +13,9 @@ Runtime surfaces say **you** and **the user**. Role nouns (Curator, Maintainer) 
 _Avoid:_ the vault, the wiki, the repo (ambiguous — name which surface)
 _Home:_ CONSTITUTION.md § Sharing and boundaries; public repo MANIFEST
 
-**bundle** — wiki/ alone, OKF-conformant export surface; not the vault and not the program.
+**bundle** — a contained folder of related knowledge; bundles nest freely (e.g. the krux/ bundle inside projects/). Unqualified, "the bundle" still means the outermost one: wiki/ alone, the OKF-conformant export surface — not the vault and not the program. (Sense widened per the user, 2026-07-20.)
 _Avoid:_ the vault, the program, "my exocortex" (ambiguous)
-_Home:_ CONSTITUTION.md § Sharing and boundaries
+_Home:_ CONSTITUTION.md § Sharing and boundaries (export sense); GLOSSARY only for the nested sense
 
 **vault** — the whole personal knowledge installation: sources, notes, wiki, attachments, and pipeline bookkeeping.
 _Avoid:_ the wiki, the program, the bundle
@@ -56,12 +56,16 @@ _Avoid:_ search, chat about the vault
 _Home:_ `.claude/skills/query/`
 
 **lint** — skill that runs vault health checks and queues fixes.
-_Avoid:_ spellcheck, cleanup, audit (too vague)
+_Avoid:_ spellcheck, cleanup, audit (that's the review-loop skill)
 _Home:_ `.claude/skills/lint/`
 
 **digest** — skill that compiles the user-facing review surface from pipeline output.
 _Avoid:_ summary email, newsletter
 _Home:_ `.claude/skills/digest/`
+
+**audit-exocortex** — skill that runs the user's page review as an interactive loop: one page per turn, a reading brief with addressed items, explicit verdicts (correct / add / promote / skip). Suffixed to avoid collision with non-vault audit skills; "audit" unqualified in vault surfaces means this one.
+_Avoid:_ lint (health checks), digest (compiles the review surface; audit is the loop that walks it)
+_Home:_ `.claude/skills/audit-exocortex/`
 
 **amend** — skill that changes rules, skills, or wiki folder structure with user approval.
 _Avoid:_ fix the rules, edit CLAUDE.md (name the skill)

@@ -2,11 +2,15 @@
 
 Notable changes to the exocortex program, per release. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [Semantic Versioning](https://semver.org/) — pre-1.0, a minor bump means new capability or a rule change, a patch means fixes and wording.
 
-To update an installed vault, see [SETUP.md § Updating](SETUP.md#updating-an-existing-deployment) — or paste the update prompt from there into your agent. Watch this repo (Watch → Custom → Releases) to be notified of new versions.
+To update an installed vault, tell your maintainer "update my exocortex" (the `update-exocortex` skill) — or see [SETUP.md § Updating](SETUP.md#updating-an-existing-deployment) for the by-hand path. Watch this repo (Watch → Custom → Releases) to be notified of new versions.
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-07-22
+
 ### Added
+- **`update-exocortex` skill — updating is now a first-class, in-vault act.** Say "update my exocortex" in a vault session: the skill fetches the latest release, summarizes the changelog, waits for your go-ahead, commits a rollback point, reconciles your local amendments (keep yours / take upstream / merge — never silently overwritten) and sets aside skills you added locally before `bootstrap.sh --update` would delete them, applies, and stamps the new version. `meta/DEPLOYMENT.md` gains a `Program version` row (template updated; stamped at install). INSTALL.md and SETUP.md § Updating now delegate to the skill instead of duplicating the procedure.
+- **`audit-exocortex` skill** — the interactive page-review loop: one page per turn, a reading brief with precisely addressed items, explicit verdicts (correct / add / promote / skip). The digest's review step now runs through it; promotion stays an explicit human act. GLOSSARY entry added.
 - **GLOSSARY.md** — canonical system vocabulary (term meanings with Avoid/Home pointers). Ships with the program; CLAUDE.md points agents at it when jargon is ambiguous. Public README gains a Key terms skim subset; `tools/sync.sh` fails the publish if those one-liners drift from GLOSSARY.md.
 - Folder law READMEs for `attachments/` and `templates/` (zone rows already existed; agents can now satisfy "read the README before writing").
 - **Onboarding posture** (INSTALL §4 Hand off + SETUP §7): minimum viable use first; invite "explain it simply"; rules change via `amend` with approval — not freestyle; principle tension → plain-language tradeoff brief, then the user decides.
@@ -29,6 +33,9 @@ To update an installed vault, see [SETUP.md § Updating](SETUP.md#updating-an-ex
 - Query: long multi-page syntheses place fetched content above the question and quote load-bearing passages before reasoning — both measurably improve long-context accuracy.
 - Lint and process-inbox eviction guards generalized to sync-layer-neutral wording (iCloud kept as a filename example, dropped as an environment assumption).
 - Two stale path references corrected: CONSTITUTION's residence map now names `meta/OKF-SPEC.md`; meta/README's move-instructions name the real dependents instead of a deleted skill.
+- Ingest: inline quote-link form specified — in-prose quotes make the quoted words the link anchor; blockquotes end with a `— [the user, <date>](<path>)` citation line. Frontmatter `sources:` pinned as built-from provenance; lint check 1 syncs it additively (append missing body-link targets, never remove).
+- Lint check 1: the YAML-parseability test now also covers `.state/issues/*.md` (the issue index is derived from them and cannot regenerate over a broken file).
+- GLOSSARY: "bundle" sense widened — bundles are contained folders of related knowledge and nest freely; unqualified "the bundle" still means the wiki/ export surface. README Key terms and skill roster refreshed to match.
 
 ## [0.1.0] — 2026-07-19
 

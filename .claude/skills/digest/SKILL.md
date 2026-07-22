@@ -35,7 +35,7 @@ Take the top 5–10, never more. Everything below the cap **stays draft indefini
 
 ## Review
 
-For each shortlist item the user **explicitly confirms**: set `status: verified`, `verified_at`, add `"user confirmed in digest review, <date>"` to `sources:`, log in the day log (`wiki/log/<YYYY-MM-DD>.md`).
+Run the shortlist through the `audit-exocortex` skill's loop — one page per turn, its brief format and verdict mechanics. Promotions in digest context record `"user confirmed in digest review, <date>"` as the `sources:` line.
 
 For each **staged addition** the user confirms: merge it into the page's core prose (integrated, not appended), delete the annex section, clear `pending_review` when no annex sections remain, log. If the user corrects it instead, route their statement through the correction flow; if they reject it, delete the annex section and log the rejection. Explicit assent only — a nod at the digest as a whole promotes nothing. Disputes: apply whatever the user adjudicates (which claim wins, what demotes), via the correction flow where their ruling is new speech (write it to `sources/inbox/` with provenance `"the user, <date>"`).
 
