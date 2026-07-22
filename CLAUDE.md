@@ -49,6 +49,6 @@ These rules are under active development and not yet stress-tested. If a rule is
 
 ## Skills (in .claude/skills/ — invoke, don't improvise)
 
-`ingest` (source → wiki pages) · `process-inbox` (drain inbox + sweep notes) · `session-capture` (preserve a session's knowledge) · `query` (answer from the vault, with citations) · `lint` (health checks) · `digest` (review surface for the user) · `vault-snapshot` (backup) · `amend` (change the rules/skills, with the user's approval) · `publish-program` (sync system files to the public repo, user-reviewed)
+`ingest` (source → wiki pages) · `process-inbox` (drain inbox + sweep notes) · `session-capture` (preserve a session's knowledge) · `query` (answer from the vault, with citations) · `lint` (health checks) · `digest` (review surface for the user) · `audit-exocortex` (one-page-at-a-time review loop) · `vault-snapshot` (backup) · `amend` (change the rules/skills, with the user's approval) · `publish-program` (sync system files to the public repo, user-reviewed) · `update-exocortex` (pull upstream program updates into this vault; inert for the program's source vault)
 
 If a task matches a skill, use the skill. If no skill fits and the task touches wiki/ or sources/, ask the user rather than improvising a write path.

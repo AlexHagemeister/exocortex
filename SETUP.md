@@ -96,9 +96,7 @@ Finer throttle, if you want everything present immediately: move the whole corpu
 
 New versions are announced as GitHub releases with notes in [CHANGELOG.md](CHANGELOG.md) — watch the repo (**Watch → Custom → Releases**) to be notified. Versions follow semantic versioning; pre-1.0, expect the rules themselves to still be evolving.
 
-**The agent path (recommended):** paste into your agent —
-
-> Update my exocortex: pull the latest release of the program repo (my clone is at `<path>`), read its CHANGELOG and INSTALL.md § Updating, and apply the update to my vault at `<path>` — reconciling any of my local amendments before overwriting.
+**The agent path (recommended):** your vault ships an `update-exocortex` skill — in a session inside the vault, just say *"update my exocortex."* It fetches the latest release, shows you the changelog, asks before applying, reconciles any local amendments (keep yours, take upstream, or merge), and records the new version in `meta/DEPLOYMENT.md`. (Vault predates the skill? One manual `git pull` here + `bootstrap.sh --update` delivers it.)
 
 **By hand:**
 

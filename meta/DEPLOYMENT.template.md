@@ -9,6 +9,7 @@ Everything machine-, account-, or tool-specific lives here. Skills reference thi
 | Sync pinning | UNSET — if any synced location feeding the vault evicts files (iCloud does), pin it "Keep Downloaded" on every machine that touches it. Skills still defensively check for eviction placeholders. |
 | Vault git repo | UNSET — the vault is itself a git repo; add a **private** remote for history, diffs, and recovery. Snapshots via `vault-snapshot` (commit + pull --rebase + push), non-blocking. |
 | Program repo clone | UNSET — local path of the cloned program repo and its upstream URL. Updates pull here first, then apply via `bootstrap.sh --update`. |
+| Program version | UNSET — the installed program release (tag or commit, with date). Stamped at install and by each `update-exocortex` run; the update check compares this against the latest release. |
 | Remote MCP server | UNSET — optional remote capture endpoint; skills skip this when unset. |
 | Scheduler / runner | UNSET — which machine runs scheduled maintainer tasks, and the schedule (suggested: process-inbox daily, lint weekly, digest weekly, vault-snapshot daily). |
 | Unattended-run permissions | UNSET — where the machine-local permission allowlist lives (e.g. `.claude/settings.local.json`) so scheduled runs don't stall on prompts. Keep deletions out of the allowlist — those should always prompt. |

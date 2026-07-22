@@ -56,7 +56,7 @@ From their choice, draft a 4–6 line spec covering register, verbosity, humor, 
 1. Clone this repo to a stable, non-synced path (it stays around for updates), if it isn't cloned already.
 2. Run `./tools/bootstrap.sh <vault path>` — scaffolds the folders, installs the program files, creates `<vault>/meta/DEPLOYMENT.md` from the template.
 3. Make the vault a git repo: `git init`, append `.obsidian/` and `.state/maintainer.lock` to `.gitignore`, add the private remote if one was chosen. The remote must never be a public repo.
-4. Fill **every UNSET row** of `<vault>/meta/DEPLOYMENT.md` from the interview answers. If a voice was chosen (§ 1a), write the confirmed spec into the template's `## Voice` section; if they took the default, delete the section's example lines or leave it absent.
+4. Fill **every UNSET row** of `<vault>/meta/DEPLOYMENT.md` from the interview answers — including `Program version` (the release you just installed: the clone's current tag or commit, with today's date) and `Program repo clone` (the path from step 1); the `update-exocortex` skill reads both. If a voice was chosen (§ 1a), write the confirmed spec into the template's `## Voice` section; if they took the default, delete the section's example lines or leave it absent.
 5. Initial commit; push if a remote is set.
 6. If scheduling was wanted: set up the scheduled tasks per SETUP.md § 5. Task prompts are *pointers* to the skill files, never copies of their text.
 
@@ -68,12 +68,9 @@ From their choice, draft a 4–6 line spec covering register, verbosity, humor, 
 
 ## Updating (agent procedure)
 
-When the user asks to update an existing installation:
+The procedure ships with the vault: the `update-exocortex` skill (installed into `<vault>/.claude/skills/` by bootstrap) checks for new releases, summarizes the changelog, gates on the user's approval, reconciles their local amendments, applies via `bootstrap.sh --update`, and stamps the new version in `meta/DEPLOYMENT.md`. When the user asks to update, invoke that skill — its steps are not duplicated here.
 
-1. `git pull` in the program clone (its path is in the vault's `meta/DEPLOYMENT.md`). Read the CHANGELOG.md entries between the previously installed version and the new one — that's what you're about to apply, and what you summarize to the user.
-2. **Reconcile before overwriting.** Diff the shipped `CLAUDE.md` and `.claude/skills/` against the vault's copies. Every difference is one of two things: an upstream change (apply it) or the user's local amendment made via the `amend` skill (theirs — surface it and ask: keep local, take upstream, or merge). Never silently overwrite a local amendment.
-3. Run `./tools/bootstrap.sh <vault> --update`, then re-apply any kept-local or merged files from step 2.
-4. Verify as in § 3 (rules recital in a vault session). Report what changed, old version → new.
+If the vault predates the skill (installed before it shipped): run one manual pass by following this repo's copy at `.claude/skills/update-exocortex/SKILL.md` after pulling here — the skill itself arrives with that update.
 
 ## 4. Hand off
 
@@ -84,5 +81,5 @@ Say this in plain language — do not dump the full map. Lead with **minimum via
 3. **Rules are renegotiable — not freestyle.** Anything that chafes can change via the `amend` skill: they say what they want, you propose, they approve, you propagate. You do **not** rewrite core behavior on a vague "make it better." If a requested change tensions with CONSTITUTION.md principles, push back in plain language: name the principle, explain the tradeoff, offer a conforming alternative **and** the override. They still have the final say after that brief — never a silent refuse, never a silent comply.
 4. **Curation stays human.** The `digest` is their review surface; promoting a page to `verified` is the one job that stays theirs.
 5. **Voice is theirs.** How the maintainer talks can change anytime — edit `meta/DEPLOYMENT.md` § Voice, or just tell it.
-6. **Updates.** `git pull` in this repo + `bootstrap.sh <vault> --update` refreshes program files only and never touches their data.
+6. **Updates.** "Update my exocortex" is all they need to say — the `update-exocortex` skill checks for releases, shows what changed, reconciles their amendments, and refreshes program files only, never their data.
 
