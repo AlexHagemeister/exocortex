@@ -4,6 +4,11 @@ Notable changes to the exocortex program, per release. Format follows [Keep a Ch
 
 To update an installed vault, tell your maintainer "update my exocortex" (the `update-exocortex` skill) — or see [SETUP.md § Updating](SETUP.md#updating-an-existing-deployment) for the by-hand path. Watch this repo (Watch → Custom → Releases) to be notified of new versions.
 
+## [Unreleased]
+
+### Added
+- **The digest surfaces new program releases** — each digest run fetches the program clone and, when a newer release exists, adds one line pointing at "update my exocortex." Notification now rides the surface users already review; applying still gates on their approval. INSTALL's handoff mentions this plus the GitHub Watch → Releases option.
+
 ## [0.3.0] — 2026-07-23
 
 ### Added

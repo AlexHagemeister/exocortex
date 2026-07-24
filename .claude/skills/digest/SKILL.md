@@ -23,6 +23,7 @@ Write to `.state/digests/<YYYY-MM-DD>.md` and present it in full to the user:
 3b. **Verified pages with unreviewed additions** — every `pending_review: true` page, with one line per staged addition (and any flagged contradictions with the core called out).
 4. **Promotion shortlist** — see triage below. **Hard cap: 5–10 items.**
 5. **Issues needing the user** — open issues explicitly queued for his decision or at the amend skill's cluster threshold; the rest of the open set is a one-line count (routine evidence-based closures belong to issue grooming, not this surface). When the user settles one, close it per ISSUES.md.
+6. **Program update, if one exists** — `git fetch` the program clone (path in meta/DEPLOYMENT.md; skip silently if UNSET) and compare the latest release to the installed version. Newer release → one line: the version, and "say 'update my exocortex' to see what changed." Outside the decision budget; never applies anything.
 
 ## Promotion triage (leverage-ranked, hard-capped)
 
