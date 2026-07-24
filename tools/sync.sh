@@ -89,6 +89,14 @@ done < <(awk '/^## Key terms$/{in_section=1; next} in_section && /^## /{exit} in
 # Structural = absolute home paths (/Users/...), which identify a person;
 # generic macOS iCloud container paths in tilde form are documentation, not
 # leaks, and are deliberately not flagged.
+#
+# PUBLIC_ALLOWLIST: exact public strings allowed to carry the author's name —
+# the author's own public repos and the badge URLs referencing them. They are
+# stripped from a file's content before the private-pattern scan, so these
+# specific self-references pass while any other private-pattern occurrence
+# still fails the publish. Additions here are publishing decisions — get the
+# user's approval first (allowlist approved 2026-07-23).
+PUBLIC_ALLOWLIST='github\.com/AlexHagemeister/exocortex(-mcp)?|img\.shields\.io/github/v/release/AlexHagemeister/exocortex'
 scan_failed=0
 builtin_patterns='/Users/'
 files="$(git -C "$REPO_ROOT" ls-files -co --exclude-standard)"
@@ -100,8 +108,9 @@ while IFS= read -r f; do
     scan_failed=1
   fi
   [ "$f" = "LICENSE" ] && continue
-  if grep -niEf "$PATTERNS" "$REPO_ROOT/$f" >/dev/null 2>&1; then
-    echo "LEAK (private pattern) in $f:"; grep -niEf "$PATTERNS" "$REPO_ROOT/$f" | head -5
+  if sed -E "s#(${PUBLIC_ALLOWLIST})##g" "$REPO_ROOT/$f" | grep -niEf "$PATTERNS" >/dev/null 2>&1; then
+    echo "LEAK (private pattern) in $f:"
+    sed -E "s#(${PUBLIC_ALLOWLIST})##g" "$REPO_ROOT/$f" | grep -niEf "$PATTERNS" | head -5
     scan_failed=1
   fi
 done <<< "$files"

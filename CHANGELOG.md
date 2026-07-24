@@ -10,7 +10,11 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 - **The digest surfaces new program releases** — each digest run fetches the program clone and, when a newer release exists, adds one line pointing at "update my exocortex." Notification now rides the surface users already review; applying still gates on their approval. INSTALL's handoff mentions this plus the GitHub Watch → Releases option.
 - Onboarding handoff now suggests the Obsidian Web Clipper by name — articles and YouTube pages clip straight to the inbox; most new users don't know it exists.
 - README shows the product instead of describing it: a worked capture-to-cited-answer example (transcript + the actual before/after files), a "your first five minutes" section, a Mermaid pipeline diagram, license badge, collapsible reference sections.
+- **Companion cross-links**: README § "Optional companion" and SETUP's capture section point at [exocortex-mcp](https://github.com/AlexHagemeister/exocortex-mcp) — the optional remote MCP server (query + capture from claude.ai and the Claude mobile app), now public with the same repo hygiene; it links back. Auto-updating release badge in the README header.
 - **Upstream bug reports are now the documented norm** (ISSUES.md): when friction is in the shipped program rather than local amendments or data, maintainers file it on this repo's issue tracker in receiving-end detail — file, line, expected vs. observed, environment. Public-post rules apply: no vault content, no personal data, and the user approves before anything goes up (unattended runs draft locally for the digest). Formalizes the flow that produced issue #1.
+
+### Changed
+- Leak scan: `sync.sh` gains a documented `PUBLIC_ALLOWLIST` — the author's own public repo and badge URLs are stripped before the private-pattern scan, so public self-references pass while any other private-pattern occurrence still fails the publish (user-approved carve-out; additions remain publishing decisions).
 
 ## [0.3.0] — 2026-07-23
 

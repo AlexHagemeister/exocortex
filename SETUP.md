@@ -82,6 +82,8 @@ The inbox is multi-tenant: *any* tool that drops a markdown file into `sources/i
 
 Record whatever you choose in the **Capture tool** row of `meta/DEPLOYMENT.md`.
 
+Away from your desk entirely? The optional [exocortex-mcp](https://github.com/AlexHagemeister/exocortex-mcp) companion server makes the vault queryable and capturable from claude.ai and the Claude mobile app — same inbox, same pipeline, deploy-your-own instructions in its README.
+
 ## 8. Use it
 
 - **Start small.** Week one: capture + "remember this" + ask questions. You do not need to learn the whole system before it is useful.
