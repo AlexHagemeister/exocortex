@@ -1,5 +1,6 @@
 # exocortex
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-buy%20me%20a%20coffee-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/V1N723QW1K)
 
 An agent-maintained personal knowledge system, shipped as pure markdown.
@@ -12,6 +13,48 @@ An agent-maintained personal knowledge system, shipped as pure markdown.
   </a>
 </p>
 
+## See it work
+
+Mid-conversation, any vault session (demo data):
+
+> **You:** remember this — pricing call with Sara: she pushed back hard on per-seat (expansion friction), we're going usage-based for the beta, revisit when churn data lands
+>
+> **Maintainer:** Captured and filed. `wiki/projects/beta-launch.md` (draft) records the decision with provenance "you, 2026-07-12" and links to `people/sara-chen.md`. One tension flagged: `concepts/pricing-models.md` cites your March note preferring per-seat — queued as a dispute for your next digest.
+
+*Three weeks and many conversations later:*
+
+> **You:** what did we decide about beta pricing, and why?
+>
+> **Maintainer:** Usage-based, decided 2026-07-12 (draft, your own words): Sara pushed back on per-seat over expansion friction; revisiting when churn data lands. The March per-seat preference was flagged as a dispute and you resolved it in the 07-15 digest review — usage-based won. Sources: the 07-12 capture, the 07-15 review.
+
+And on disk, that capture became a page. What you dropped in:
+
+```markdown
+call w/ sara — beta pricing
+- she hates per-seat, cites expansion friction
+- going usage-based for the beta
+- revisit after churn data lands (sept?)
+```
+
+What the maintainer compiled (excerpt of `wiki/projects/beta-launch.md`):
+
+```markdown
+---
+type: Project
+status: draft
+sources:
+  - ../../sources/calls/2026-07-12-beta-pricing-call.md
+---
+## Pricing
+Usage-based for the beta — decided on the [2026-07-12 call](../../sources/calls/2026-07-12-beta-pricing-call.md)
+after [Sara Chen](../people/sara-chen.md) pushed back on per-seat
+(expansion friction). Revisit when churn data lands (~Sept 2026).
+```
+
+Every claim carries its origin; the page says how much to trust it (`draft` until you promote it); the raw capture stays frozen forever as the record of what was actually said.
+
+<!-- screenshots: drop here — Obsidian graph view of a populated vault, a wiki page with status frontmatter, a digest. Shoot from a demo vault, not a real one. -->
+
 ## Quick start
 
 Paste this into [Claude Code](https://claude.com/claude-code) — or whatever coding agent you use — with this repo's URL filled in:
@@ -19,6 +62,18 @@ Paste this into [Claude Code](https://claude.com/claude-code) — or whatever co
 > Clone `<this repo's URL>`, read its INSTALL.md, and help me set up my own exocortex vault on this machine.
 
 That's the install. The agent interviews you (vault location, sync, private remote, scheduling), runs the setup, fills in your deployment bindings, and smoke-tests the pipeline before handing you the keys. [INSTALL.md](INSTALL.md) is its script; [SETUP.md](SETUP.md) is the same procedure as a manual guide. Updating later is the same move — one prompt to your agent; releases are announced in [CHANGELOG.md](CHANGELOG.md) (watch the repo to get notified). (Claude Code is the maintainer runtime the system is built for — the skills register automatically in its vault sessions — but any capable agent can run the install.)
+
+## Your first five minutes
+
+After install, in a session inside the vault:
+
+1. **Drop any markdown file into `sources/inbox/`** — meeting notes, a pasted article, a half-formed thought.
+2. **Say "process my inbox."** Watch it file the source, spin up or update draft wiki pages, and cite provenance on every claim.
+3. **Ask "what do you know about ‹the thing you just dropped›?"** — you get an answer with receipts.
+4. **Say "remember this: …" mid-conversation**, anytime. Same pipeline, zero ceremony.
+5. When the digest shows up (or you say **"what needs my review"**), skim it and promote what's solid.
+
+That's the whole loop — capture → compile → review — and week one needs nothing more.
 
 ## What you get
 
@@ -49,6 +104,18 @@ LLMs reset every session; your context doesn't survive the conversation. Notes a
 
 This repository is the **program**: the rules, principles, and skill procedures that govern the maintainer, plus setup tooling. It contains no personal data. Your knowledge — sources, notes, the compiled wiki — stays in your own vault (itself a git repo with a private remote, if you keep history). The two never mix: the boundary is defined in [CONSTITUTION.md](CONSTITUTION.md) § *Sharing and boundaries*.
 
+```mermaid
+flowchart LR
+    C["clips, transcripts,<br>'remember this'"] --> IN["sources/inbox/"]
+    IN -- "ingest: file and freeze" --> S["sources/<br>frozen record"]
+    NT["notes/<br>your words"] -- "swept, never edited" --> W
+    S -- "compile and cross-link" --> W["wiki/<br>status-tagged pages"]
+    W -- "weekly digest" --> RV{"your review"}
+    RV -- "promote" --> V["verified"]
+    RV -- "corrections, as new sources" --> IN
+    W -- "query: cited answers" --> Q["any agent session"]
+```
+
 - **One write pipeline.** Knowledge enters the wiki only through `sources/inbox/`, a sweep of your notes, or a skill. No ad-hoc writes.
 - **Sources are frozen speech.** A source is a record of what was said, never edited — truth-status lives one layer up, in the wiki, where claims can be disputed and retracted without falsifying the record. Corrections arrive as *new* sources, even when they come from you.
 - **Trust is graduated, not gated.** The agent writes freely as `draft`; promotion to `verified` is a human act; every reader weights pages by status. A mostly-draft wiki is healthy by design.
@@ -58,6 +125,9 @@ This repository is the **program**: the rules, principles, and skill procedures 
 The maintainer's skill set: `ingest` · `process-inbox` · `session-capture` · `query` · `lint` · `digest` · `audit-exocortex` · `vault-snapshot` · `amend` · `publish-program` · `update-exocortex`.
 
 ## Key terms
+
+<details>
+<summary>The vocabulary you'll see everywhere (10 terms)</summary>
 
 - **program** — shippable system markdown per MANIFEST: rules, skills, glossary, and supporting conventions; no personal data.
 - **bundle** — a contained folder of related knowledge; bundles nest freely (e.g. the krux/ bundle inside projects/). Unqualified, "the bundle" still means the outermost one: wiki/ alone, the OKF-conformant export surface — not the vault and not the program. (Sense widened per the user, 2026-07-20.)
@@ -72,7 +142,12 @@ The maintainer's skill set: `ingest` · `process-inbox` · `session-capture` · 
 
 Full glossary → [GLOSSARY.md](GLOSSARY.md)
 
+</details>
+
 ## What's in this repo
+
+<details>
+<summary>Map of the repository</summary>
 
 | Path | What it is |
 |---|---|
@@ -85,6 +160,8 @@ Full glossary → [GLOSSARY.md](GLOSSARY.md)
 | [meta/](meta/) | Reference docs: the design doctrine and build handoff (historical), the pinned OKF spec, and the deployment-bindings template |
 | [INSTALL.md](INSTALL.md) | Agent-guided setup — paste one prompt into your coding agent and it installs the system |
 | [SETUP.md](SETUP.md), [tools/](tools/) | Manual deployment guide, vault bootstrap script, and the maintainer's publish tooling |
+
+</details>
 
 ## Deploying by hand
 
