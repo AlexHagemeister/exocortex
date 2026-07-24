@@ -5,7 +5,9 @@ Read [README.md](README.md) first for what the system is. This is the mechanical
 ## Prerequisites
 
 - **[Claude Code](https://claude.com/claude-code)** — the maintainer agent. The skills in this repo register automatically when a session opens inside the vault.
-- **A vault directory.** Any folder works. [Obsidian](https://obsidian.md) is a pleasant viewer (the note template uses [Templater](https://github.com/SilentVoid13/Templater) syntax), but nothing depends on it — the files are the interface.
+- **git** — the vault is itself a git repo (step 4); snapshots and program updates run on plain `git`. Ships with most systems; on macOS, `xcode-select --install` if missing.
+- **A GitHub account — optional, recommended.** Nothing here requires one, but it is the easy path to a **private** backup remote (step 4), and it is where bug reports and feedback on the program live. The [GitHub CLI](https://cli.github.com) (`gh`) makes repo creation a one-liner (`gh repo create <name> --private`); authenticate once with `gh auth login`. Creating the account and authenticating are your acts — an agent should walk you through them, never perform them for you or handle your credentials.
+- **A vault directory.** Any folder works, and any markdown editor works for your own notes. [Obsidian](https://obsidian.md) is the typical choice and what § 5 configures — but nothing depends on it; the files are the interface.
 - **A device-sync layer, if you want one — it must ignore dotfolders.** The vault is itself a git repo (step 4), and sync eviction and conflict resolution corrupt anything that syncs `.git/`. [Obsidian Sync](https://obsidian.md/sync) qualifies: it ignores `.git/`, `.claude/`, and `.state/` (those travel via git), though mind its per-file size limit (5 MB on the Standard plan — resize large images). iCloud, Dropbox, and default Syncthing do **not** qualify — never put the vault inside them. (The original vault started life in iCloud with a separate mirror repo and migrated out; the current architecture is the result.)
 
 ## 1. Clone and bootstrap
@@ -38,7 +40,18 @@ printf '.obsidian/\n.state/maintainer.lock\n' >> .gitignore
 
 Add a **private** remote, record it in `meta/DEPLOYMENT.md`, then ask the maintainer to run the `vault-snapshot` skill (commit + pull --rebase + push, daily). Your vault repo contains your personal data — it must never share a remote with a public repo.
 
-## 5. Schedule the maintenance loop (optional but recommended)
+## 5. Set up Obsidian (optional, but the typical viewer)
+
+Any markdown editor works on the vault; this section exists because Obsidian is what most people will actually use.
+
+1. **Install [Obsidian](https://obsidian.md)** and use **Open folder as vault** on your vault directory. (`.obsidian/` is already gitignored, so Obsidian's own config never enters vault history.)
+2. **Settings → Files and links**, two locations:
+   - **Default location for new attachments** → `attachments/` — the zone the vault rules already expect; without it, pasted images pile up in the vault root.
+   - **Default location for new notes** → `notes/` — your writing zone, the one folder the pipeline sweeps for knowledge.
+3. **Install the [Templater](https://github.com/SilentVoid13/Templater) community plugin** — the shipped note template (`templates/default.md`) uses its syntax. In Templater's settings: template folder → `templates/`, enable **Trigger Templater on new file creation**, and add a folder-template mapping `notes/` → `templates/default.md`. Every new note then stamps its own creation date with no action from you. (Obsidian's core Templates plugin can insert the same template, but only manually — it does not fire on note creation, which is the point here.)
+4. **A caution on frontmatter-rewriting plugins** (auto-"modified" stamps and the like): scope them to `notes/` or leave them off. Wiki frontmatter belongs to the pipeline — status, provenance, review flags — and a plugin that rewrites it vault-wide will fight your maintainer. (Field-tested: the original vault spent a cleanup cycle on exactly this.)
+
+## 6. Schedule the maintenance loop (optional but recommended)
 
 Via Claude Code scheduled tasks (or any runner), on whatever machine you designate in DEPLOYMENT.md:
 
@@ -57,7 +70,7 @@ The "read CLAUDE.md first" instruction is deliberately in the prompt even though
 
 For unattended runs, also maintain a machine-local permission allowlist (e.g. `.claude/settings.local.json`) so scheduled runs don't stall on prompts — and deliberately leave deletions out of it, so those always prompt a human.
 
-## 6. Set up frictionless capture
+## 7. Set up frictionless capture
 
 The inbox is multi-tenant: *any* tool that drops a markdown file into `sources/inbox/` works, and the ingest validation gate applies regardless. That said, the smoothest setup we know is the [Obsidian Web Clipper](https://obsidian.md/clipper) (free browser extension for Chrome, Firefox, Edge, and Safari — including Safari on iOS), configured once so every clip lands ingest-ready:
 
@@ -69,7 +82,7 @@ The inbox is multi-tenant: *any* tool that drops a markdown file into `sources/i
 
 Record whatever you choose in the **Capture tool** row of `meta/DEPLOYMENT.md`.
 
-## 7. Use it
+## 8. Use it
 
 - **Start small.** Week one: capture + "remember this" + ask questions. You do not need to learn the whole system before it is useful.
 - **Confused is fine.** Say "I don't know what that means — explain it simply." Your maintainer should translate jargon, not expect you to already speak it.
@@ -80,17 +93,17 @@ Record whatever you choose in the **Capture tool** row of `meta/DEPLOYMENT.md`.
 - **Change the rules deliberately.** If something chafes, tell the maintainer. It proposes a change via `amend`; you approve before anything ships. If your request fights the system's principles, it should explain the tradeoff and offer alternatives — you still decide. It will not rewrite core behavior on a vague "make it better."
 
 
-## 8. Migrating an existing notes corpus
+## 9. Migrating an existing notes corpus
 
 If you arrive with hundreds of notes in another app, plan a *gradual* migration, not a bulk import. The system's quality comes from a human reviewing what the maintainer writes — a 1,000-note dump produces a wall of unreviewed drafts and a digest nobody will read. Migration speed is bounded by your review speed, on purpose. Budget weeks of light, steady work, not an afternoon. (Field-tested: the original vault's corpus went in at ~20 notes per batch, each round followed by a digest review.)
 
-1. **Export and stage.** Export from the old app to markdown (your agent can help convert). Put the corpus in a staging folder *outside* the vault's `notes/` — anything inside `notes/` gets swept on the next maintenance run, so the staging area is your throttle.
+1. **Export and stage.** Export from the old app to markdown (your agent can help convert) and drop the whole corpus into the vault's `staging/` folder — it ships empty for exactly this. Nothing in `staging/` is swept, ingested, or indexed: the pipeline only sees what you deliberately move out, so the folder is your throttle — and unlike a directory outside the vault, it syncs to your devices and is searchable while it waits. (Any other route works if you prefer: a folder elsewhere on disk, or straight into `notes/` for a corpus small enough to review at once.)
 2. **Triage with the agent.** Not everything deserves to move — skip dead todos, duplicates, notes you'd never reach for again. Split the keepers by what they are: **your own words** (journals, ideas, project notes) go to `notes/`; **captured external material** (clipped articles, quotes, others' documents) goes to `sources/inbox/`, where ingest's validation gate applies.
-3. **Move in topic-coherent batches of ~10–20.** Related notes that land together link together — batch by project or theme, not alphabetically. Move a batch in, run `process-inbox`, let the maintainer file, summarize, and cross-link.
+3. **Move in topic-coherent batches of ~10–20.** Related notes that land together link together — batch by project or theme, not alphabetically. Move a batch from `staging/` into its destination, run `process-inbox`, let the maintainer file, summarize, and cross-link.
 4. **Review the digest after every few batches — this is the actual work.** Correct what the maintainer misread (a correction is one line to the agent; it flows in as a new source), add the context your old notes assumed, promote what's solid. Skipping review is allowed — a mostly-draft wiki is healthy — but early review pays compound interest: it fixes systematic misreadings before they replicate across hundreds of pages, and it teaches you what the maintainer does with your material.
 5. **Don't block daily use on the backlog.** Start capturing new material from day one and drain the old corpus opportunistically, highest-value first — the notes about active projects and people you'll actually query. There is no "migration complete" gate; a half-migrated vault is fully useful.
 
-Finer throttle, if you want everything present immediately: move the whole corpus into `notes/` tagged `#no-ingest` (the sweep's one opt-out gate), then untag in batches. Your notes are all searchable and synced from day one; the wiki grows at review speed.
+Prefer everything in `notes/` immediately? Move the corpus there tagged `#no-ingest` (the sweep's one opt-out gate) and untag in batches — same throttle, no staging hop, at the cost of tagging every file. Most migrations won't need it; `staging/` is the simpler default.
 
 ## Updating an existing deployment
 

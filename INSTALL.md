@@ -12,7 +12,7 @@ Context you need before starting:
 
 - This repo is the **program** (rules, skills, tooling), not a vault. The CLAUDE.md at its root is the *vault's* operating rules — it governs sessions opened inside a vault, not this install, and this repo must not be treated as a vault (`bootstrap.sh` refuses it as a target).
 - The vault you create is the user's private knowledge system, and it is itself a git repo — so it must live **outside** any sync layer that touches dotfolders (iCloud, Dropbox, default Syncthing). Device sync, if wanted, is [Obsidian Sync](https://obsidian.md/sync), which ignores them. If the user asks to put the vault in iCloud, explain this and don't — it corrupts the repo.
-- Nothing here requires accounts or payment. If the user wants Obsidian Sync or a GitHub remote, subscribing or creating those is their act — you configure around what they give you.
+- Nothing here requires accounts or payment. If the user wants Obsidian Sync or a GitHub remote, subscribing, creating accounts, and authenticating are their acts — walk them through it step by step (the signup page, `gh auth login`, verifying with `gh auth status`), but never create an account for them or handle their credentials. You configure around what they give you.
 - `meta/DEPLOYMENT.md` is the user's file. Fill it with what they told you; where you don't know, ask — never guess a binding.
 
 ## 1. Interview
@@ -23,10 +23,11 @@ Ask up front, in one batch, with the defaults stated:
 |---|---|---|
 | Where should the vault live? | `~/exocortex` | any non-synced path |
 | Device sync for the vault? | none to start | Obsidian Sync if they use Obsidian on a phone; 5 MB/file limit on Standard — mention it |
-| Private git remote for vault history? | recommended | offer `gh repo create <name> --private` if `gh` is authenticated; otherwise they paste a URL, or defer |
+| Private git remote for vault history? | recommended | offer `gh repo create <name> --private` if `gh` is authenticated; if they want one but lack a GitHub account or the [CLI](https://cli.github.com), walk them through signup and `gh auth login` first (their acts — see context above); otherwise they paste a URL, or defer |
+| Set up Obsidian? | yes, if they'll use it | SETUP.md § 5: attachment + new-note locations, Templater auto-template; any markdown editor is fine — skip freely |
 | Schedule the maintenance loop? | yes | `process-inbox` + `vault-snapshot` daily, `lint` + `digest` weekly; tasks run while the Claude app is open |
-| Capture tool? | decide later | Obsidian Web Clipper is the smoothest — SETUP.md § 6 |
-| Existing notes to migrate? | after setup, in batches | if they have a corpus in another app, walk them through SETUP.md § 8 once the vault is verified — and set the expectation honestly: batched, review-paced, weeks not hours |
+| Capture tool? | decide later | Obsidian Web Clipper is the smoothest — SETUP.md § 7 |
+| Existing notes to migrate? | after setup, in batches | the vault ships an empty `staging/` to hold the corpus (invisible to the pipeline); walk them through SETUP.md § 9 once the vault is verified — and set the expectation honestly: batched, review-paced, weeks not hours |
 | How should your maintainer talk to you? | plain and technical | one line is enough ("casual, some humor, no emoji"); or offer samples — § 1a |
 
 ## 1a. Voice (only if they engage)
@@ -58,7 +59,8 @@ From their choice, draft a 4–6 line spec covering register, verbosity, humor, 
 3. Make the vault a git repo: `git init`, append `.obsidian/` and `.state/maintainer.lock` to `.gitignore`, add the private remote if one was chosen. The remote must never be a public repo.
 4. Fill **every UNSET row** of `<vault>/meta/DEPLOYMENT.md` from the interview answers — including `Program version` (the release you just installed: the clone's current tag or commit, with today's date) and `Program repo clone` (the path from step 1); the `update-exocortex` skill reads both. If a voice was chosen (§ 1a), write the confirmed spec into the template's `## Voice` section; if they took the default, delete the section's example lines or leave it absent.
 5. Initial commit; push if a remote is set.
-6. If scheduling was wanted: set up the scheduled tasks per SETUP.md § 5. Task prompts are *pointers* to the skill files, never copies of their text.
+6. If Obsidian was wanted: walk SETUP.md § 5 with them — open-as-vault, the two file locations, Templater's on-creation template for `notes/`.
+7. If scheduling was wanted: set up the scheduled tasks per SETUP.md § 6. Task prompts are *pointers* to the skill files, never copies of their text.
 
 ## 3. Verify
 

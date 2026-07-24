@@ -14,6 +14,7 @@ ISSUES.md
 templates/default.md
 templates/README.md
 attachments/README.md
+staging/README.md
 .state/README.md
 .claude/skills/
 meta/README.md
