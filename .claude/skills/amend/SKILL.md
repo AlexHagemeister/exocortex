@@ -11,7 +11,7 @@ The rules are a pact the user authored and may renegotiate — never a cage, and
 
 - **~3 overrides of the same rule** — scan `wiki/log/` exception entries. Repeated overrides indict the rule, not the user; exceptions are bugs, amendments are fixes.
 - **Issue clusters** — ~3 open issues in `.state/issues/` sharing a `rule:` value (this skill is the threshold's one home).
-- **A tripwire fired** — e.g., digest review exceeding ~15 minutes means the triage cap or scoring needs tightening.
+- **A tripwire fired** — e.g., the digest's review-time tripwire (threshold lives in the digest skill) means the triage cap or scoring needs tightening.
 
 ## Amending a rule
 

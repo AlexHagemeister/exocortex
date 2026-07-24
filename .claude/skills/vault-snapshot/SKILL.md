@@ -5,7 +5,7 @@ description: Commit and push the vault's git history for diffs, recovery, and re
 
 # Vault snapshot — observational backup
 
-The vault is itself a git repo; its remote holds the history: diffs, rollback, and the recovery source for expired pages. Device sync is Obsidian Sync, which ignores dotfolders and never touches `.git`. The snapshot is **observational only — never a gate**: nothing in the pipeline waits on it, and trust lives in the `status` field, not in merges.
+The vault is itself a git repo; its remote holds the history: diffs, rollback, and the recovery source for expired pages. Device sync is Obsidian Sync, which ignores dotfolders and never touches `.git`. The snapshot is **observational only — never a gate**: nothing in the pipeline waits on it, and trust lives in the `status` field, not in merges. A mechanical hourly subset (`snapshot-lite`, bindings in `meta/DEPLOYMENT.md`) may run between full snapshots; it halts rather than judges, so this run also sweeps up anything it left — unpushed work, scan hits, conflicts.
 
 **Unattended (scheduled) runs**: read CLAUDE.md at the vault root first if it isn't already in your context — its rules bind the run. Acquire and release `.state/maintainer.lock` per the protocol in `.state/README.md` — never snapshot while another maintainer run holds the lock.
 
