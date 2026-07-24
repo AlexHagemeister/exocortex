@@ -4,6 +4,12 @@ An agent-maintained personal knowledge system, shipped as pure markdown.
 
 **TL;DR** — You capture things (articles, meeting notes, decisions, stray thoughts) and write notes however you already do. An AI maintainer compiles all of it into a personal wiki: cross-linked, provenance-tracked, and marked with how much each claim can be trusted. Your knowledge compounds instead of rotting in a pile of notes — and any agent you work with inherits the context to act like a colleague who's been in the room for years, not a smart stranger meeting you fresh every session. It's all markdown in a folder you own; no app, no database, no lock-in.
 
+<p align="center">
+  <a href="https://ko-fi.com/V1N723QW1K">
+    <img src="https://ko-fi.com/img/githubbutton_sm.svg" width="300" alt="Support me on Ko-fi">
+  </a>
+</p>
+
 ## Quick start
 
 Paste this into [Claude Code](https://claude.com/claude-code) — or whatever coding agent you use — with this repo's URL filled in:
