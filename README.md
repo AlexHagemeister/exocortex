@@ -106,14 +106,14 @@ This repository is the **program**: the rules, principles, and skill procedures 
 
 ```mermaid
 flowchart LR
-    C["clips, transcripts,<br>'remember this'"] --> IN["sources/inbox/"]
-    IN -- "ingest: file and freeze" --> S["sources/<br>frozen record"]
-    NT["notes/<br>your words"] -- "swept, never edited" --> W
-    S -- "compile and cross-link" --> W["wiki/<br>status-tagged pages"]
-    W -- "weekly digest" --> RV{"your review"}
-    RV -- "promote" --> V["verified"]
-    RV -- "corrections, as new sources" --> IN
-    W -- "query: cited answers" --> Q["any agent session"]
+    C["clips, transcripts,<br/>remember this"] --> IN["sources/inbox/"]
+    IN -->|ingest files and freezes| S["sources/<br/>frozen record"]
+    NT["notes/<br/>your words"] -->|swept, never edited| W
+    S -->|compile and cross-link| W["wiki/<br/>status-tagged pages"]
+    W -->|weekly digest| RV{your review}
+    RV -->|promote| V[verified]
+    RV -->|corrections as new sources| IN
+    W -->|cited answers| Q[any agent session]
 ```
 
 - **One write pipeline.** Knowledge enters the wiki only through `sources/inbox/`, a sweep of your notes, or a skill. No ad-hoc writes.
