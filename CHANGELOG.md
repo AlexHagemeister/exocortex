@@ -6,6 +6,9 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+### Added
+- Ko-fi support link: button in the README (§ Support) and a one-time mention at install handoff (INSTALL.md § 4, item 7).
+
 ## [0.2.0] — 2026-07-22
 
 ### Added
