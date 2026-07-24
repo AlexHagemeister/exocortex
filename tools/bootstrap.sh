@@ -36,9 +36,13 @@ mkdir -p "$TARGET/sources/inbox" "$TARGET/notes" "$TARGET/wiki/log" \
          "$TARGET/.state/issues" "$TARGET/templates" "$TARGET/meta" \
          "$TARGET/.claude/skills"
 
-PROGRAM_FILES=(CLAUDE.md CONSTITUTION.md ISSUES.md templates/default.md
+PROGRAM_FILES=(CLAUDE.md CONSTITUTION.md GLOSSARY.md templates/default.md
                .state/README.md meta/README.md meta/HANDOFF.md
                meta/VAULT-DOCTRINE.md meta/OKF-SPEC.md)
+
+# Install-only files: seeded once, then owned by the vault. ISSUES.md is the
+# vault's derived open-issue index — --update must never overwrite it.
+INSTALL_ONLY_FILES=(ISSUES.md)
 
 copy() { # copy $1 (repo-relative) into the vault, honoring mode
   local src="$REPO_ROOT/$1" dst="$TARGET/$1"
@@ -48,7 +52,14 @@ copy() { # copy $1 (repo-relative) into the vault, honoring mode
   fi
 }
 
+seed() { # copy $1 (repo-relative) into the vault only if absent
+  local src="$REPO_ROOT/$1" dst="$TARGET/$1"
+  mkdir -p "$(dirname "$dst")"
+  [ -e "$dst" ] || cp "$src" "$dst"
+}
+
 for f in "${PROGRAM_FILES[@]}"; do copy "$f"; done
+for f in "${INSTALL_ONLY_FILES[@]}"; do seed "$f"; done
 
 if [ "$MODE" = "--update" ]; then
   rsync -a --delete "$REPO_ROOT/.claude/skills/" "$TARGET/.claude/skills/"
