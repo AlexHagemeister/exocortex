@@ -200,6 +200,7 @@ If digest review exceeds ~15 minutes/week, the triage cap or scoring is wrong �
 - **Git and iCloud must not cohabit.** No .git inside the iCloud vault — eviction/conflict behavior corrupts repos; this rules out the Obsidian Git plugin at the current vault location.
 - `mirror-snapshot` copies the vault to a separate, non-iCloud git repo on schedule. The mirror is observational — diffs, history, rollback, recovery of expired pages — never a write gate (the status field is the gate, §5).
 - If the vault moves off iCloud, revisit: direct git versioning becomes viable and the mirror retires.
+- *(2026-07-19 — it moved, and both consequences landed: the vault is itself a git repo with a private remote, snapshotted by `vault-snapshot`; `mirror-snapshot` and the separate mirror repo are retired, and Obsidian Sync replaced iCloud. Recorded here because this bullet invited the revisit — the rest of §9 stands as the historical premise. Live bindings: `meta/DEPLOYMENT.md`.)*
 
 ## 10. Anti-patterns (named failure modes)
 
