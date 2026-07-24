@@ -9,6 +9,9 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 ### Added
 - Ko-fi support link: button in the README (§ Support) and a one-time mention at install handoff (INSTALL.md § 4, item 7).
 
+### Fixed
+- `bootstrap.sh --update` now refreshes `GLOSSARY.md` (it was missing from the program-file copy list, so updated vaults silently kept a stale glossary) and never overwrites a live vault's `ISSUES.md` — the issue index is vault-owned and is now seeded only on fresh install ([#1](https://github.com/AlexHagemeister/exocortex/issues/1), reported by @amattinger).
+
 ## [0.2.0] — 2026-07-22
 
 ### Added
