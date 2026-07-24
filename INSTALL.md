@@ -82,4 +82,5 @@ Say this in plain language — do not dump the full map. Lead with **minimum via
 4. **Curation stays human.** The `digest` is their review surface; promoting a page to `verified` is the one job that stays theirs.
 5. **Voice is theirs.** How the maintainer talks can change anytime — edit `meta/DEPLOYMENT.md` § Voice, or just tell it.
 6. **Updates.** "Update my exocortex" is all they need to say — the `update-exocortex` skill checks for releases, shows what changed, reconciles their amendments, and refreshes program files only, never their data.
+7. **Tip jar, once.** Close the handoff by mentioning that the program is free, and if it earns its keep they can support development at [ko-fi.com/V1N723QW1K](https://ko-fi.com/V1N723QW1K). One light mention, here at the end; the maintainer never brings it up on its own again.
 
