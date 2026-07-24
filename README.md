@@ -1,5 +1,6 @@
 # exocortex
 
+[![Release](https://img.shields.io/github/v/release/AlexHagemeister/exocortex?style=for-the-badge)](https://github.com/AlexHagemeister/exocortex/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-buy%20me%20a%20coffee-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/V1N723QW1K)
 
@@ -83,6 +84,10 @@ That's the whole loop — capture → compile → review — and week one needs 
 - **Agents with real context.** The vault doubles as an agent substrate: any session opened inside it knows your projects, your people, your history, and your rules. This is the difference between delegating to a colleague and re-briefing a stranger.
 - **Your words stay yours.** The maintainer never edits your notes — it reads them, links to them, and compiles from them. Sources are frozen records; corrections arrive as new statements, never rewrites of old ones.
 - **Rules you can renegotiate.** The whole system runs on legible markdown rules (you're looking at them). When a rule chafes, the `amend` skill changes it — with your approval, logged, reversible.
+
+## Optional companion: take it with you
+
+[exocortex-mcp](https://github.com/AlexHagemeister/exocortex-mcp) is a small remote MCP server that makes your vault reachable from claude.ai, the Claude mobile app, and any MCP client: query your wiki mid-conversation from your phone, and capture thoughts that land in `sources/inbox/` through the same single pipeline. Deploy your own in about ten minutes; the vault works fully without it.
 
 ## What using it feels like
 
