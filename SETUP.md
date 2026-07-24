@@ -72,7 +72,7 @@ For unattended runs, also maintain a machine-local permission allowlist (e.g. `.
 
 ## 7. Set up frictionless capture
 
-The inbox is multi-tenant: *any* tool that drops a markdown file into `sources/inbox/` works, and the ingest validation gate applies regardless. That said, the smoothest setup we know is the [Obsidian Web Clipper](https://obsidian.md/clipper) (free browser extension for Chrome, Firefox, Edge, and Safari — including Safari on iOS), configured once so every clip lands ingest-ready:
+The inbox is multi-tenant: *any* tool that drops a markdown file into `sources/inbox/` works, and the ingest validation gate applies regardless. That said, the smoothest setup we know is the [Obsidian Web Clipper](https://obsidian.md/clipper) (free browser extension for Chrome, Firefox, Edge, and Safari — including Safari on iOS), configured once so every clip — an article, a paper, a YouTube video's page — lands ingest-ready:
 
 - **Save location.** Point the clipper at your vault with note location `sources/inbox/`. Clips then flow through the normal pipeline on the next `process-inbox` run — no manual filing.
 - **A capture template with provenance built in.** The wiki cites provenance forever, so capture it at clip time. Add frontmatter properties to your clipper template: `title: {{title}}`, `source: {{url}}`, `author: {{author}}`, `published: {{published}}`, `clipped: {{date}}`. Use a date-prefixed note name (ingest files sources as `YYYY-MM-DD-title-slug.md`, so arriving that way helps).
