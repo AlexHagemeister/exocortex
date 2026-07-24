@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-22 Wed, Jul 22 — 12:55 PM
+updated: 2026-07-23 Thu, Jul 23 — 7:57 PM
 ---
 # GLOSSARY — system vocabulary
 
@@ -36,6 +36,10 @@ _Home:_ CLAUDE.md § Zones
 **inbox** — pre-pipeline capture queue at sources/inbox/; freely editable until ingest files an item.
 _Avoid:_ the wiki, "pending pages"
 _Home:_ sources/inbox/README.md
+
+**staging** — import holding area at staging/; invisible to the pipeline until items move into notes/ or sources/inbox/.
+_Avoid:_ inbox (that's sources/inbox/, the capture queue)
+_Home:_ staging/README.md
 
 ## Pipeline skills
 
@@ -78,6 +82,10 @@ _Home:_ `.claude/skills/publish-program/`
 **vault-snapshot** — skill that commits and pushes the vault git history for recovery and remote capture.
 _Avoid:_ backup (ambiguous), publish (that's publish-program)
 _Home:_ `.claude/skills/vault-snapshot/`
+
+**update-exocortex** — skill that pulls the latest program release into this vault, reconciling local amendments.
+_Avoid:_ upgrade, pull updates (name the skill)
+_Home:_ `.claude/skills/update-exocortex/`
 
 ## Epistemics
 
