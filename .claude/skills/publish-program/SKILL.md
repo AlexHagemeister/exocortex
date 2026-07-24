@@ -21,4 +21,4 @@ Read `meta/DEPLOYMENT.md` for the public program repo's local clone path. **If i
 
 ## Scope changes are publishing decisions
 
-Adding a path to MANIFEST publishes a new part of the vault — propose it to the user explicitly, never bundle it silently into a sync. The repo's own files (README, SETUP, tools/) are edited in the repo directly; the vault remains the one home for every rule and skill, so rule changes always go amend-first, publish-second.
+Adding a path to MANIFEST publishes a new part of the vault — propose it to the user explicitly, never bundle it silently into a sync. The repo's own files (README, SETUP, tools/) are edited in the repo directly, but never committed without `tools/sync.sh` running its leak scan over them first; the vault remains the one home for every rule and skill, so rule changes always go amend-first, publish-second.

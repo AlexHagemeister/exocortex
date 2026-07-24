@@ -1,5 +1,7 @@
 # HANDOFF — Vault System Build Plan
 
+> **SUPERSEDED — construction artifact (banner added 2026-07-24, user-approved).** The build plan the vault was scaffolded from on 2026-07-16, preserved as a record of what was decided then. Its instructions are superseded by the live surfaces — CLAUDE.md, `.claude/skills/`, folder READMEs, and `meta/DEPLOYMENT.md` for environment bindings. **Two of its premises no longer hold:** the vault is now itself a git repo, snapshotted by the `vault-snapshot` skill (the `mirror-snapshot` skill and the separate mirror repo were retired 2026-07-19, so the mirror row in §2 and build step 6 in §5 describe a design that no longer exists); and the vault no longer lives on iCloud (Obsidian Sync replaced it, so §6's `.icloud` eviction hazards do not apply to this deployment — the live guards in `lint` and `process-inbox` are sync-layer-neutral). Do not compile, quote, or restore rules from this document.
+
 Instructions for the implementation session (Claude Code, working in the vault). This document compiles the design session's decisions. Read it fully before writing anything. Normative order: this handoff > VAULT-DOCTRINE v0.3 (construction artifact, high-resolution reference) > OKF SPEC.md (external conformance target). Where this handoff is silent, consult the doctrine; where both are silent, ask the Curator.
 
 ## 1. What you are building
