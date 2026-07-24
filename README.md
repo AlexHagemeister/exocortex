@@ -1,5 +1,7 @@
 # exocortex
 
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-buy%20me%20a%20coffee-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/V1N723QW1K)
+
 An agent-maintained personal knowledge system, shipped as pure markdown.
 
 **TL;DR** — You capture things (articles, meeting notes, decisions, stray thoughts) and write notes however you already do. An AI maintainer compiles all of it into a personal wiki: cross-linked, provenance-tracked, and marked with how much each claim can be trusted. Your knowledge compounds instead of rotting in a pile of notes — and any agent you work with inherits the context to act like a colleague who's been in the room for years, not a smart stranger meeting you fresh every session. It's all markdown in a folder you own; no app, no database, no lock-in.
@@ -95,12 +97,6 @@ cd exocortex
 ```
 
 …and follow [SETUP.md](SETUP.md) from there: fill in your `meta/DEPLOYMENT.md` bindings, git-init the vault with a private remote, optionally schedule the maintenance skills, and start dropping things into `sources/inbox/`. For everyday capture, the [Obsidian Web Clipper](https://obsidian.md/clipper) pointed straight at your inbox — with a provenance-carrying template and its optional LLM tidy pass — makes clipping a one-click act; SETUP.md § 6 has the exact configuration.
-
-## Support
-
-The program is free and stays that way. If it earns its keep, you can buy me a coffee:
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V1N723QW1K)
 
 ## License
 
