@@ -6,9 +6,10 @@
 #                                                      # existing vault (overwrites the
 #                                                      # program, never your data)
 #
-# Program files: CLAUDE.md, CONSTITUTION.md, .claude/skills/, templates/,
-# .state/README.md, meta/ reference docs. Your data (sources/, notes/, wiki/,
-# .state/ working files, meta/DEPLOYMENT.md) is never touched by --update.
+# Program files: CLAUDE.md, CONSTITUTION.md, GLOSSARY.md, .claude/skills/,
+# templates/, folder READMEs, .state/README.md, meta/ reference docs. Your data
+# (sources/, notes/, wiki/, staging/, .state/ working files, meta/DEPLOYMENT.md)
+# is never touched by --update.
 
 set -euo pipefail
 
@@ -34,9 +35,10 @@ esac
 # Data skeleton — created empty, owned by you from here on.
 mkdir -p "$TARGET/sources/inbox" "$TARGET/notes" "$TARGET/wiki/log" \
          "$TARGET/.state/issues" "$TARGET/templates" "$TARGET/meta" \
-         "$TARGET/.claude/skills"
+         "$TARGET/attachments" "$TARGET/staging" "$TARGET/.claude/skills"
 
 PROGRAM_FILES=(CLAUDE.md CONSTITUTION.md GLOSSARY.md templates/default.md
+               templates/README.md attachments/README.md staging/README.md
                .state/README.md meta/README.md meta/HANDOFF.md
                meta/VAULT-DOCTRINE.md meta/OKF-SPEC.md)
 

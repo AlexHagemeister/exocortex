@@ -4,13 +4,24 @@ Notable changes to the exocortex program, per release. Format follows [Keep a Ch
 
 To update an installed vault, tell your maintainer "update my exocortex" (the `update-exocortex` skill) — or see [SETUP.md § Updating](SETUP.md#updating-an-existing-deployment) for the by-hand path. Watch this repo (Watch → Custom → Releases) to be notified of new versions.
 
-## [Unreleased]
+## [0.3.0] — 2026-07-23
 
 ### Added
 - Ko-fi support link: button in the README (§ Support) and a one-time mention at install handoff (INSTALL.md § 4, item 7).
+- **`staging/` import folder** ships in the vault skeleton, with a README (zone: user-owned, invisible to the pipeline). Migrating users drop their exported corpus there and move batches into `notes/` or `sources/inbox/` deliberately — the move is the activation. SETUP § 9 rewritten around it; any other import route still works.
+- **Obsidian setup section** (SETUP § 5, INSTALL interview + execute steps): open-as-vault, default attachment location → `attachments/`, default new-note location → `notes/`, Templater configured to auto-apply the shipped note template on file creation in `notes/` (the core Templates plugin can't fire on creation), and a field-tested caution scoping frontmatter-rewriting plugins away from wiki/.
+- **Prerequisites now name the full dependency surface**: git (required), a GitHub account + `gh` CLI (optional, recommended for the private backup remote and bug reports). Onboarding walks users through account signup and `gh auth login` when wanted — always the user's own acts; the agent guides and never touches credentials.
+- GLOSSARY entries: `update-exocortex` (was the one skill without a term home) and `staging`.
+
+### Changed
+- CLAUDE.md `.state/` zone row: "issue files any time" carve-out, resolving the self-contradiction with the file-an-issue instruction.
+- Lint check 1's quote-provenance trigger narrowed to speech-attributed blockquotes — editorial callout boxes that merely mention the user no longer flag (was ~10 false positives per run on deliverables pages).
+- The digest review-time tripwire number is stated only in the digest skill; the amend skill now points instead of restating it.
+- meta/README's index-frontmatter policy line reconciled with practice (pre-2026-07-20 `updated:` stamps are grandfathered).
+- vault-snapshot notes the optional hourly mechanical subset (snapshot-lite) and sweeps up anything it left behind — unpushed work, scan hits, conflicts (rode along from a 2026-07-22 vault amendment).
 
 ### Fixed
-- `bootstrap.sh --update` now refreshes `GLOSSARY.md` (it was missing from the program-file copy list, so updated vaults silently kept a stale glossary) and never overwrites a live vault's `ISSUES.md` — the issue index is vault-owned and is now seeded only on fresh install ([#1](https://github.com/AlexHagemeister/exocortex/issues/1), reported by @amattinger).
+- `bootstrap.sh --update` now refreshes `GLOSSARY.md` (it was missing from the program-file copy list, so updated vaults silently kept a stale glossary) and never overwrites a live vault's `ISSUES.md` — the issue index is vault-owned and is now seeded only on fresh install (issue #1, reported by @amattinger).
 
 ## [0.2.0] — 2026-07-22
 
