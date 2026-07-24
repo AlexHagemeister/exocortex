@@ -8,7 +8,7 @@ An agent-maintained personal knowledge system, shipped as pure markdown.
 
 <p align="center">
   <a href="https://ko-fi.com/V1N723QW1K">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg" width="300" alt="Support me on Ko-fi">
+    <img src="https://storage.ko-fi.com/cdn/brandasset/v2/support_me_on_kofi_red.png" width="300" alt="Support me on Ko-fi">
   </a>
 </p>
 
