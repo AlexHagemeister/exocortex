@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-20 Mon, Jul 20 — 9:30 PM
+updated: 2026-07-24 Fri, Jul 24 — 5:37 PM
 ---
 # CLAUDE.md — Vault Operating Rules
 
@@ -11,7 +11,7 @@ This vault is the user's knowledge system: an agent-maintained wiki compiled fro
 |---|---|---|
 | sources/ | add files to sources/inbox/; file inbox items to stream folders during ingest | edit or delete anything already filed — sources are frozen records of what was said, not truth claims |
 | wiki/ | create and edit pages, **only via the skills** | write directly outside a skill procedure |
-| notes/ | read, link to, ingest from; sweep write-back of frontmatter metadata — additive only, pointers to existing wiki pages (rules in process-inbox) | touch note bodies, or edit/delete anything the user wrote — the words are the user's alone |
+| notes/ | read, link to, ingest from; sweep write-back of frontmatter metadata — additive only, pointers to existing wiki pages; maintain notes/index.md (derived index — rules in process-inbox) | touch note bodies, or edit/delete anything the user wrote — the words are the user's alone |
 | attachments/ | read, embed-link; move/rename/delete when the user explicitly and specifically approves | touch files otherwise — the user's media; Obsidian files new attachments here |
 | templates/ | read; edit when the user explicitly and specifically approves | touch otherwise — the user's Obsidian note templates |
 | staging/ | read; move items into notes/ or sources/inbox/ when the user directs an import batch | touch otherwise — un-imported material awaiting the user's triage |

@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-23 Thu, Jul 23 — 7:57 PM
+updated: 2026-07-24 Fri, Jul 24 — 3:02 PM
 ---
 # GLOSSARY — system vocabulary
 
@@ -134,6 +134,14 @@ _Home:_ ISSUES.md; `.state/README.md`
 **day log** — dated pipeline history at wiki/log/<YYYY-MM-DD>.md.
 _Avoid:_ journal, changelog (program changes use public CHANGELOG.md)
 _Home:_ wiki/log/
+
+**self-interview** — the digest's 1–3 question-shaped items about the user per cycle: blind-spot (receipted hypothesis awaiting verdict), disclosure (the system doesn't know, asks), negative-space (neither knows); the user's verdict completes all bookkeeping.
+_Avoid:_ survey, personality quiz, blind-spot report
+_Home:_ `.claude/skills/digest/` compile 4b + Review interview-verdicts
+
+**self-model page** — the joint self-knowledge ledger at wiki/life/self-model.md: trait- and pattern-level claims about the user, each claim's provenance naming whose knowledge it is (self-report / confirmed agent inference / a named person's feedback); only explicit user verdicts admit content.
+_Avoid:_ user-model, profile (the self modeled is the user; the modelers are both parties)
+_Home:_ wiki/life/README.md (page law)
 
 **deployment profile** — environment bindings in meta/DEPLOYMENT.md; skills reference it, never hardcode paths.
 _Avoid:_ config, settings (too generic)

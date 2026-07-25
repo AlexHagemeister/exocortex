@@ -17,12 +17,24 @@ Not a summary — the user reads the page. The brief bounds where their judgment
 
 **N of M — [link] (status, last touched)** — one line on what the page is.
 
-Then "Read for:" — 2–4 numbered items, each fully addressed:
+Then the items, numbered continuously, **sorted into two classes by who the decision belongs to — needs-you items first**:
 
-> **k. § [heading] › block [j]** — anchor: "[verbatim quote]"
-> One or two sentences on why this needs the user's eyes (inferred vs. stated, single-source, contradicts something, gap only the user can fill).
+**Needs-you** — a real tradeoff, a fact only the user holds, or anything touching promotion:
 
-- Heading = deepest containing heading, exact text; give the path if the heading text is duplicated on the page; "(top of page)" if none. Block = j-th paragraph/list/table/quote under it, counted from 1. Anchor = exact quote, searchable — never a paraphrase.
+> **k. § [heading] › block [j]**, opens "[first ~3 words]"
+> - **Look at:** "[verbatim quote]"
+> - **Why:** why this needs the user's eyes (inferred vs. stated, single-source, contradicts something, gap only the user can fill).
+> - **Rec:** the recommendation with its reason, plus the live alternative in one clause. Never a bare "your call" with equal-weight options.
+
+**Recommend-and-run** — the fix is mechanical or the evidence points one way. Compressed, often one line each:
+
+> **k. § [heading] › block [j]** — **Fix:** what will be done, already decided. **Basis:** one line of evidence, enough to veto from the brief alone.
+
+Recommend-and-run items execute unless the user objects by item number — **silence is consent for this class only**, and only within the writes the skill already authorizes (draft edits, annex staging, link maintenance). Misfiled items cost one word ("2: needs-me"); when unsure which class, use needs-you.
+
+**Never recommend-and-run, regardless of confidence:** promotion to `verified` (explicit assent every time — silence promoting a page is politeness-as-promotion), and any change to a claim's meaning on a verified core (correction flow, named to the user). <!-- constitution: principle 3, gate on status -->
+
+- Heading = deepest containing heading, exact text; give the path if the heading text is duplicated on the page; "(top of page)" if none. Block = j-th paragraph/list/table/quote under it, counted from 1, plus enough of its opening words (~3) to spot it without counting. Anchor = exact quote, searchable — never a paraphrase.
 - The list must be exhaustive of your doubts. Close with the bounding line ("everything else traces to filed sources") only when you have checked.
 - A clean page gets one line saying so — never pad items.
 
