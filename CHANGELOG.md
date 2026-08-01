@@ -6,6 +6,15 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.6.1] — 2026-08-01
+
+### Added
+- **Provenance write-discipline, one sentence in each failure's home** (amendments 2026-07-31, each shipped after a real failure case): session-capture — a commitment voiced in the record ("I'll send that now") is written as committed, never as done, because the record ends before the action would occur; ingest — a citation to named external work that arrives from conversation rather than a filed source stays marked as the conversation's claim, and never becomes a page's title, filename, or organizing frame until checked against the work itself. Both instantiate the constitution's laundered-inference anti-pattern.
+- **Lint learns bundle membership** (check 1): a page inside a bundle folder belongs on its hub's satellite list — derivable from the path alone, so lint appends missing entries unsupervised, each summarized from the satellite's own `description` line. Append, never regenerate: the hub is prose. Cross-folder relationship links remain gated.
+
+### Changed
+- **Lint check 1 respecified as a whole** — restructured from one accreted paragraph into labeled sub-sections (Scope / Frontmatter / Links / Quote provenance / Sources sync / Bundle membership / Staged sections / Type hygiene), every prior rule preserved. `Index` joins the known-type list (authored hub listings, default Concept lifecycle). meta/README.md now documents the OKF §6 deviation — authored bundle hubs carry page frontmatter and are checked as pages — beside the existing §5.2 one.
+
 ## [0.6.0] — 2026-07-31
 
 ### Added

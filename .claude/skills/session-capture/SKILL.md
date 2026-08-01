@@ -11,7 +11,7 @@ You are writing a source, not wiki pages — the capture goes to `sources/inbox/
 
 1. **Select the durable knowledge**: decisions made, facts established, reasoning worth keeping, open questions. Leave out the mechanics (tool calls, dead ends) unless the path itself was the insight.
 
-2. **Quote pivotal exchanges verbatim.** Where the user stated something important, quote their exact words, marked as a quote with speaker and rough position ("early in session"). One-line why: verbatim user speech can be born `verified` downstream; your paraphrase cannot — paraphrase is where misstatement lives. Summarize the rest as reported speech ("we discussed…", "the user asked…"), never as flat fact — a capture records what was said, not what's true.
+2. **Quote pivotal exchanges verbatim.** Where the user stated something important, quote their exact words, marked as a quote with speaker and rough position ("early in session"). One-line why: verbatim user speech can be born `verified` downstream; your paraphrase cannot — paraphrase is where misstatement lives. Summarize the rest as reported speech ("we discussed…", "the user asked…"), never as flat fact — a capture records what was said, not what's true. A commitment voiced in the record ("I'll send that now") is written as committed, never as done — the record ends before the action would occur.
 
 3. **Write one file** to `sources/inbox/<YYYY-MM-DD>-session-<topic-slug>.md`:
 
