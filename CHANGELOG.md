@@ -1,6 +1,6 @@
 # Changelog
 
-Notable changes to the exocortex program, per release. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [Semantic Versioning](https://semver.org/) — pre-1.0, a minor bump means new capability or a rule change, a patch means fixes and wording.
+Notable changes to the exocortex program, per release. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [Semantic Versioning](https://semver.org/) — pre-1.0, a patch means nothing behaves differently after updating (fixes, wording, restructuring); a minor means the maintainer will do something it didn't do before, so read the notes before updating.
 
 To update an installed vault, tell your maintainer "update my exocortex" (the `update-exocortex` skill) — or see [SETUP.md § Updating](SETUP.md#updating-an-existing-deployment) for the by-hand path. Watch this repo (Watch → Custom → Releases) to be notified of new versions.
 
