@@ -24,7 +24,7 @@ If this vault is the program's *source* (publish-program is configured here), st
 4. **Pull and reconcile.** `git pull` in the clone. Diff every shipped program file against the vault's copy. Each difference is one of:
    - upstream change only → take it;
    - a local amendment (made via `amend`) → surface it and ask: keep yours, take upstream, or merge;
-   - a user-added local skill not shipped upstream → preserve it (`bootstrap.sh --update` deletes unknown files under `.claude/skills/` — set it aside first).
+   - a user-added local skill or script not shipped upstream → left alone by `bootstrap.sh --update` (it syncs only shipped folders); verify it survived after applying.
 5. **Apply.** `./tools/bootstrap.sh <vault> --update` from the clone, then restore kept-local, merged, and user-added files from step 4.
 6. **Verify.** Show the user the vault's git diff — it should contain exactly the approved payload plus reconciliations. Commit (`update: program <old> → <new>`).
 7. **Record.** Stamp the new version in DEPLOYMENT.md § Program version; one line in the day log (`wiki/log/<YYYY-MM-DD>.md`): old → new, what was reconciled or kept.

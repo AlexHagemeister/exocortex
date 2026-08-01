@@ -6,6 +6,17 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.5.0] — 2026-07-31
+
+### Added
+- **Substrate scripts now ship.** `.claude/scripts/` joins the program: `vault_graph.py` (lint check 0's graph compile), `notes-cursor-diff.py` (the notes sweep's mechanical walk), `regen-index.py` (derived-index regeneration), `ingest-file.sh` (ingest's move-hash-ledger step). **One-time setup after updating:** build the graph venv, `python3 -m venv .claude/scripts/graph-venv` then `.claude/scripts/graph-venv/bin/pip install networkx pyyaml` (lint check 0 also carries these commands and falls back to manual checks if the script can't run). The program definition (CONSTITUTION § Sharing and boundaries, GLOSSARY "program") now says system files, not markdown.
+- **Folder-law READMEs for every zone**: drawings/, notes/, sources/ plus its four stream folders, wiki/, wiki/projects/, wiki/life/. Every GLOSSARY `_Home:_` pointer now resolves to a shipped surface, so a fresh install passes lint check 9 by construction.
+
+### Changed
+- **The repo no longer ships its own publishing machinery.** The `publish-program` skill (the tool that produces these releases) was creator tooling riding in the consumer surface; it now lives only in the program's source vault. MANIFEST enumerates every shipped skill and script explicitly and carries a declared-private list: every skill and script in the source vault appears on exactly one side, so nothing ships (or stays private) without a recorded decision. GLOSSARY entries for creator-side skills now say so.
+- **`bootstrap.sh` reads MANIFEST** instead of keeping its own file list (the two had drifted; this release would have shipped skills referencing scripts that bootstrap never delivered). Side benefit: `--update` now syncs only shipped folders, so skills and scripts you added locally survive updates without the set-aside step (update-exocortex step 4 updated to match).
+- The digest's program-update item is now consumer-only (the source-vault drift report moved into the creator's publish procedure); lint check 0 carries its environment setup inline instead of pointing at deployment bindings; vault-snapshot's hourly-subset wording is deployment-neutral.
+
 ## [0.4.0] — 2026-07-24
 
 ### Added

@@ -21,6 +21,8 @@ Weight and disclose every page per the status ladder in CLAUDE.md ("Reading wiki
 
 Answer, citing the pages (and where useful, the underlying sources) each claim rests on. Distinguish what pages state from what you are inferring across them — never blend a guess into cited fact. <!-- constitution: laundered inference -->
 
+When an answer or recommendation turns on a recently filed source (this session, or the last few days), **re-read the filed file** before relying on your working memory of it — extraction is not weighting; the failure mode is recommending against a fact you personally wrote down. If that source holds a negative record about the entity you're recommending on (a withdrawal, a dropped commitment, a stated constraint), surface it explicitly — even to say it was considered and judged non-blocking. Silence is indistinguishable from having missed it.
+
 On long multi-page syntheses, place the fetched content above the question in any context you assemble, and quote the load-bearing passages before reasoning over them — both measurably improve long-context accuracy.
 
 ### 4. Write good answers back

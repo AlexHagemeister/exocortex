@@ -6,6 +6,12 @@
 #
 # Special case: ISSUES.md is synced convention-only — sync.sh strips the
 # live open-issue list (it points into the private .state/issues/).
+#
+# private: deliberately unshipped — creator-side. Every skill and script in
+# the vault appears exactly once: as a ship line below, or here.
+#   .claude/skills/publish-program/   (creator tooling)
+#   .claude/skills/review-system/     (pending review)
+#   .claude/scripts/snapshot-lite.sh  (machine automation)
 
 CLAUDE.md
 CONSTITUTION.md
@@ -15,8 +21,32 @@ templates/default.md
 templates/README.md
 attachments/README.md
 staging/README.md
+drawings/README.md
+notes/README.md
+sources/README.md
+sources/inbox/README.md
+sources/articles/README.md
+sources/sessions/README.md
+sources/meetings/README.md
+sources/life/README.md
+wiki/README.md
+wiki/projects/README.md
+wiki/life/README.md
 .state/README.md
-.claude/skills/
+.claude/skills/ingest/
+.claude/skills/process-inbox/
+.claude/skills/session-capture/
+.claude/skills/query/
+.claude/skills/lint/
+.claude/skills/digest/
+.claude/skills/audit-exocortex/
+.claude/skills/vault-snapshot/
+.claude/skills/amend/
+.claude/skills/update-exocortex/
+.claude/scripts/vault_graph.py
+.claude/scripts/notes-cursor-diff.py
+.claude/scripts/regen-index.py
+.claude/scripts/ingest-file.sh
 meta/README.md
 meta/HANDOFF.md
 meta/VAULT-DOCTRINE.md

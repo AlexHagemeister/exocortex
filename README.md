@@ -127,15 +127,15 @@ flowchart LR
 - **Rules live where they bind.** Invariants in [CLAUDE.md](CLAUDE.md) (one page, hard budget), procedures in [.claude/skills/](.claude/skills/), folder law in each folder's README, principles in [CONSTITUTION.md](CONSTITUTION.md). No rule lives twice.
 - **The system is its own tester.** Friction gets filed as issues ([ISSUES.md](ISSUES.md)); repeated rule overrides trigger amendment proposals; a weekly digest surfaces everything for human review. The rules are a pact you authored and may renegotiate — never a cage.
 
-The maintainer's skill set: `ingest` · `process-inbox` · `session-capture` · `query` · `lint` · `digest` · `audit-exocortex` · `vault-snapshot` · `amend` · `publish-program` · `update-exocortex`.
+The maintainer's skill set: `ingest` · `process-inbox` · `session-capture` · `query` · `lint` · `digest` · `audit-exocortex` · `vault-snapshot` · `amend` · `update-exocortex`.
 
 ## Key terms
 
 <details>
 <summary>The vocabulary you'll see everywhere (10 terms)</summary>
 
-- **program** — shippable system markdown per MANIFEST: rules, skills, glossary, and supporting conventions; no personal data.
-- **bundle** — a contained folder of related knowledge; bundles nest freely (e.g. the krux/ bundle inside projects/). Unqualified, "the bundle" still means the outermost one: wiki/ alone, the OKF-conformant export surface — not the vault and not the program. (Sense widened per the user, 2026-07-20.)
+- **program** — shippable system files per MANIFEST: rules, skills, substrate scripts, glossary, and supporting conventions; no personal data.
+- **bundle** — a contained folder of related knowledge; bundles nest freely (e.g. a project's bundle inside projects/). Unqualified, "the bundle" still means the outermost one: wiki/ alone, the OKF-conformant export surface — not the vault and not the program. (Sense widened per the user, 2026-07-20.)
 - **vault** — the whole personal knowledge installation: sources, notes, wiki, attachments, and pipeline bookkeeping.
 - **wiki** — agent-maintained compiled knowledge layer in wiki/; claims carry status and provenance.
 - **ingest** — skill that files a source and compiles it into wiki pages.

@@ -21,7 +21,7 @@ Run the `ingest` skill on each remaining item, oldest first. If a session is int
 
 ## Pass 2 — notes sweep
 
-The cursor lives at `.state/notes-cursor.txt`: one line per known note — `<sha256>  <read-timestamp ISO 8601>  <path relative to notes/>`. Create it on first run.
+The cursor lives at `.state/notes-cursor.txt`: one line per known note — `<sha256>  <read-timestamp ISO 8601>  <path relative to notes/>`. Create it on first run. `.claude/scripts/notes-cursor-diff.py` performs the mechanical walk and diff below (steps 1–4 plus the hash compare), and `--write` rewrites the cursor (step 7) — use it instead of re-inventing the walk each sweep. Recording deletions (step 6), the mass-deletion judgment, ingest decisions, and all write-back stay with you.
 
 1. Walk `notes/` recursively. OS artifacts (`.DS_Store`, `Thumbs.db`, `desktop.ini`) are invisible to the sweep — never walked, ingested, or carried in the cursor.
 2. **Sync eviction is not deletion.** A sync-layer placeholder (e.g. `.<name>.icloud`) means the file is evicted but present — record it as "evicted, unchanged" and skip; never treat it as new, changed, or deleted. (None should appear on the current deployment — if one does, flag it to the user.)
