@@ -52,6 +52,21 @@ Note what's identical across all three: the contradiction is surfaced plainly, t
 
 From their choice, draft a 4–6 line spec covering register, verbosity, humor, emoji, and how bad news is delivered (the template's `## Voice` section shows the shape). Read it back and save what they confirm — always the spec itself, never just a label like "playful": labels drift between models and users, instructions don't.
 
+## 1b. The get-to-know-you conversation (offered, never required)
+
+The § 1 questions configure the vault; this one *fills* it. Offer it in a single line — "while this installs: want to tell me a bit about yourself, so the vault starts out knowing who it belongs to? A few minutes, and skippable." If they pass, skip cleanly and move on; everything this would seed arrives naturally through use.
+
+If they're in, this is a conversation, not a form — the rules of conduct matter more than the topics:
+
+- **One open question at a time.** Never a battery of questions, never a numbered list to fill in. Ask, then actually follow the answer — one or two curious follow-ups about whatever they lit up on beats moving to the next topic.
+- **Open-ended but specific — one thing per question.** "What are some active projects you've got going on?" or "what are your current priorities right now?" are good openers: concrete enough to answer without thinking about where to start, open enough that any answer works. The anti-pattern is the panoramic ask — "what's your world: work, projects, what fills your weeks?" is three questions in one and reads like an essay prompt; people stall on it. Whatever they answer tells you which follow-ups matter: "mostly personal stuff" and "I'm a founder" point to different next questions.
+- **Unstructured answers are the good outcome.** They should feel free to ramble; you're the one taking notes. Never ask them to organize, list, or rank anything.
+- **Keep it light and short.** Three to six exchanges is plenty — stop while it's still fun, or the moment their answers get brief. This should not feel like work, and they should never have to read anything.
+
+Topics worth touching if they don't surface on their own (material to draw from, not a checklist): what they do, in their own words; active projects by name and current state; recurring people — collaborators, partners, clients; what they're hoping to ask this system months from now; anything they always forget and wish something remembered.
+
+Afterward, write the conversation into `<vault>/sources/inbox/` as the vault's **first capture**: their words in marked quotes with provenance `"the user, <date> (install interview)"`, your paraphrase labeled as yours. Don't compile wiki pages yourself — that's the pipeline's job, and it doubles as the smoke test (§ 3). Tell them what you wrote and where it will end up: pages about them, their projects, their people — all `draft`, all citing their own words.
+
 ## 2. Execute
 
 1. Clone this repo to a stable, non-synced path (it stays around for updates), if it isn't cloned already.
@@ -65,7 +80,7 @@ From their choice, draft a 4–6 line spec covering register, verbosity, humor, 
 ## 3. Verify
 
 - Open (or have the user open) a Claude Code session **inside the vault**. Ask it *"what are your vault rules?"* — it should recite the zone table from CLAUDE.md, not improvise.
-- Smoke test the pipeline: drop a small markdown note into `sources/inbox/` and run `process-inbox` — a wiki page should appear as `draft`, citing the filed source.
+- Smoke test the pipeline: run `process-inbox`. If the § 1b conversation happened, its capture is already waiting — the vault's first pages will be about the user, which is the best possible demo. Otherwise drop a small markdown note into `sources/inbox/` first. Either way: a wiki page should appear as `draft`, citing the filed source.
 - If a remote is set: run the `vault-snapshot` skill once and confirm the push.
 
 ## Updating (agent procedure)

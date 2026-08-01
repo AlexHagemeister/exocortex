@@ -30,8 +30,12 @@ sources/sessions/README.md
 sources/meetings/README.md
 sources/life/README.md
 wiki/README.md
+wiki/concepts/README.md
 wiki/projects/README.md
+wiki/people/README.md
 wiki/life/README.md
+wiki/craft/README.md
+wiki/connections/README.md
 .state/README.md
 .claude/skills/ingest/
 .claude/skills/process-inbox/
