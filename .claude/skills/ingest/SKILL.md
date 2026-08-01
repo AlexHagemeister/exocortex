@@ -19,7 +19,7 @@ Note deltas skip quarantine (notes/ is the user's zone — never move a note or 
 
 ### 2. File (freeze happens here)
 
-Move the inbox item to its permanent stream folder — `sources/articles/` (external material), `sources/sessions/` (session captures), `sources/meetings/` (recorded conversation transcripts), `sources/life/` (personal exports) — choosing by the stream READMEs. Use a stable, descriptive, date-prefixed filename (`2026-07-16-title-slug.md`); this path is cited forever.
+Move the inbox item to its permanent stream folder — `sources/articles/` (external material), `sources/sessions/` (session captures), `sources/meetings/` (recorded conversation transcripts), `sources/life/` (personal exports) — choosing by the stream READMEs. If the best stream's declared modality would still mislabel the item (e.g. agent web research, a maintainer-authored artifact), add one `modality:` line to the item's frontmatter before filing, stating what the item actually evidences — the stream README stays the default for everything else. Use a stable, descriptive, date-prefixed filename (`2026-07-16-title-slug.md`) dated by the source's own local date, not the ingest run's; this path is cited forever. (`.claude/scripts/ingest-file.sh <inbox-item> <stream-folder>` does the move + hash + ledger append + stale-citation grep in one call.)
 
 **File before you cite.** Provenance always references the final path. Before filing, inbox items are freely editable; after filing, the source is frozen — never edit or delete it, because a source records what was said, not what's true. Append the new hash to the ledger. After filing, grep `wiki/` for the item's old inbox path and rewrite any citations to the filed path.
 
@@ -27,13 +27,13 @@ Notes are never filed — they stay in `notes/`, and you cite `notes/<path>` **p
 
 ### 3. Read under the stream's modality
 
-Read the source in full. Honor the stream README's declared evidential semantics — they bound what kind of claim the source can support (e.g., a calendar entry evidences intention, never occurrence; a session summary is paraphrase of what was said, not what's true).
+Read the source in full. Honor the stream README's declared evidential semantics — or the item's own `modality:` frontmatter, which overrides the stream default. They bound what kind of claim the source can support (e.g., a calendar entry evidences intention, never occurrence; a session summary is paraphrase of what was said, not what's true).
 
 If this is an interactive session, briefly discuss takeaways with the user before writing — what seems important, what connects to existing pages.
 
 ### 4. Write the source-summary page
 
-One wiki page distilling the source, in the appropriate `wiki/` topic folder (check `wiki/index.md`; if no folder fits, ask the user — new top-level folders are the user's call, because a path is an identity and renames break links). Fill this template:
+One wiki page distilling the source, in the appropriate `wiki/` topic folder (check `wiki/index.md`; if no folder fits, ask the user — new top-level folders are the user's call, because a path is an identity and renames break links). When several inbox items are one **attachment set** (an item plus the attachments it explicitly cites at capture, never mere topical similarity or same-day arrival), file each separately but write one summary page citing all of them; a member gets its own page only when it carries claims the primary item's page doesn't. Fill this template:
 
 ```yaml
 ---
@@ -74,6 +74,8 @@ Find existing wiki pages the source bears on (start from `wiki/index.md`, drill 
 - **No claim without provenance.** Every substantive claim traces to a `sources:` entry or is explicitly marked as your inference. Never write a guess with the typography of a fact. State each claim plainly; mark its epistemic status once — one attribution sentence per claim-cluster, not hedges woven into every clause. A verbatim user quote carries an inline link to its source at the quote: in-prose quotes make the quoted words the link anchor; blockquotes end with a citation line `— [the user, <date>](<relative path>)`. Page-level `sources:` records what the page was *built from* — not enough for quotes that travel to other pages, and it lists every source the body links inline.
 - **Standard markdown links only, file-relative paths** (same folder: `[orders](orders.md)`; other folder: `[orders](../concepts/orders.md)`) — never wikilinks, and never leading-slash paths: Obsidian resolves `/...` from the vault root, not the bundle root, so those links are dead in the viewer and clicking them spawns phantom files. File-relative is OKF-legal (spec §5.2). Dangling links are legal and useful: red links are the backlog of known-missing knowledge.
 - `depends_on:` lists the concept paths this page's claims rest on.
+- **Never state another page's status or existence in prose** — status and page-sets are designed to change, so such sentences are guaranteed to rot. Link the page and let readers weight it by its own frontmatter.
+- Respect the user's word banlist (path in `meta/DEPLOYMENT.md` § Style banlist) in all prose you write. Pages already carrying a banned word get fixed opportunistically when a skill next touches them — never in a bulk sweep.
 
 **Adding to an existing `status: verified` page** (staged-sections convention): never edit the verified core prose — new material appends under a dated heading `## Unreviewed additions (YYYY-MM-DD)` (multiple dated sections may accumulate), each claim with provenance, and you set `pending_review: true` in the frontmatter. The page-level `verified` then means "the reviewed core is verified"; annex content is draft-grade until the user confirms it (digest merges it into the core and clears the flag). If annex material *contradicts* the verified core, flag the contradiction inside the annex and let it queue for the digest — never auto-dispute the page. Two exceptions to core immutability: the correction flow — a correction from the user (provenance "the user, <date>") authorizes rewriting the core directly — and link maintenance (add a missing source link, repair a broken path), which asserts nothing new and runs unsupervised. Draft pages need none of this; edit them freely.
 
@@ -83,7 +85,7 @@ If the source reveals a substantive insight that two things relate (beyond a not
 
 ### 7. Close out
 
-- Regenerate `index.md` in every folder you touched — source-stream folders you filed into count as touched (derived files: sections of `* [Title](path) - description` lines pulled from frontmatter; regenerate freely, never hand-maintain).
+- Regenerate `index.md` in every folder you touched — source-stream folders you filed into count as touched (derived files: sections of `* [Title](path) - description` lines pulled from frontmatter; regenerate freely, never hand-maintain; `.claude/scripts/regen-index.py <folder>` does it mechanically and slots new pages for you to categorize). **Exception**: an `index.md` carrying page frontmatter (`type`/`title`/`status`) is an authored bundle hub, not a listing — never regenerate it; link new satellites from it instead (link maintenance).
 - Append one entry per action to today's day log, `wiki/log/<YYYY-MM-DD>.md` (create it if missing; newest-first `* **Update**: …` lines; log.md indexes the day files).
 
 ## Corrections (when the source is the user's statement)

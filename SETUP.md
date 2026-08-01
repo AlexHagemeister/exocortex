@@ -18,7 +18,7 @@ cd exocortex
 ./tools/bootstrap.sh /path/to/your/vault
 ```
 
-This scaffolds the folder skeleton (`sources/inbox/`, `notes/`, `wiki/`, `.state/`, `templates/`, `meta/`), installs the program files, and creates your `meta/DEPLOYMENT.md` from the template. It never overwrites existing files on a fresh run.
+This scaffolds the folder skeleton (`sources/inbox/`, `notes/`, `wiki/`, `.state/`, `templates/`, `meta/`), installs the program files (the list lives in [MANIFEST](MANIFEST)), and creates your `meta/DEPLOYMENT.md` from the template. It never overwrites existing files on a fresh run, and it prints the remaining one-time steps: filling in DEPLOYMENT.md and building the lint graph venv (needs python3; two commands, printed at the end).
 
 ## 2. Fill in your deployment bindings
 
@@ -120,7 +120,7 @@ git -C /path/to/program-clone pull
 ./tools/bootstrap.sh /path/to/your/vault --update
 ```
 
-`--update` overwrites the **program files only** (CLAUDE.md, CONSTITUTION.md, skills, meta reference docs) and never touches your data or your `meta/DEPLOYMENT.md`. One caution, and it's the reason the agent path exists: **`--update` replaces shipped skill files wholesale.** If you've locally amended rules via the `amend` skill, diff first and reconcile — keep yours, take upstream, or merge. Your amendments are legitimate forks of the rules; an update should never silently undo them.
+`--update` overwrites the **program files only** (CLAUDE.md, CONSTITUTION.md, shipped skills and scripts, meta reference docs) and never touches your data, your `meta/DEPLOYMENT.md`, or skills and scripts you added locally (only shipped folders sync). When a release adds dependencies, its [CHANGELOG.md](CHANGELOG.md) entry lists the one-time setup (v0.5.0: build the lint graph venv, two commands). One caution, and it's the reason the agent path exists: **`--update` replaces shipped skill files wholesale.** If you've locally amended rules via the `amend` skill, diff first and reconcile — keep yours, take upstream, or merge. Your amendments are legitimate forks of the rules; an update should never silently undo them.
 
 ## Publishing your own fork (maintainers of the program)
 

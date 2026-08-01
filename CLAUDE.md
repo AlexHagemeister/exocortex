@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-24 Fri, Jul 24 — 5:37 PM
+updated: 2026-07-24 Fri, Jul 24 — 8:02 PM
 ---
 # CLAUDE.md — Vault Operating Rules
 
@@ -13,12 +13,13 @@ This vault is the user's knowledge system: an agent-maintained wiki compiled fro
 | wiki/ | create and edit pages, **only via the skills** | write directly outside a skill procedure |
 | notes/ | read, link to, ingest from; sweep write-back of frontmatter metadata — additive only, pointers to existing wiki pages; maintain notes/index.md (derived index — rules in process-inbox) | touch note bodies, or edit/delete anything the user wrote — the words are the user's alone |
 | attachments/ | read, embed-link; move/rename/delete when the user explicitly and specifically approves | touch files otherwise — the user's media; Obsidian files new attachments here |
+| drawings/ | read, embed-link when the user points at one | sweep, ingest, index, or write to anything here — canvases and drawings are the user's, and the pipeline never reads them |
 | templates/ | read; edit when the user explicitly and specifically approves | touch otherwise — the user's Obsidian note templates |
 | staging/ | read; move items into notes/ or sources/inbox/ when the user directs an import batch | touch otherwise — un-imported material awaiting the user's triage |
 | CLAUDE.md, .claude/skills/ | propose changes via the `amend` skill | edit directly |
 | .state/ | pipeline bookkeeping via skills; issue files any time | anything else |
 
-**The single-pipeline rule:** knowledge enters the wiki only through sources/inbox/, the notes/ sweep, or a skill. If you're about to write a wiki page and you're not inside a skill procedure, stop — route it through inbox/ or invoke the skill.
+**The single-pipeline rule:** knowledge enters the wiki only through sources/inbox/, the notes/ sweep, or a skill. If you're about to write a wiki page and you're not inside a skill procedure, stop — route it through inbox/ or invoke the skill. Claim-neutral edits the user directs in chat — style, structure, formatting, link fixes that change no claim — are not knowledge entering the wiki: apply them directly on the user's in-chat approval and log one line in the day log.
 
 ## Reading wiki pages — status weighting
 
@@ -50,6 +51,6 @@ These rules are under active development and not yet stress-tested. If a rule is
 
 ## Skills (in .claude/skills/ — invoke, don't improvise)
 
-`ingest` (source → wiki pages) · `process-inbox` (drain inbox + sweep notes) · `session-capture` (preserve a session's knowledge) · `query` (answer from the vault, with citations) · `lint` (health checks) · `digest` (review surface for the user) · `audit-exocortex` (one-page-at-a-time review loop) · `vault-snapshot` (backup) · `amend` (change the rules/skills, with the user's approval) · `publish-program` (sync system files to the public repo, user-reviewed) · `update-exocortex` (pull upstream program updates into this vault; inert for the program's source vault)
+`ingest` (source → wiki pages) · `process-inbox` (drain inbox + sweep notes) · `session-capture` (preserve a session's knowledge) · `query` (answer from the vault, with citations) · `lint` (health checks) · `digest` (review surface for the user) · `audit-exocortex` (one-page-at-a-time review loop) · `vault-snapshot` (backup) · `amend` (change the rules/skills, with the user's approval) · `update-exocortex` (pull upstream program updates into this vault; inert for the program's source vault)
 
 If a task matches a skill, use the skill. If no skill fits and the task touches wiki/ or sources/, ask the user rather than improvising a write path.

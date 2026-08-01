@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-24 Fri, Jul 24 — 3:02 PM
+updated: 2026-07-31 Fri, Jul 31 — 8:31 PM
 ---
 # GLOSSARY — system vocabulary
 
@@ -9,13 +9,21 @@ Runtime surfaces say **you** and **the user**. Role nouns (Curator, Maintainer) 
 
 ## Zones and sharing
 
-**program** — shippable system markdown per MANIFEST: rules, skills, glossary, and supporting conventions; no personal data.
+**program** — shippable system files per MANIFEST: rules, skills, substrate scripts, glossary, and supporting conventions; no personal data.
 _Avoid:_ the vault, the wiki, the repo (ambiguous — name which surface)
 _Home:_ CONSTITUTION.md § Sharing and boundaries; public repo MANIFEST
 
-**bundle** — a contained folder of related knowledge; bundles nest freely (e.g. the krux/ bundle inside projects/). Unqualified, "the bundle" still means the outermost one: wiki/ alone, the OKF-conformant export surface — not the vault and not the program. (Sense widened per the user, 2026-07-20.)
+**bundle** — a contained folder of related knowledge; bundles nest freely (e.g. a project's bundle inside projects/). Unqualified, "the bundle" still means the outermost one: wiki/ alone, the OKF-conformant export surface — not the vault and not the program. (Sense widened per the user, 2026-07-20.)
 _Avoid:_ the vault, the program, "my exocortex" (ambiguous)
 _Home:_ CONSTITUTION.md § Sharing and boundaries (export sense); GLOSSARY only for the nested sense
+
+**hub** — a project's central page: goals, current state, key decisions, links to satellites. In a bundle, the hub is the folder's authored `index.md` — a page, not a derived listing.
+_Avoid:_ index (indexes are derived and regenerated; hubs are authored)
+_Home:_ wiki/projects/README.md
+
+**satellite** — a page holding one substantial sub-topic of a project, linked from its hub.
+_Avoid:_ section (a satellite is a page, not a heading), sub-page
+_Home:_ wiki/projects/README.md
 
 **vault** — the whole personal knowledge installation: sources, notes, wiki, attachments, and pipeline bookkeeping.
 _Avoid:_ the wiki, the program, the bundle
@@ -29,6 +37,10 @@ _Home:_ wiki/README.md
 _Avoid:_ truth claim, "the wiki says"
 _Home:_ CLAUDE.md § Zones; sources/inbox/README.md (freeze-at-filing)
 
+**attachment set** — several inbox items that are one source: a primary item plus the attachments it explicitly cites at capture. Each member files separately; one summary page cites them all.
+_Avoid:_ bundle (a folder of wiki knowledge), "related captures" (topical similarity is not membership)
+_Home:_ `.claude/skills/ingest/` step 4
+
 **note** — the user's own writing in notes/; the maintainer never edits note bodies.
 _Avoid:_ source, wiki page
 _Home:_ CLAUDE.md § Zones
@@ -40,6 +52,10 @@ _Home:_ sources/inbox/README.md
 **staging** — import holding area at staging/; invisible to the pipeline until items move into notes/ or sources/inbox/.
 _Avoid:_ inbox (that's sources/inbox/, the capture queue)
 _Home:_ staging/README.md
+
+**drawings** — visual-thinking folder at drawings/; canvases, Excalidraw drawings, and sketches, invisible to the pipeline in every direction. Location is the rule, not file type.
+_Avoid:_ attachments (media embedded in pages), staging (import holding area)
+_Home:_ drawings/README.md
 
 ## Pipeline skills
 
@@ -71,11 +87,15 @@ _Home:_ `.claude/skills/digest/`
 _Avoid:_ lint (health checks), digest (compiles the review surface; audit is the loop that walks it)
 _Home:_ `.claude/skills/audit-exocortex/`
 
+**review-system** — creator-side skill (source vault only; not yet shipped) that reviews the system itself (rules vs disk, skill-layer drift, automation, human-loop health) on a fixed rubric; reports to .state/reviews/.
+_Avoid:_ lint (page health), audit (content review loop)
+_Home:_ `.claude/skills/review-system/`
+
 **amend** — skill that changes rules, skills, or wiki folder structure with user approval.
 _Avoid:_ fix the rules, edit CLAUDE.md (name the skill)
 _Home:_ `.claude/skills/amend/`
 
-**publish-program** — skill that syncs vault program files to the public repo after user-reviewed diff.
+**publish-program** — creator-side skill (source vault only; not shipped) that syncs vault program files to the public repo after user-reviewed diff.
 _Avoid:_ push, backup, mirror
 _Home:_ `.claude/skills/publish-program/`
 
@@ -113,9 +133,9 @@ _Home:_ CLAUDE.md § Reading wiki pages — status weighting
 _Avoid:_ citation (provenance is origin; citation is how you point at it)
 _Home:_ CONSTITUTION.md principle 1
 
-**modality** — how much evidential weight a stream grants its contents (declared in that stream's README).
+**modality** — how much evidential weight a stream grants its contents (declared in that stream's README); a filed item may carry its own `modality:` frontmatter line when the stream default would mislabel it, and the item's line wins.
 _Avoid:_ tone, format
-_Home:_ stream README (e.g. sources/meetings/README.md); `.claude/skills/ingest/`
+_Home:_ stream README (e.g. sources/meetings/README.md); `.claude/skills/ingest/` step 2 (per-item override)
 
 **freeze** — the moment ingest files a source: path and content become immutable records of what was said.
 _Avoid:_ lock, archive
@@ -134,6 +154,10 @@ _Home:_ ISSUES.md; `.state/README.md`
 **day log** — dated pipeline history at wiki/log/<YYYY-MM-DD>.md.
 _Avoid:_ journal, changelog (program changes use public CHANGELOG.md)
 _Home:_ wiki/log/
+
+**claim-neutral edit** — a user-directed wiki edit that changes no claim (style, structure, formatting, link fixes); applied directly on in-chat approval and day-logged — no knowledge enters, so no pipeline is bypassed.
+_Avoid:_ correction (that flow is for wrong claims), override (this is rule-following, not an exception)
+_Home:_ CLAUDE.md, single-pipeline rule
 
 **self-interview** — the digest's 1–3 question-shaped items about the user per cycle: blind-spot (receipted hypothesis awaiting verdict), disclosure (the system doesn't know, asks), negative-space (neither knows); the user's verdict completes all bookkeeping.
 _Avoid:_ survey, personality quiz, blind-spot report

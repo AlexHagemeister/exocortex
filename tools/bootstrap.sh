@@ -6,10 +6,11 @@
 #                                                      # existing vault (overwrites the
 #                                                      # program, never your data)
 #
-# Program files: CLAUDE.md, CONSTITUTION.md, GLOSSARY.md, .claude/skills/,
-# templates/, folder READMEs, .state/README.md, meta/ reference docs. Your data
+# The program file list lives in MANIFEST — one home, shared with tools/sync.sh:
+# directory entries sync whole folders, file entries copy one file. Your data
 # (sources/, notes/, wiki/, staging/, .state/ working files, meta/DEPLOYMENT.md)
-# is never touched by --update.
+# is never touched by --update, and skills or scripts you added locally are left
+# alone — only the shipped folders and files are synced.
 
 set -euo pipefail
 
@@ -35,16 +36,11 @@ esac
 # Data skeleton — created empty, owned by you from here on.
 mkdir -p "$TARGET/sources/inbox" "$TARGET/notes" "$TARGET/wiki/log" \
          "$TARGET/.state/issues" "$TARGET/templates" "$TARGET/meta" \
-         "$TARGET/attachments" "$TARGET/staging" "$TARGET/.claude/skills"
+         "$TARGET/attachments" "$TARGET/staging" "$TARGET/drawings" \
+         "$TARGET/.claude/skills" "$TARGET/.claude/scripts"
 
-PROGRAM_FILES=(CLAUDE.md CONSTITUTION.md GLOSSARY.md templates/default.md
-               templates/README.md attachments/README.md staging/README.md
-               .state/README.md meta/README.md meta/HANDOFF.md
-               meta/VAULT-DOCTRINE.md meta/OKF-SPEC.md)
-
-# Install-only files: seeded once, then owned by the vault. ISSUES.md is the
-# vault's derived open-issue index — --update must never overwrite it.
-INSTALL_ONLY_FILES=(ISSUES.md)
+MANIFEST_FILE="$REPO_ROOT/MANIFEST"
+[ -f "$MANIFEST_FILE" ] || die "MANIFEST missing from repo — cannot determine program files"
 
 copy() { # copy $1 (repo-relative) into the vault, honoring mode
   local src="$REPO_ROOT/$1" dst="$TARGET/$1"
@@ -60,14 +56,29 @@ seed() { # copy $1 (repo-relative) into the vault only if absent
   [ -e "$dst" ] || cp "$src" "$dst"
 }
 
-for f in "${PROGRAM_FILES[@]}"; do copy "$f"; done
-for f in "${INSTALL_ONLY_FILES[@]}"; do seed "$f"; done
+sync_dir() { # sync directory $1 (repo-relative, no trailing slash), honoring mode
+  local src="$REPO_ROOT/$1" dst="$TARGET/$1"
+  mkdir -p "$dst"
+  if [ "$MODE" = "--update" ]; then
+    rsync -a --delete "$src/" "$dst/"
+  else
+    rsync -a --ignore-existing "$src/" "$dst/"
+  fi
+}
 
-if [ "$MODE" = "--update" ]; then
-  rsync -a --delete "$REPO_ROOT/.claude/skills/" "$TARGET/.claude/skills/"
-else
-  rsync -a --ignore-existing "$REPO_ROOT/.claude/skills/" "$TARGET/.claude/skills/"
-fi
+# Install-only files are seeded once, then owned by the vault. ISSUES.md is the
+# vault's derived open-issue index — --update must never overwrite it.
+while IFS= read -r entry; do
+  case "$entry" in ''|\#*) continue ;; esac
+  [ -e "$REPO_ROOT/$entry" ] || die "MANIFEST entry missing from repo: $entry"
+  if [ "${entry%/}" != "$entry" ]; then
+    sync_dir "${entry%/}"
+  elif [ "$entry" = "ISSUES.md" ]; then
+    seed "$entry"
+  else
+    copy "$entry"
+  fi
+done < "$MANIFEST_FILE"
 
 # Deployment bindings: template becomes the live file, once. Never overwritten.
 if [ ! -e "$TARGET/meta/DEPLOYMENT.md" ]; then
@@ -78,7 +89,10 @@ echo "Vault scaffolded at: $TARGET"
 echo
 echo "Next steps (details in SETUP.md):"
 echo "  1. Fill in $TARGET/meta/DEPLOYMENT.md — every UNSET row."
-echo "  2. Open Claude Code in the vault; the skills in .claude/skills/ register automatically."
-echo "  3. git init the vault, add a PRIVATE remote, and run the vault-snapshot skill."
-echo "  4. Optionally schedule process-inbox / lint / digest / vault-snapshot runs."
-echo "  5. Drop something into sources/inbox/ and run process-inbox."
+echo "  2. Build the lint graph venv (needs python3):"
+echo "       python3 -m venv $TARGET/.claude/scripts/graph-venv"
+echo "       $TARGET/.claude/scripts/graph-venv/bin/pip install networkx pyyaml"
+echo "  3. Open Claude Code in the vault; the skills in .claude/skills/ register automatically."
+echo "  4. git init the vault, add a PRIVATE remote, and run the vault-snapshot skill."
+echo "  5. Optionally schedule process-inbox / lint / digest / vault-snapshot runs."
+echo "  6. Drop something into sources/inbox/ and run process-inbox."
