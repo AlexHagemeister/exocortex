@@ -26,7 +26,21 @@ CURSOR = VAULT / ".state" / "notes-cursor.txt"
 OS_JUNK = {".DS_Store", "Thumbs.db", "desktop.ini"}
 CONFLICT_RE = re.compile(r"(conflicted copy|Conflicted Copy)", re.I)
 DUP_SUFFIX_RE = re.compile(r"^(.*) \d+(\.[^.]+)$")
-NO_INGEST_RE = re.compile(r"#no-ingest\b|(^tags:.*no-ingest)", re.M)
+# The gate matches Obsidian tag semantics: an inline #no-ingest token or a
+# frontmatter tags: line — never the string inside code spans/fences (a note
+# *discussing* the tag is not opted out), and tags: only in the frontmatter
+# block, not in body prose.
+CODE_RE = re.compile(r"```.*?```|`[^`\n]+`", re.S)
+FRONTMATTER_RE = re.compile(r"\A---\n(.*?\n)---(?:\n|\Z)", re.S)
+TAGS_LINE_RE = re.compile(r"^tags:.*\bno-ingest\b", re.M)
+INLINE_TAG_RE = re.compile(r"#no-ingest\b")
+
+
+def has_no_ingest(text: str) -> bool:
+    fm = FRONTMATTER_RE.match(text)
+    if fm and TAGS_LINE_RE.search(fm.group(1)):
+        return True
+    return bool(INLINE_TAG_RE.search(CODE_RE.sub(" ", text)))
 
 
 def is_conflict(p: Path) -> bool:
@@ -56,6 +70,8 @@ def main() -> int:
         rel = str(p.relative_to(NOTES))
         if rel == "index.md":
             continue  # the derived index is invisible to the sweep
+        if rel == "README.md":
+            continue  # folder law, not a note (process-inbox pass 2, step 1)
         if p.name.startswith(".") and p.suffix == ".icloud":
             evicted.append(rel)
             continue
@@ -63,7 +79,7 @@ def main() -> int:
             conflicts.append(rel)
             continue
         data = p.read_bytes()
-        if NO_INGEST_RE.search(data.decode("utf-8", errors="replace")):
+        if has_no_ingest(data.decode("utf-8", errors="replace")):
             no_ingest.append(rel)
             continue
         seen[rel] = hashlib.sha256(data).hexdigest()

@@ -6,7 +6,15 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
-## [0.5.0] — 2026-07-31
+## [0.6.0] — 2026-07-31
+
+### Added
+- **Get-to-know-you conversation at install** (INSTALL.md § 1b, offered and never required): after the setup questions, the installing agent invites a short conversation — one specific open question at a time ("what are some active projects you've got going on?"), follow-ups that follow the answer, three to six exchanges, never a form and never homework. The transcript becomes the vault's **first capture**, filed to `sources/inbox/` with the user's words in marked quotes and provenance `"the user, <date> (install interview)"`. The § 3 smoke test then compiles it, so a new vault's first wiki pages are about its owner — their projects, their people — all `draft`, all citing their own words. README Quick-start mentions it.
+- **The full wiki scaffold ships in the repo.** All seven declared topic folders (concepts, projects, people, life, craft, connections, log) now exist in the clone and in fresh vaults — four more folder READMEs join MANIFEST (concepts, people, craft, connections), so every folder wiki/README.md declares arrives with its folder law. Seed `index.md` stubs (root + six topic folders) are bootstrapped once as the query skill's entry points, then owned by the vault's pipeline; they deliberately stay out of MANIFEST so a live vault's personal indexes can never sync into this repo. Fixes the fresh-install gap where the query skill's entry point (`wiki/index.md`) didn't exist and ingest had to create declared folders mid-run.
+
+### Fixed
+- **`#no-ingest` now matches real Obsidian tag semantics** (`notes-cursor-diff.py`): the tag written inside backticks or code fences no longer counts (a note *discussing* the tag was silently dropped from the sweep — found by a clean-room install test), and a `tags:` line only counts inside the frontmatter block. `notes/README.md` (folder law, not a note) is now explicitly invisible to the sweep, in script and skill text.
+- Ingest's day-log step referenced a `log.md` index that has never existed; reference removed. Bootstrap's next-steps output no longer tells you to `git init` a vault that already is a repo.
 
 ### Added
 - **Substrate scripts now ship.** `.claude/scripts/` joins the program: `vault_graph.py` (lint check 0's graph compile), `notes-cursor-diff.py` (the notes sweep's mechanical walk), `regen-index.py` (derived-index regeneration), `ingest-file.sh` (ingest's move-hash-ledger step). **One-time setup after updating:** build the graph venv, `python3 -m venv .claude/scripts/graph-venv` then `.claude/scripts/graph-venv/bin/pip install networkx pyyaml` (lint check 0 also carries these commands and falls back to manual checks if the script can't run). The program definition (CONSTITUTION § Sharing and boundaries, GLOSSARY "program") now says system files, not markdown.

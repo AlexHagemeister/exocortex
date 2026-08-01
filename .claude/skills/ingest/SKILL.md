@@ -86,7 +86,7 @@ If the source reveals a substantive insight that two things relate (beyond a not
 ### 7. Close out
 
 - Regenerate `index.md` in every folder you touched — source-stream folders you filed into count as touched (derived files: sections of `* [Title](path) - description` lines pulled from frontmatter; regenerate freely, never hand-maintain; `.claude/scripts/regen-index.py <folder>` does it mechanically and slots new pages for you to categorize). **Exception**: an `index.md` carrying page frontmatter (`type`/`title`/`status`) is an authored bundle hub, not a listing — never regenerate it; link new satellites from it instead (link maintenance).
-- Append one entry per action to today's day log, `wiki/log/<YYYY-MM-DD>.md` (create it if missing; newest-first `* **Update**: …` lines; log.md indexes the day files).
+- Append one entry per action to today's day log, `wiki/log/<YYYY-MM-DD>.md` (create it if missing; newest-first `* **Update**: …` lines).
 
 ## Corrections (when the source is the user's statement)
 
