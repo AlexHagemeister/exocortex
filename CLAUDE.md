@@ -14,6 +14,7 @@ This vault is the user's knowledge system: an agent-maintained wiki compiled fro
 | notes/ | read, link to, ingest from; sweep write-back of frontmatter metadata — additive only, pointers to existing wiki pages; maintain notes/index.md (derived index — rules in process-inbox) | touch note bodies, or edit/delete anything the user wrote — the words are the user's alone |
 | attachments/ | read, embed-link; move/rename/delete when the user explicitly and specifically approves | touch files otherwise — the user's media; Obsidian files new attachments here |
 | drawings/ | read, embed-link, create and edit drawings | sweep, ingest, or index anything here — a shared sketch space the pipeline never reads |
+| artifacts/ | read, embed-link, create and edit artifacts when the user directs | sweep, ingest, cite as evidence, or index anything here — a shared workspace for co-built work products the pipeline never reads |
 | templates/ | read; edit when the user explicitly and specifically approves | touch otherwise — the user's Obsidian note templates |
 | staging/ | read; move items into notes/ or sources/inbox/ when the user directs an import batch | touch otherwise — un-imported material awaiting the user's triage |
 | CLAUDE.md, .claude/skills/ | propose changes via the `amend` skill | edit directly |

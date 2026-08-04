@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-04 Tue, Aug 4 — 3:30 PM
+updated: 2026-08-04 Tue, Aug 4 — 4:05 PM
 ---
 # GLOSSARY — system vocabulary
 
@@ -56,6 +56,10 @@ _Home:_ staging/README.md
 **drawings** — shared sketch space at drawings/; the user's canvases and sketches plus agent-drawn diagrams, never swept or ingested by the pipeline. Location is the rule, not file type.
 _Avoid:_ attachments (media embedded in pages), staging (import holding area)
 _Home:_ drawings/README.md
+
+**artifacts** — shared workspace at artifacts/; work products the user and agent build together (decks, HTML pages, documents), any file type, never swept or ingested by the pipeline. Linkable without an authorship claim; citing a claim from one requires a speaker, via sources/inbox/.
+_Avoid:_ attachments (media embedded in pages), drawings (sketch space)
+_Home:_ artifacts/README.md
 
 ## Pipeline skills
 
