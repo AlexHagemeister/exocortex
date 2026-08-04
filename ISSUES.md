@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-01 Sat, Aug 1 — 12:05 PM
+updated: 2026-08-04 Tue, Aug 4 — 10:50 AM (vault-groom-issues approval pass)
 ---
 # ISSUES — friction log (open-issue index)
 

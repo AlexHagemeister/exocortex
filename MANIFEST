@@ -11,6 +11,7 @@
 # the vault appears exactly once: as a ship line below, or here.
 #   .claude/skills/publish-program/   (creator tooling)
 #   .claude/skills/review-system/     (pending review)
+#   .claude/skills/pattern-pass/      (pilot — ships only if it graduates)
 #   .claude/scripts/snapshot-lite.sh  (machine automation)
 
 CLAUDE.md

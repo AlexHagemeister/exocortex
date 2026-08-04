@@ -6,6 +6,17 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.7.0] — 2026-08-04
+
+Both minor-bump behaviors came out of one incident chain: nine wiki pages carried unparseable frontmatter for two days, and three frontmatter edges silently died when an unrelated page was created elsewhere in the vault. The maintainer now refuses one risky write and reports one standing fragility measure it previously ignored.
+
+### Added
+- **`ingest-file.sh` refuses to file an inbox item missing `title:` or `description:`** (exit 3, nothing moved). Derived stream indexes pull their entries from those two fields, and filing freezes a source forever — so a capture filed without them sits in its index as a bare slug with no retrieval hook, permanently. The check runs *before* the move, which is the last moment the fields can still be written; the refusal message says exactly that. `--allow-missing-frontmatter` files as-is for items whose content genuinely can't supply them.
+- **Lint check 8 reports basename-fallback exposure every run** (new report section in `vault_graph.py`): the count of frontmatter edges that resolve only because exactly one file in `wiki/` carries that basename, plus the basenames the most edges depend on. Creating any second file with one of those names silently breaks all of its dependent edges at once, with no edit to the citing pages — the count is a standing fragility measure, not a to-do list. Edges already broken by a collision are real findings and get repaired to file-relative form.
+
+### Changed
+- **Ingest's YAML-discipline rule now states it binds every write path that touches frontmatter**, not just the page template — the nine broken pages were stamped by write paths that never read the template — and **`updated:`, where a page carries one, holds a bare date and nothing else**: what changed already has two homes (the day log, and the `## Unreviewed additions` heading on a verified page).
+
 ## [0.6.1] — 2026-08-01
 
 ### Added

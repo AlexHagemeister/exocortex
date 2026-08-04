@@ -49,7 +49,7 @@ sources: ["<final filed path, or notes/<path> + read timestamp, or URL>"]
 ---
 ```
 
-**YAML discipline**: double-quote any frontmatter value containing `": "` (colon-space) or starting with a special character — an unquoted colon silently breaks the mapping and the page stops rendering in Obsidian.
+**YAML discipline**: double-quote any frontmatter value containing `": "` (colon-space) or starting with a special character — an unquoted colon silently breaks the mapping and the page stops rendering in Obsidian. This binds every write path that touches frontmatter, not just the template above. `updated:`, where a page carries one, holds a bare date and nothing else: prose annotations there broke nine pages for two days, and what changed already has two homes — the day log, and the `## Unreviewed additions` heading on a verified page.
 
 **Description is the retrieval hook**: write it in third person as *what the page holds + when to fetch it* — for an agent deciding whether to load the page (search results, indexes, MCP), this line is often all it sees.
 

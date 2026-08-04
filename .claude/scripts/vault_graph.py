@@ -209,6 +209,36 @@ def report(G, problems):
     for rel, field, raw, why in problems["dangling"]:
         P(f"  {rel} [{field}] -> {raw!r} ({why})")
 
+    P("\n## Basename-fallback exposure (edges one filename collision from breaking)")
+    # An edge written as a bare basename or an unrooted subpath resolves only
+    # because exactly one file in wiki/ carries that name. Creating any second
+    # file with the same basename anywhere in wiki/ silently kills it — which is
+    # what happened on 2026-08-01 when a pattern hub took the name of the
+    # concept page it enumerates, breaking three edges that had resolved since
+    # 2026-07-16. This count is the population at risk; it is not an error list.
+    fallback = Counter()
+    by_target = Counter()
+    for _u, v, d in G.edges(data=True):
+        if d.get("resolved_via") == "basename-unique":
+            fallback[d.get("kind", "?")] += 1
+            by_target[Path(v).name] += 1
+    total = sum(fallback.values())
+    if not total:
+        P("  none — every edge resolves by an explicit path")
+    else:
+        P(f"  {total} edges resolve by unique-basename fallback:")
+        for kind, c in sorted(fallback.items(), key=lambda x: -x[1]):
+            P(f"    {c:4d}  {kind}")
+        P("  most-depended basenames (a new file with this name breaks all of them):")
+        for name, c in by_target.most_common(8):
+            P(f"    {c:4d}  {name}")
+    ambiguous = [(rel, field, raw, why) for rel, field, raw, why in problems["dangling"]
+                 if why.startswith("ambiguous-basename")]
+    if ambiguous:
+        P(f"  ALREADY BROKEN — {len(ambiguous)} edge(s) hit a basename collision:")
+        for rel, field, raw, why in ambiguous:
+            P(f"    {rel}  [{field}]  {raw}  ({why})")
+
     P("\n## Status-integrity: page depends_on a weaker-status page")
     rank = {"verified": 3, "draft": 2, "stale": 1, "disputed": 0, None: 2}
     hits = 0
