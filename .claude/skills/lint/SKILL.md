@@ -62,6 +62,8 @@ Why type-keyed: expiry exists to garbage-collect *unsolicited machine-generated 
 ### 8. Orphans and red links
 List pages with no inbound links (orphans) and dangling link targets (red links). Neither is an error — red links are the backlog of known-missing knowledge. Triage: orphans worth linking, red links worth writing → report (digest may surface the top few); the rest stand.
 
+Also report check 0's **basename-fallback exposure** every run: the count of edges resolving only because one file in `wiki/` carries that name, and the basenames the most edges depend on. Creating any second file with one of those names silently breaks all of them at once, with no edit to the citing pages — so this count is a standing measure of fragility, not a finding to fix. Report it as a number and a trend; any edge listed as ALREADY BROKEN is a real finding and gets repaired to file-relative form (claim-neutral link maintenance).
+
 ### 9. Surface consistency
 Skim CLAUDE.md, GLOSSARY.md, the skill files, and folder READMEs against CONSTITUTION.md's principles and against each other. A derived surface contradicting the constitution, or two surfaces contradicting each other, is a bug: report it and file it as an issue (per ISSUES.md) — fixing rules goes through `amend`, never a silent edit. Glossary `_Home:_` pointers should resolve to real surfaces.
 
