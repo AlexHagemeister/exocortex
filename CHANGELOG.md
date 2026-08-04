@@ -6,6 +6,11 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.9.0] — 2026-08-04
+
+### Added
+- **New zone: `artifacts/` — a shared workspace for co-built work products.** Slide decks, HTML pages, documents, anything the user and maintainer build together, any file type; the maintainer creates and edits artifacts there when the user directs. Sweep, ingest, index, and citation-as-evidence are forbidden: the pipeline never reads the folder, and the folder law records why — linking to an artifact carries no authorship claim, but citing a claim as evidence requires a speaker, and co-built files have mixed authorship, so claims that matter route through `sources/inbox/` with attribution. Fills the gap between `notes/` (user-written) and `wiki/` (agent-written). Surfaces: a new CLAUDE.md zone row, `artifacts/README.md` (new MANIFEST path), and a GLOSSARY **artifacts** entry.
+
 ## [0.8.0] — 2026-08-04
 
 ### Changed
