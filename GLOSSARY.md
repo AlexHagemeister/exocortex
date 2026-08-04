@@ -1,5 +1,5 @@
 ---
-updated: 2026-07-31 Fri, Jul 31 — 8:31 PM
+updated: 2026-08-04 Tue, Aug 4 — 3:30 PM
 ---
 # GLOSSARY — system vocabulary
 
@@ -53,7 +53,7 @@ _Home:_ sources/inbox/README.md
 _Avoid:_ inbox (that's sources/inbox/, the capture queue)
 _Home:_ staging/README.md
 
-**drawings** — visual-thinking folder at drawings/; canvases, Excalidraw drawings, and sketches, invisible to the pipeline in every direction. Location is the rule, not file type.
+**drawings** — shared sketch space at drawings/; the user's canvases and sketches plus agent-drawn diagrams, never swept or ingested by the pipeline. Location is the rule, not file type.
 _Avoid:_ attachments (media embedded in pages), staging (import holding area)
 _Home:_ drawings/README.md
 

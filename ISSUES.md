@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-04 Tue, Aug 4 — 10:50 AM (vault-groom-issues approval pass)
+updated: 2026-08-04 (drawings shared-workspace amendment)
 ---
 # ISSUES — friction log (open-issue index)
 

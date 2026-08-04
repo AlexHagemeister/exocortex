@@ -6,6 +6,11 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.8.0] — 2026-08-04
+
+### Changed
+- **`drawings/` is now a shared sketch space — the maintainer may create and edit drawings there.** Excalidraw files, Obsidian canvases, anything sketch-shaped; previously the folder was the user's alone, read-only to agents. Sweep, ingest, and index remain forbidden: nothing in `drawings/` enters the pipeline, and a drawing whose content matters still routes through `sources/inbox/` in the user's words. There is deliberately no authorship marker distinguishing agent drawings from the user's — the rule starts minimal, and a protection mechanism gets proposed only if an incident shows the need. Surfaces changed: the CLAUDE.md zone row, `drawings/README.md`, and the GLOSSARY **drawings** entry.
+
 ## [0.7.0] — 2026-08-04
 
 Both minor-bump behaviors came out of one incident chain: nine wiki pages carried unparseable frontmatter for two days, and three frontmatter edges silently died when an unrelated page was created elsewhere in the vault. The maintainer now refuses one risky write and reports one standing fragility measure it previously ignored.
