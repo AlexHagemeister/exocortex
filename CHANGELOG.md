@@ -6,6 +6,9 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+### Changed
+- **README and GLOSSARY restyled into plain sentences.** Em dashes and clause-joining colons and semicolons are gone, replaced with short sentences, commas, and parentheses. No term meanings or claims changed.
+
 ## [0.9.0] — 2026-08-04
 
 ### Added
