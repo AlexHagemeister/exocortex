@@ -1,9 +1,9 @@
 ---
-updated: 2026-07-20 Mon, Jul 20 — 9:30 PM
+updated: 2026-08-07
 ---
 # CONSTITUTION — Principles of the Vault System
 
-This is the design-time document: the purpose, roles, and principles from which every operational rule in this system derives. Every agent session reads it at start (per CLAUDE.md) — the working rules still live in CLAUDE.md, the skills, and folder READMEs. Return to it when changing the rules (the `amend` skill consults it), when a situation arises that no rule anticipated, or when deciding whether to adopt this system. Lineage: Karpathy's LLM-wiki pattern (Apr 2026) → Google's Open Knowledge Format v0.1 (Jun 2026) → this system.
+This is the design-time document: the purpose, roles, and principles from which every operational rule in this system derives. Every agent session loads it automatically (imported by CLAUDE.md) — the working rules still live in CLAUDE.md, the skills, and folder READMEs. Return to it when changing the rules (the `amend` skill consults it), when a situation arises that no rule anticipated, or when deciding whether to adopt this system. Lineage: Karpathy's LLM-wiki pattern (Apr 2026) → Google's Open Knowledge Format v0.1 (Jun 2026) → this system.
 
 ## Purpose
 

@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-06 Thu, Aug 6 — 10:04 PM
+updated: 2026-08-07 Fri, Aug 7 — 11:38 AM
 ---
 # GLOSSARY: system vocabulary
 
@@ -68,6 +68,10 @@ _Home:_ meta/cookbook/README.md
 **recipe**: one cookbook entry: an optional connector, prompt, workflow, or automation, with setup detail sufficient for the agent to install it on the user's explicit yes.
 _Avoid:_ skill (skills are the pipeline's own procedures; recipes are optional add-ons)
 _Home:_ meta/cookbook/README.md
+
+**feature staging**: trial tier for session directives: unverified imports and rules live in CLAUDE.local.md (deployment-local, never ships) until the user promotes them into the shipped surfaces via amend.
+_Avoid:_ staging (the import holding area at staging/ is unrelated)
+_Home:_ CLAUDE.local.md (header note)
 
 ## Pipeline skills
 

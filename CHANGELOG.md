@@ -6,6 +6,16 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.11.0] — 2026-08-07
+
+### Changed
+- **CLAUDE.md now imports CONSTITUTION.md at session start.** The "read it at session start" directive is replaced by an `@CONSTITUTION.md` import line, which Claude Code expands into context at launch: the principles arrive in every session with no tool call and no reliance on agent discipline. Origin: a recorded failure where the mandated read silently decayed and an active-project update was handled without vault context. A missing import target is inert (verified), so nothing breaks for surfaces that read CLAUDE.md as plain text.
+- **The query skill searches past session transcripts before declaring a matter unrecorded.** When the vault comes up empty on a question about past work with the agent, query now checks the session's tool roster for a transcript-search surface (Claude Code desktop's session-management tools, for example) and searches it before asking the user. A transcript is cited like a source, never ingested directly; durable findings route through the pipeline.
+- **The top-of-mind recipe wires the roster into session start.** New setup step: an `@artifacts/top-of-mind.md` import line in CLAUDE.md (or CLAUDE.local.md while trialing) loads the roster into every session. The header spec gains a read rule for agents (a message touching a listed thread means fetch its hub before acting), and the verify section reflects the no-tool-call reality.
+
+### Added
+- **GLOSSARY: feature staging.** The trial tier for session directives: unverified imports and rules live in CLAUDE.local.md (deployment-local, never ships) until the user promotes them into the shipped surfaces via amend. Disambiguated from the staging/ import folder.
+
 ## [0.10.0] — 2026-08-06
 
 ### Added
