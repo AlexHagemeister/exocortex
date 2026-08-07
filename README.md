@@ -72,7 +72,7 @@ After install, in a session inside the vault:
 2. **Say "process my inbox."** Watch it file the source, create or update draft wiki pages, and cite provenance on every claim.
 3. **Ask "what do you know about ‹the thing you just dropped›?"** You get an answer with receipts.
 4. **Say "remember this: …" mid-conversation**, anytime. Same pipeline, zero ceremony.
-5. When the digest shows up (or you say **"what needs my review"**), skim it and promote what's solid.
+5. Say **"what needs my review"** whenever you feel like it (daily during heavy capture is normal). Skim the digest and promote what's solid.
 
 That's the whole loop (capture → compile → review), and week one needs nothing more.
 
@@ -115,7 +115,7 @@ flowchart LR
     IN -->|ingest files and freezes| S["sources/<br/>frozen record"]
     NT["notes/<br/>your words"] -->|swept, never edited| W
     S -->|compile and cross-link| W["wiki/<br/>status-tagged pages"]
-    W -->|weekly digest| RV{your review}
+    W -->|digest| RV{your review}
     RV -->|promote| V[verified]
     RV -->|corrections as new sources| IN
     W -->|cited answers| Q[any agent session]
@@ -125,7 +125,7 @@ flowchart LR
 - **Sources are frozen speech.** A source is a record of what was said, never edited. Truth-status lives one layer up, in the wiki, where claims can be disputed and retracted without falsifying the record. Corrections arrive as *new* sources, even when they come from you.
 - **Trust is graduated, not gated.** The agent writes freely as `draft`. Promotion to `verified` is a human act. Every reader weights pages by status. A mostly-draft wiki is healthy by design.
 - **Rules live where they bind.** Invariants in [CLAUDE.md](CLAUDE.md) (one page, hard budget), procedures in [.claude/skills/](.claude/skills/), folder law in each folder's README, principles in [CONSTITUTION.md](CONSTITUTION.md). No rule lives twice.
-- **The system is its own tester.** Friction gets filed as issues ([ISSUES.md](ISSUES.md)). Repeated rule overrides trigger amendment proposals. A weekly digest surfaces everything for human review. The rules are a pact you authored and may renegotiate, never a cage.
+- **The system is its own tester.** Friction gets filed as issues ([ISSUES.md](ISSUES.md)). Repeated rule overrides trigger amendment proposals. A periodic digest surfaces everything for human review. The rules are a pact you authored and may renegotiate, never a cage.
 
 The maintainer's skill set: `ingest` · `process-inbox` · `session-capture` · `query` · `lint` · `digest` · `audit-exocortex` · `vault-snapshot` · `amend` · `update-exocortex`.
 
@@ -159,6 +159,7 @@ Full glossary → [GLOSSARY.md](GLOSSARY.md)
 | [CLAUDE.md](CLAUDE.md) | The one-page invariant core every agent session loads |
 | [CONSTITUTION.md](CONSTITUTION.md) | Principles, roles, anti-patterns, residence map |
 | [GLOSSARY.md](GLOSSARY.md) | Canonical system vocabulary (term meanings, not procedures) |
+| [ORIENTATION.md](ORIENTATION.md) | The one-page tour of what you can ask for, installed at every vault root |
 | [.claude/skills/](.claude/skills/) | The maintainer skill procedures |
 | [ISSUES.md](ISSUES.md), [.state/README.md](.state/README.md) | Friction-log and bookkeeping conventions |
 | [templates/](templates/) | Note frontmatter template |

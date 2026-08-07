@@ -60,7 +60,8 @@ Via Claude Code scheduled tasks (or any runner), on whatever machine you designa
 | `process-inbox` | daily |
 | `vault-snapshot` | daily |
 | `lint` | weekly |
-| `digest` | weekly |
+
+The `digest` is deliberately absent from that table: run it by hand ("what needs my review") at whatever cadence you feel like. Daily is normal when a lot is flowing in (an early migration, a busy stretch); weekly suits a settled vault. The experience of the digest is the core of the system, and a digest that fires unread builds nothing, so start manual and schedule it once you know your rhythm. (`process-inbox` is good both ways from day one.)
 
 **Task prompts are pointers, not copies.** Every rule has exactly one home — the skill file in the vault — so a scheduled task must never paste skill text into its prompt (a copy silently drifts the first time the skill is amended). The whole prompt is a pointer:
 
@@ -86,12 +87,13 @@ Away from your desk entirely? The optional [exocortex-mcp](https://github.com/Al
 
 ## 8. Use it
 
+- **The tour lives at your vault root.** `ORIENTATION.md` is the one-page map of what you can ask for; "what can you do?" in any session re-opens it.
 - **Start small.** Week one: capture + "remember this" + ask questions. You do not need to learn the whole system before it is useful.
 - **Confused is fine.** Say "I don't know what that means — explain it simply." Your maintainer should translate jargon, not expect you to already speak it.
 - **Capture:** clip from the browser (above), or drop anything (meeting notes, statements, exports) as files into `sources/inbox/`, then run `process-inbox` — or just tell the maintainer "remember this."
 - **Write:** your `notes/` are yours alone; the sweep picks up changes without ever editing your words.
 - **Ask:** the `query` skill answers from the vault with status-weighted citations.
-- **Review:** the weekly `digest` is your curation surface — promote drafts, adjudicate disputes, review friction. Promotion to `verified` is the one job that stays human.
+- **Review:** the `digest` is your curation surface — promote drafts, adjudicate disputes, review friction. Run it as often as you feel like (daily during heavy capture is normal, weekly for a settled vault). Promotion to `verified` is the one job that stays human.
 - **Change the rules deliberately.** If something chafes, tell the maintainer. It proposes a change via `amend`; you approve before anything ships. If your request fights the system's principles, it should explain the tradeoff and offer alternatives — you still decide. It will not rewrite core behavior on a vague "make it better."
 
 

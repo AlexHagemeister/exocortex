@@ -47,7 +47,7 @@ Place it in a topic folder (usually `wiki/concepts/`), per `wiki/index.md` — *
 
 ### 5. Record draft citations
 
-Append the paths of draft pages your answer materially relied on to `.state/query-traffic.txt` (one `<date>  <path>` per line). The weekly digest ranks promotion candidates partly by query traffic — this is how used knowledge gets verified fastest.
+Append the paths of draft pages your answer materially relied on to `.state/query-traffic.txt` (one `<date>  <path>` per line). The digest ranks promotion candidates partly by query traffic — this is how used knowledge gets verified fastest.
 
 ## Flow-of-use promotion (the one promotion path in this skill)
 

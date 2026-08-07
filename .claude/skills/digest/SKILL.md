@@ -13,7 +13,7 @@ The last review marker in `.state/review-markers/` defines "since last review" f
 
 ## Compile
 
-**Decision budget: ~10–15 items total per digest**, leverage-ranked across sections 2–4 using the triage scoring below. Everything past the budget carries over, ranked, to the next digest, with a one-line count of what carried — carried items are not a backlog. The review's value is depth per item, not coverage (the user, 2026-07-20: it's "basically akin to journaling", and doing it well "takes time for each file") — size every digest for unhurried engagement.
+**Decision budget: ~10–15 items total per digest**, leverage-ranked across sections 3–4 using the triage scoring below. Section 2 is a complete listing, never budgeted or carried — connection expiry presumes the user saw the page. Everything past the budget carries over, ranked, to the next digest, with a one-line count of what carried — carried items are not a backlog. The review's value is depth per item, not coverage (the user, 2026-07-20: it's "basically akin to journaling", and doing it well "takes time for each file") — size every digest for unhurried engagement.
 
 Write to `.state/digests/<YYYY-MM-DD>.md` and present it in full to the user:
 

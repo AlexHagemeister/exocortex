@@ -6,7 +6,18 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.10.0] — 2026-08-06
+
+### Added
+- **The cookbook: `meta/cookbook/`, an opt-in recipe library, ships with eight recipes.** Connectors (Granola meeting transcripts, Google Calendar, Gmail, Apple Reminders, iMessage), capture tooling (Obsidian Web Clipper), the exocortex-mcp companion server, and the top-of-mind-file workflow. Everything is inert until you opt in: recipes are program content, never swept, ingested, or cited, and the folder's README is the law for how they surface (only when conversation friction matches, at most one suggestion per session, with one exception: the install handoff may overview the whole cookbook as orientation). Each recipe is an earned recommendation from real vault use and carries enough setup detail for your maintainer to drive the install on your yes. Surfaces: new CLAUDE.md zone row, GLOSSARY entries **cookbook** and **recipe**, new MANIFEST path.
+- **`ORIENTATION.md`, a one-page capability tour, is installed at every vault root.** What you can ask for, in usage terms: the daily loop, the review habit, corrections, rule changes, updates, and the cookbook. "What can you do?" in any vault session re-opens it. Exists because a real cold-start deployment reached week two without knowing the digest existed.
+- **Updates now end with an introduction.** `update-exocortex` gains a step: after applying a release, the maintainer walks you through what you can now say or do, tailored to how you use your vault, and flags anything that changes an existing habit. A diff recital is not an introduction.
+
 ### Changed
+- **The install handoff teaches the capability surface.** INSTALL.md § 4 rewritten: walk ORIENTATION.md with the new user, set the review habit, and overview the cookbook. The old "ignore digest, lint, and rule-changing until something actually bites" framing is gone; the rules can wait, but people only ask for what they know exists.
+- **The digest starts manual.** The install default no longer schedules it. Run "what needs my review" at whatever cadence you feel like (daily is normal during heavy capture, weekly suits a settled vault) and ask to schedule it once you know your rhythm. `process-inbox`, `vault-snapshot`, and `lint` are scheduled as before. Existing deployments keep whatever schedule they have.
+- **Ingest treats capture-tool frontmatter as unverified.** A `title:`/`description:` written by a capture tool gets skimmed against the body and fixed at filing time, because the stream index is generated from those fields and freezes with them.
+- **Digest's connection-expiry section is exempt from the decision budget.** Section 2 is now a complete listing, never budgeted or carried over, because connection expiry presumes you actually saw the page.
 - **README and GLOSSARY restyled into plain sentences.** Em dashes and clause-joining colons and semicolons are gone, replaced with short sentences, commas, and parentheses. No term meanings or claims changed.
 
 ## [0.9.0] — 2026-08-04

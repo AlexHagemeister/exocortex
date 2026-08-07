@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-04 (artifacts shared-workspace amendment)
+updated: 2026-08-06
 ---
 # ISSUES — friction log (open-issue index)
 

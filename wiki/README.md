@@ -15,6 +15,7 @@ An **agent-maintained knowledge wiki** compiled from the user's sources and note
 - **[Concepts](concepts/)** — ideas, methods, technical and world knowledge (the research brain).
 - **[Projects](projects/)** — ongoing work, one hub page per project plus satellites. Start points: [exocortex system](projects/exocortex-system.md) (the vault itself), and the other project hubs in the [index](projects/index.md).
 - **[People](people/)** — collaborators and contacts.
+- **[Entities](entities/)** — organizations, places, events, artworks: named things in the world that aren't people.
 - **[Life](life/)** — personal facts and infrastructure agents need to act on the user's behalf.
 - **[Craft](craft/)** — craft knowledge: how the user works right now (workflows, principles, stack defaults). Fast-evolving by design; the efforts themselves live in Projects, and project pages link here, not the reverse.
 - **[Connections](connections/)** — first-class claims that two things relate; the insight surface between notes and wiki.
