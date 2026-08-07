@@ -17,6 +17,7 @@
 CLAUDE.md
 CONSTITUTION.md
 GLOSSARY.md
+ORIENTATION.md
 ISSUES.md
 templates/default.md
 templates/README.md
@@ -57,3 +58,4 @@ meta/README.md
 meta/HANDOFF.md
 meta/VAULT-DOCTRINE.md
 meta/OKF-SPEC.md
+meta/cookbook/

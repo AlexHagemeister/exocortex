@@ -17,6 +17,7 @@ This vault is the user's knowledge system: an agent-maintained wiki compiled fro
 | artifacts/ | read, embed-link, create and edit artifacts when the user directs | sweep, ingest, cite as evidence, or index anything here — a shared workspace for co-built work products the pipeline never reads |
 | templates/ | read; edit when the user explicitly and specifically approves | touch otherwise — the user's Obsidian note templates |
 | staging/ | read; move items into notes/ or sources/inbox/ when the user directs an import batch | touch otherwise — un-imported material awaiting the user's triage |
+| meta/cookbook/ | read; draft and edit recipes when the user directs (folder law in its README) | sweep, ingest, cite as evidence, or index anything here: opt-in program recipes, not vault knowledge |
 | CLAUDE.md, .claude/skills/ | propose changes via the `amend` skill | edit directly |
 | .state/ | pipeline bookkeeping via skills; issue files any time | anything else |
 

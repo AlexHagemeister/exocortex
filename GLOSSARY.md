@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-04 Tue, Aug 4 — 11:18 PM
+updated: 2026-08-06 Thu, Aug 6 — 10:04 PM
 ---
 # GLOSSARY: system vocabulary
 
@@ -60,6 +60,14 @@ _Home:_ drawings/README.md
 **artifacts**: shared workspace at artifacts/ for work products the user and agent build together (decks, HTML pages, documents), any file type, never swept or ingested by the pipeline. Linkable without an authorship claim. Citing a claim from one requires a speaker, via sources/inbox/.
 _Avoid:_ attachments (media embedded in pages), drawings (sketch space)
 _Home:_ artifacts/README.md
+
+**cookbook**: opt-in recipe library at meta/cookbook/. Ships with the program, inert until the user opts in; never swept, ingested, or cited as evidence.
+_Avoid:_ tips, extras (name the folder), wiki (recipes are program content, not vault knowledge)
+_Home:_ meta/cookbook/README.md
+
+**recipe**: one cookbook entry: an optional connector, prompt, workflow, or automation, with setup detail sufficient for the agent to install it on the user's explicit yes.
+_Avoid:_ skill (skills are the pipeline's own procedures; recipes are optional add-ons)
+_Home:_ meta/cookbook/README.md
 
 ## Pipeline skills
 

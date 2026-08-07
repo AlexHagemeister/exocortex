@@ -27,4 +27,5 @@ If this vault is the program's *source* (publish-program is configured here), st
    - a user-added local skill or script not shipped upstream → left alone by `bootstrap.sh --update` (it syncs only shipped folders); verify it survived after applying.
 5. **Apply.** `./tools/bootstrap.sh <vault> --update` from the clone, then restore kept-local, merged, and user-added files from step 4.
 6. **Verify.** Show the user the vault's git diff — it should contain exactly the approved payload plus reconciliations. Commit (`update: program <old> → <new>`).
-7. **Record.** Stamp the new version in DEPLOYMENT.md § Program version; one line in the day log (`wiki/log/<YYYY-MM-DD>.md`): old → new, what was reconciled or kept.
+7. **Introduce.** Walk the user through what the update lets them do, in usage terms: what they can now say or ask, and anything that changes an existing habit. Draw on the changelog but tailor it to how they use their vault. A diff recital is not an introduction; skip internals with no user-visible behavior.
+8. **Record.** Stamp the new version in DEPLOYMENT.md § Program version; one line in the day log (`wiki/log/<YYYY-MM-DD>.md`): old → new, what was reconciled or kept.
