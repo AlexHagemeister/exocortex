@@ -28,10 +28,11 @@ The design rule that makes it work: **it is an index, not a store**. Every entry
 
 Agent-driven, in one conversation:
 1. Interview the user briefly: what has a deadline, what is waiting on a trigger, what is coming up with logistics attached, what background state should every session know. Ten minutes of talking is enough for the first draft.
-2. Write `artifacts/top-of-mind.md` with the four sections above, each entry a bolded headline, a line or two of the why and the trap, and a link to where the substance lives. Stamp `updated:` with the date at the top, under a header note stating the index rule.
-3. Agree on the maintenance habit: the agent proposes updates whenever a session changes the picture (something ships, a date lands, a priority flips), and the user's yes applies them. The `updated:` stamp is the honesty mechanism: a stale date means verify before trusting the contents.
-4. The file lives in artifacts/ deliberately: it is a co-built work product, never swept or ingested, and claims in it carry no evidential weight. It orients; the wiki proves.
+2. Write `artifacts/top-of-mind.md` with the four sections above, each entry a bolded headline, a line or two of the why and the trap, and a link to where the substance lives. Stamp `updated:` with the date at the top, under a header note stating the index rule and the read rule for agents: a message touching a listed thread means fetch its hub before acting.
+3. Wire it into session start: add a line containing `@artifacts/top-of-mind.md` to the vault's CLAUDE.md (or CLAUDE.local.md while trialing). Claude Code expands imports at launch, so the roster arrives in context with no tool call and no reliance on the agent remembering to look. A missing file leaves the line inert, so the import is safe to add first (verified 2026-08-07).
+4. Agree on the maintenance habit: the agent proposes updates whenever a session changes the picture (something ships, a date lands, a priority flips), and the user's yes applies them. The `updated:` stamp is the honesty mechanism: a stale date means verify before trusting the contents.
+5. The file lives in artifacts/ deliberately: it is a co-built work product, never swept or ingested, and claims in it carry no evidential weight. It orients; the wiki proves.
 
 ## Verify it works
 
-Open a fresh session and ask "what should I be focused on?" The agent should consult the file, say so, and answer from it in seconds, with links that actually resolve. If the answer matches your reality, it works. When it stops matching, that's not failure, that's the update trigger.
+Open a fresh session and ask "what should I be focused on?" With the import wired, the agent should answer from the roster immediately, no file read needed, with links that actually resolve. If the answer matches your reality, it works. When it stops matching, that's not failure, that's the update trigger.

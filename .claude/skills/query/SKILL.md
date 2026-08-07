@@ -13,6 +13,8 @@ You are answering from the vault's compiled knowledge, weighting every page by i
 
 Start at `wiki/index.md`, drill down via links (folder indexes → pages). Indexes exist so you can see what's available before opening files — prefer them over blind directory searches; fall back to grep only when the indexes come up empty. `sources/` and `notes/` are readable too, but the wiki is the synthesis layer — cite wiki pages first, raw sources for detail.
 
+If the vault comes up empty and the question concerns past work with the agent, check the session's tool roster for a transcript-search surface (Claude Code desktop, for example, exposes session-management tools that full-text search past session transcripts) and search it before asking the user or reporting the matter unrecorded. A transcript is a raw record of what was said: cite it like a source, but never ingest from it directly. If what it yields is durable knowledge, route it through session-capture or sources/inbox/ so it enters the wiki through the pipeline.
+
 ### 2. Weight by status
 
 Weight and disclose every page per the status ladder in CLAUDE.md ("Reading wiki pages — status weighting") — the rule's one home, always in context; it covers `pending_review` annexes too. When a non-`verified` page materially shapes the answer, the disclosure goes in the answer itself ("per a draft page, …").
