@@ -38,6 +38,7 @@ esac
 mkdir -p "$TARGET/sources/inbox" "$TARGET/notes" "$TARGET/wiki/log" \
          "$TARGET/wiki/concepts" "$TARGET/wiki/projects" "$TARGET/wiki/people" \
          "$TARGET/wiki/life" "$TARGET/wiki/craft" "$TARGET/wiki/connections" \
+         "$TARGET/wiki/entities" \
          "$TARGET/.state/issues" "$TARGET/templates" "$TARGET/meta" \
          "$TARGET/attachments" "$TARGET/staging" "$TARGET/drawings" \
          "$TARGET/.claude/skills" "$TARGET/.claude/scripts"
@@ -106,5 +107,5 @@ echo "       python3 -m venv $TARGET/.claude/scripts/graph-venv"
 echo "       $TARGET/.claude/scripts/graph-venv/bin/pip install networkx pyyaml"
 echo "  3. Open Claude Code in the vault; the skills in .claude/skills/ register automatically."
 echo "  4. git init the vault (if it isn't a repo yet), add a PRIVATE remote, and run the vault-snapshot skill."
-echo "  5. Optionally schedule process-inbox / lint / digest / vault-snapshot runs."
+echo "  5. Optionally schedule the maintenance loop (SETUP.md § 6; the digest starts manual)."
 echo "  6. Drop something into sources/inbox/ and run process-inbox."

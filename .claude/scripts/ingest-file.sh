@@ -28,7 +28,7 @@ set -- ${ARGS+"${ARGS[@]}"}
 [ $# -ge 2 ] || { echo "usage: ingest-file.sh [--allow-missing-frontmatter] <inbox-item> <stream-folder> [target-filename]" >&2; exit 1; }
 
 ITEM="$1"
-STREAM="$2"
+STREAM="${2%/}"
 [ -f "$ITEM" ] || { echo "ERROR: no such file: $ITEM" >&2; exit 1; }
 [ -d "$VAULT/$STREAM" ] || { echo "ERROR: no such stream folder: $STREAM (vault-relative)" >&2; exit 1; }
 

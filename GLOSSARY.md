@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-07 Fri, Aug 7 — 11:38 AM
+updated: 2026-08-08 Sat, Aug 8 — 5:28 PM
 ---
 # GLOSSARY: system vocabulary
 
@@ -144,6 +144,10 @@ _Home:_ CLAUDE.md § Reading wiki pages — status weighting
 **pending_review**: frontmatter flag for a page with a verified core plus draft-grade "Unreviewed additions" sections.
 _Avoid:_ draft (the core may still be verified)
 _Home:_ CLAUDE.md § Reading wiki pages — status weighting
+
+**scope**: a page's boundary contract, carried in its `scope:` frontmatter field: what belongs, what is excluded, and where each exclusion lives instead. Serves filing (where a new fact goes), retrieval (an agent can skip and reroute without loading the body), and audit (the fixed standard that body drift is measured against). Mandatory on every wiki page and every skill (for skills it is maintainer-facing: a calibration and split signal, not router input). Distinct from `description`, the one-line retrieval attractor. Sources and notes never carry it.
+_Avoid:_ packing exclusions into `description`
+_Home:_ `.claude/skills/ingest/` step 4 (field law); amend skill (skill frontmatter law); CLAUDE.md § Page scoping (tests)
 
 **provenance**: traceable origin of a claim (source path, URL, or the user's dated words).
 _Avoid:_ citation (provenance is origin; citation is how you point at it)

@@ -12,8 +12,14 @@
 #   .claude/skills/publish-program/   (creator tooling)
 #   .claude/skills/review-system/     (pending review)
 #   .claude/skills/pattern-pass/      (pilot — ships only if it graduates)
+#   .claude/skills/chronicle/         (pilot — promotion target is a cookbook recipe, not default system)
+#   .claude/skills/groom-issues/      (trial — migrated from a task prompt 2026-08-11; ships only if it graduates)
+#   .claude/scripts/imessage-window.py (chronicle pilot utility — machine-local Messages db)
 #   .claude/scripts/snapshot-lite.sh  (machine automation)
+#   wiki/patterns/README.md            (pattern-hubs pilot folder law)
+#   wiki/chronicle/README.md           (chronicle pilot folder law)
 
+README.md
 CLAUDE.md
 CONSTITUTION.md
 GLOSSARY.md
@@ -39,6 +45,8 @@ wiki/people/README.md
 wiki/life/README.md
 wiki/craft/README.md
 wiki/connections/README.md
+wiki/entities/README.md
+wiki/log/README.md
 .state/README.md
 .claude/skills/ingest/
 .claude/skills/process-inbox/
@@ -54,6 +62,7 @@ wiki/connections/README.md
 .claude/scripts/notes-cursor-diff.py
 .claude/scripts/regen-index.py
 .claude/scripts/ingest-file.sh
+.claude/scripts/regen-issues.py
 meta/README.md
 meta/HANDOFF.md
 meta/VAULT-DOCTRINE.md

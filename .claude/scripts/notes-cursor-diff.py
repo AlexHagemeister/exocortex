@@ -27,18 +27,21 @@ OS_JUNK = {".DS_Store", "Thumbs.db", "desktop.ini"}
 CONFLICT_RE = re.compile(r"(conflicted copy|Conflicted Copy)", re.I)
 DUP_SUFFIX_RE = re.compile(r"^(.*) \d+(\.[^.]+)$")
 # The gate matches Obsidian tag semantics: an inline #no-ingest token or a
-# frontmatter tags: line — never the string inside code spans/fences (a note
-# *discussing* the tag is not opted out), and tags: only in the frontmatter
-# block, not in body prose.
+# frontmatter tags: entry in flow form (tags: [a, b] / tags: a) or block form
+# (tags: followed by indented "- item" lines, which is what Obsidian's
+# properties panel writes; tag: singular accepted too) — never the string
+# inside code spans/fences (a note *discussing* the tag is not opted out), and
+# tags: only in the frontmatter block, not in body prose.
 CODE_RE = re.compile(r"```.*?```|`[^`\n]+`", re.S)
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?\n)---(?:\n|\Z)", re.S)
-TAGS_LINE_RE = re.compile(r"^tags:.*\bno-ingest\b", re.M)
+TAGS_BLOCK_RE = re.compile(r"^tags?:[^\n]*(?:\n[ \t]+-[^\n]*)*", re.M)
+NO_INGEST_RE = re.compile(r"\bno-ingest\b")
 INLINE_TAG_RE = re.compile(r"#no-ingest\b")
 
 
 def has_no_ingest(text: str) -> bool:
     fm = FRONTMATTER_RE.match(text)
-    if fm and TAGS_LINE_RE.search(fm.group(1)):
+    if fm and any(NO_INGEST_RE.search(m.group(0)) for m in TAGS_BLOCK_RE.finditer(fm.group(1))):
         return True
     return bool(INLINE_TAG_RE.search(CODE_RE.sub(" ", text)))
 

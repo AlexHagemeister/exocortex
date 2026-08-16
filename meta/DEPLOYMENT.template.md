@@ -11,7 +11,7 @@ Everything machine-, account-, or tool-specific lives here. Skills reference thi
 | Program repo clone | UNSET — local path of the cloned program repo and its upstream URL. Updates pull here first, then apply via `bootstrap.sh --update`. |
 | Program version | UNSET — the installed program release (tag or commit, with date). Stamped at install and by each `update-exocortex` run; the update check compares this against the latest release. |
 | Remote MCP server | UNSET — optional remote capture endpoint; skills skip this when unset. |
-| Scheduler / runner | UNSET — which machine runs scheduled maintainer tasks, and the schedule (suggested: process-inbox daily, lint weekly, digest weekly, vault-snapshot daily). |
+| Scheduler / runner | UNSET — which machine runs scheduled maintainer tasks, and the schedule (cadences in SETUP.md § 6; the digest starts manual). |
 | Unattended-run permissions | UNSET — where the machine-local permission allowlist lives (e.g. `.claude/settings.local.json`) so scheduled runs don't stall on prompts. Keep deletions out of the allowlist — those should always prompt. |
 | Capture tool | UNSET — whatever drops files into sources/inbox/. The ingest validation gate applies regardless; the program assumes no particular capture tool. |
 | Surfaces | UNSET — which surfaces act as maintainer (typically: Claude Code sessions opened in the vault) vs. read-only contributors via sources/inbox/ drops. |

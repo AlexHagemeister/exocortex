@@ -37,7 +37,7 @@ Delivered alongside this handoff: CLAUDE.md v1 (the one-page invariant core — 
 | Anti-pattern catalog with reasons | CONSTITUTION.md; each one also lands as a stated "don't" inside its owning skill (laundered inference → ingest; politeness-as-promotion → query; silent exception → CLAUDE.md; hand-healing → CONSTITUTION only, it binds the Curator; folder churn → amend; promiscuous capture → ingest, scoped to external content) |
 | Purpose, roles, principles, rationale, residence map | CONSTITUTION.md |
 
-**Residence rule for anything unlisted: who reads this rule, and when?** Every agent every turn → CLAUDE.md. During a procedure → that skill. When touching a folder → that folder's README. Only at design time / for adopters → CONSTITUTION.md. Curator-only norms → CONSTITUTION.md (agents don't need rules that bind the human).
+**Residence rule for anything unlisted: who reads this rule, and when?** Every agent every turn inside this vault → CLAUDE.md. During a procedure → that skill. When touching a folder → that folder's README. Only at design time / for adopters → CONSTITUTION.md. Curator-only norms → CONSTITUTION.md (agents don't need rules that bind the human).
 
 ## 3. Vault scaffold
 
@@ -70,7 +70,7 @@ Create ISSUES.md at vault root (agent-appendable friction log — operational bo
 ## 6. Open decisions (ask, don't assume)
 
 - Physical home for the git mirror + scheduled agents (machine/runner).
-- Per-type staleness half-lives (ship placeholders: life/infrastructure facts ~30d, conceptual pages ~180d; tune from lint output).
+- Per-type staleness half-lives (ship defaults in lint check 2: Person/Entity/Project 90d, Concept-class 180d, dated records exempt; tune from lint output).
 - wiki/ top-level topic folders — Curator chooses; propose 3–5 candidates from his existing material, keep few and stable (identity-is-path: renames are breaking migrations).
 - Whether sources/ ships alongside the bundle when sharing (default: no).
 - Mobile query via remote Claude Code session — test, don't architect around.
