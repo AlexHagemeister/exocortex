@@ -9,6 +9,8 @@ Mechanical half of index regeneration (ingest step 7 / lint check 9):
     re-slot freely — those choices stick);
   - new pages land under "# New (uncategorized)" and are printed so the
     agent slots them; entries for deleted pages are dropped and printed;
+  - non-markdown stream items (PDFs, images) list by filename, since they
+    carry no frontmatter — a derived index must not omit a filed source;
   - nested bundles appear as one entry per bundle — the authored hub
     (<sub>/index.md, same frontmatter test as the guard), titled and
     described from the hub's own frontmatter; satellites are reachable
@@ -49,9 +51,11 @@ def read_frontmatter(path: Path) -> dict:
 
 
 def stamp() -> str:
-    now = datetime.datetime.now()
-    # Matches the vault's existing derived-index stamp format.
-    return f"{now:%Y-%m-%d} {now:%a}, {now:%b} {now.day} — {now:%-I:%M %p}"
+    # Bare date, nothing else (ingest step 5, amendment 2026-08-04: binds every
+    # write path that touches frontmatter). The prose stamp this replaced was
+    # hand-corrected on sight and reverted on the next run, which cost agents
+    # their only in-band evidence that a generator had produced the file.
+    return f"{datetime.datetime.now():%Y-%m-%d}"
 
 
 def main() -> int:
@@ -105,6 +109,13 @@ def main() -> int:
         desc = fm.get("description", "").strip()
         entries[p.name] = f"* [{title}]({p.name})" + (f" - {desc}" if desc else "")
 
+    # Non-markdown stream items (PDFs, images): no frontmatter to pull, so they
+    # list by filename. A filed source the index omits is unreachable from its
+    # own stream, and the index is derived, so there is no hand-edit path.
+    for p in sorted(folder.iterdir()):
+        if p.is_file() and p.suffix.lower() != ".md" and not p.name.startswith("."):
+            entries[p.name] = f"* [{p.name}]({p.name})"
+
     # Nested bundles: one entry per authored hub (same test as the guard).
     for sub in sorted(p for p in folder.iterdir() if p.is_dir()):
         hub = sub / "index.md"
@@ -143,9 +154,16 @@ def main() -> int:
         for n in sorted(new):
             print(f"  {n}")
     if gone:
-        print("DROPPED (files no longer present):")
-        for n in sorted(gone):
-            print(f"  {n}")
+        absent = sorted(n for n in gone if not (folder / n).exists())
+        present = sorted(n for n in gone if (folder / n).exists())
+        if absent:
+            print("DROPPED (files no longer present):")
+            for n in absent:
+                print(f"  {n}")
+        if present:
+            print("DELISTED (still on disk, not indexable):")
+            for n in present:
+                print(f"  {n}")
     return 0
 
 

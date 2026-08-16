@@ -13,7 +13,7 @@ An **agent-maintained knowledge wiki** compiled from the user's sources and note
 # How it's organized
 
 - **[Concepts](concepts/)** — ideas, methods, technical and world knowledge (the research brain).
-- **[Projects](projects/)** — ongoing work, one hub page per project plus satellites. Start points: [exocortex system](projects/exocortex-system.md) (the vault itself), and the other project hubs in the [index](projects/index.md).
+- **[Projects](projects/)** — ongoing work, one hub page per project plus satellites. Start point: the project hubs in the [index](projects/index.md).
 - **[People](people/)** — collaborators and contacts.
 - **[Entities](entities/)** — organizations, places, events, artworks: named things in the world that aren't people.
 - **[Life](life/)** — personal facts and infrastructure agents need to act on the user's behalf.

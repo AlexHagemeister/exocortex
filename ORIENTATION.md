@@ -1,9 +1,9 @@
 ---
-updated: 2026-08-06 Thu, Aug 6 — 11:54 PM
+updated: 2026-08-08 Sat, Aug 8 — 5:27 PM
 ---
 # ORIENTATION — what you can ask for
 
-This page is the tour of your maintainer's capability surface. Keep it; nothing here needs memorizing. Every skill answers to plain words or to its slash command (`/digest` and "what needs my review" reach the same procedure), and asking "what can you do?" in any vault session re-opens this tour.
+This page is the tour of your maintainer's capability surface. Keep it. Nothing here needs memorizing. Every skill answers to plain words or to its slash command (`/digest` and "what needs my review" reach the same procedure), and asking "what can you do?" in any vault session re-opens this tour.
 
 ## The daily loop
 
@@ -15,19 +15,19 @@ This page is the tour of your maintainer's capability surface. Keep it; nothing 
 
 "What needs my review" (`digest`) compiles your review surface: new connections, disputes the maintainer found, drafts ready to promote. Skim it, correct what's wrong (a correction is one sentence to the maintainer), promote what's solid. Promoting a page to `verified` is deliberately yours alone.
 
-Run it as often as you feel like. Daily is normal when a lot is flowing in (an early migration, a busy stretch); weekly suits a settled vault. The cadence is yours. The experience is the core of the system: this is where the wiki becomes something you trust. Run it by hand at first; once you know your rhythm, ask to schedule it.
+Run it as often as you feel like. Daily is normal when a lot is flowing in (an early migration, a busy stretch). Weekly suits a settled vault. The cadence is yours. The experience is the core of the system. This is where the wiki becomes something you trust. Run it by hand at first. Once you know your rhythm, ask to schedule it.
 
 ## When something is off
 
 - **Corrections.** Say "that's wrong, actually …". Your statement enters as a new source and the affected pages reconcile. Nothing is hand-edited.
-- **Health checks.** `lint` finds contradictions, staleness, and broken structure. Usually scheduled; on demand anytime.
+- **Health checks.** `lint` finds contradictions, staleness, and broken structure. Usually scheduled, on demand anytime.
 - **Rule changes.** If anything chafes, say so. The `amend` skill proposes a concrete change, you approve it, and it's logged. The rules are yours to renegotiate.
 
 ## Keeping and growing
 
 - **"Capture this session"** (`session-capture`) preserves a conversation's decisions and reasoning before it evaporates.
 - **"Let's audit"** (`audit-exocortex`) reviews recent wiki pages with you, one page at a time.
-- **`vault-snapshot`** commits vault history to your private remote. Usually scheduled; run it before anything risky.
+- **`vault-snapshot`** commits vault history to your private remote. Usually scheduled. Run it before anything risky.
 - **"Update my exocortex"** (`update-exocortex`) checks for program releases, shows what changed, asks before applying, and then introduces what the update lets you do.
 
 ## What's possible later: the cookbook

@@ -70,17 +70,23 @@ done < "$REPO_ROOT/MANIFEST"
 glossary="$REPO_ROOT/GLOSSARY.md"
 readme="$REPO_ROOT/README.md"
 [ -f "$glossary" ] || die "GLOSSARY.md missing after sync"
+# Format-coupled: both files use "**term**: definition". If either file's
+# separator changes again, update these patterns in the same edit, or the
+# zero-comparison guard below will stop the publish.
+compared=0
 while IFS= read -r line; do
   [ -z "$line" ] && continue
-  term="$(sed -n 's/^- \*\*\([^*]*\)\*\* — \(.*\)/\1/p' <<< "$line")"
-  def="$(sed -n 's/^- \*\*\([^*]*\)\*\* — \(.*\)/\2/p' <<< "$line")"
+  term="$(sed -n 's/^- \*\*\([^*]*\)\*\*: \(.*\)/\1/p' <<< "$line")"
+  def="$(sed -n 's/^- \*\*\([^*]*\)\*\*: \(.*\)/\2/p' <<< "$line")"
   [ -z "$term" ] && continue
-  expected="**${term}** — ${def}"
-  gloss_line="$(grep -F "**${term}** —" "$glossary" | head -1 || true)"
+  compared=$((compared + 1))
+  expected="**${term}**: ${def}"
+  gloss_line="$(grep -F "**${term}**:" "$glossary" | head -1 || true)"
   if [ "$gloss_line" != "$expected" ]; then
     die "glossary drift on '${term}': README and GLOSSARY.md one-liners must match exactly"
   fi
 done < <(awk '/^## Key terms$/{in_section=1; next} in_section && /^## /{exit} in_section && /^- \*\*/{print}' "$readme")
+[ "$compared" -gt 0 ] || die "glossary drift check compared zero terms — README Key terms or GLOSSARY.md format changed under the check"
 
 # --- leak scan -------------------------------------------------------------
 # Built-in structural patterns + local private patterns, over every file git

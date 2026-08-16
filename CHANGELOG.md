@@ -6,6 +6,37 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.12.0] — 2026-08-16
+
+### Added
+- **Page scoping: every wiki page carries a `scope:` boundary contract, and CLAUDE.md gains a § Page scoping section.** A page holds one subject, evidenced, singly-homed, tested three ways (the description predicts the body, a new fact has one obvious home, the contents rot at the same rate). Ingest writes `scope:` at birth and owns a new split-under-growth-pressure operation. Lint check 1 flags a missing `scope:` on pages created after 2026-08-08. Audit briefs quote the scope. New GLOSSARY entry **scope**.
+- **Skill frontmatter law: every shipped skill carries a maintainer-facing `scope:` field**, the fixed standard for recalibrating a skill and the signal it should split. Law in amend § Skill frontmatter law.
+- **Judgment is data.** When no rule pins a call down, the maintainer logs one `Judgment:` line (the call, the reasoning, the intent evidence), interactive sessions included. The digest sweeps those lines to you (item 4c, capped at 5). CONSTITUTION principle 7 gains a sentence; the anti-pattern catalog gains **silent judgment**.
+- **`regen-issues.py` generates ISSUES.md; both friction-log indexes now have generators.** Lint check 1 requires `title`, `status`, `opened`, and `rule` on issue files.
+- **New wiki folder `entities/`** (organizations, places, events, artworks) with folder law and boundaries to people/, projects/, life/, concepts/. Scaffolded by bootstrap. Lint blesses `Entity` and `Person`.
+- **`wiki/log/` gains a README**: day logs are dated history, never citation targets.
+- **Lint check 1 flags raw HTML in wiki prose.** `<q>` strips mechanically, other tags queue.
+- **Lint check 10 queues consolidation candidates**: pages carrying three or more dated `## Unreviewed additions` sections.
+- **Cookbook recipe: Obsidian CLI** for alias-aware link integrity, schema-drift counts, and Sync recovery. Experimental; unattended runs must never depend on it.
+- **Folder grain law** on concepts/, people/, craft/, life/, entities/ READMEs, each with its own `scope:`.
+
+### Changed
+- **CLAUDE.md now says where it binds: inside this vault only.** Work in another repo follows that project's own instructions.
+- **Staleness half-lives are keyed by `type`, not by folder.** Person, Entity, Project 90 days; Concept, Connection, Synthesis, Source summary 180 days; Chronicle, Meta, Index never go stale. Deployments may bless further types in DEPLOYMENT.md with a stated half-life. The old "life/infrastructure 30d, conceptual 180d" placeholders are gone.
+- **publish-program's conformance check now classifies wiki folder READMEs and scans for links into unshipped wiki paths**, so a shipped README can't reference a folder a fresh install lacks.
+- **Amend step 8: a monitoring issue quotes the amended text** rather than describing it.
+- **`regen-index.py` lists non-markdown stream items and distinguishes DROPPED from DELISTED**; its `updated:` stamp is a bare date.
+- **Ingest's prose-style rule points at the deployment profile** (DEPLOYMENT.md § Style banlist) instead of carrying any specific rule.
+- **README is authored in the vault and derived in the repo; MANIFEST ships it**, plus `wiki/entities/README.md`, `wiki/log/README.md`, and `regen-issues.py`.
+- **Setup docs point at one cadence home.** DEPLOYMENT.template.md and bootstrap's closing hint refer to SETUP.md § 6 (the digest starts manual) instead of restating a schedule.
+- README rewritten around the trust argument: lineage and the laundered-inference problem open, the constitution's eight principles in full, then skills and routines, the notes-wiki fusion, the derived graph, progressive-disclosure retrieval, a campaign demo, the cookbook, and an honest expectations section. Claims aligned with shipped behavior: the digest starts manual, MCP deploy effort is about an hour, notes write-back is additive frontmatter only. Karpathy attribution linked to his llm-wiki gist.
+- **Skill and rule prose restyled**: em dashes and clause-joining semicolons removed throughout, no behavior change.
+
+### Fixed
+- **The `#no-ingest` opt-out now matches block-form frontmatter tags** (what Obsidian's properties panel writes). Previously only inline `#no-ingest` or a single-line `tags:` value matched, so list-tagged notes were ingested despite the tag. Read your notes before updating: some that used to ingest will now be skipped, as intended.
+- **`ingest-file.sh` accepts a trailing slash on the stream argument.**
+- **`tools/sync.sh`'s glossary drift check works again**; it had matched the old em-dash separator since the Aug 4 restyle and passed silently. It now fails if it compares zero terms.
+
 ## [0.11.0] — 2026-08-07
 
 ### Changed
