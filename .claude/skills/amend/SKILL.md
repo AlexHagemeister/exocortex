@@ -18,12 +18,12 @@ The rules are a pact the user authored and may renegotiate, never a cage and nev
 
 1. **Consult CONSTITUTION.md** (vault root): the principles the rules derive from, the anti-pattern catalog, and the residence map. A proposal that contradicts a principle needs the principle changed too (rare and deliberate). **Push back in plain language before asking for approval:** name the principle, explain the tradeoff, offer a conforming alternative and the override. The user still decides after that brief. Never silently refuse, never silently comply.
 2. **Locate the rule's one home** via the residence map: invariants → CLAUDE.md; procedures → the owning skill; folder law → that folder's README; user-only norms → CONSTITUTION.md. No rule lives twice. If you find a rule duplicated across surfaces, that's a bug to fix in the same pass.
-3. **Propose to the user**: current rule, observed friction (cite log/ISSUES entries), proposed wording, which principle it serves (and any principle it tensions with, from step 1). Wait for approval. Do not freestyle core behavior from a vague "make it better". Translate that into a concrete proposal or ask what hurts.
+3. **Propose to the user**: current rule, observed friction (cite log/ISSUES entries), proposed wording, which principle it serves (and any principle it tensions with, from step 1). Wait for approval. Do not freestyle core behavior from a vague "make it better". Translate that into a concrete proposal or ask what hurts. If the amendment creates a skill or script, propose its classification, ship or private, in the same approval (the classification record and its location are named in meta/DEPLOYMENT.md). A deployment that publishes nothing has no record to update and skips this.
 4. **Execute**: edit the one home. If the change introduces or renames system jargon, update GLOSSARY.md in the same pass. Grep the vault for traceability anchors (`<!-- constitution:`) and restatements of the old rule. Update every echo. Keep runtime vocabulary universal: "you" and "the user", no role nouns.
 5. **Guard the budget**: CLAUDE.md has a hard budget of one page. If an amendment grows it past that, something on it belongs in a skill or README instead. Move it, don't squeeze it.
 6. **Verify**: run lint's surface-consistency check (check 9) over the touched surfaces.
 7. **Log** the amendment in the day log, `wiki/log/<YYYY-MM-DD>.md` (what changed, why, who approved), and close any issues it resolves per ISSUES.md.
-8. **Monitor.** A shipped amendment is a hypothesis, not a settled fact. For any change with observable downstream behavior, open a tracking issue in `.state/issues/` linking the day-log entry and the issues or sources where the objectives were first stated. The issue covers:
+8. **Monitor.** A shipped amendment is a hypothesis, not a settled fact. For any change with observable downstream behavior, open a tracking issue in `.state/issues/` (frontmatter `kind: watch`) linking the day-log entry and the issues or sources where the objectives were first stated. The issue covers:
    - the amended text, quoted from the file it lives in
    - what evidence of working looks like and where it accrues (day logs, lint reports)
    - a close condition a few cycles out
@@ -35,15 +35,16 @@ Every skill in `.claude/skills/` carries a `scope:` frontmatter field, its bound
 
 ## Folder refactors are migrations
 
-A wiki page's path IS its identity. A rename breaks every inbound link, so wiki/ is never reorganized casually:
+A wiki page's name is its identity. Bare wikilinks survive a folder move, but path-qualified links, index listings, and dated records name the path, and a rename breaks every inbound link unless Obsidian performs it, so wiki/ is never reorganized casually:
 
 1. **Propose**: old → new mapping for every affected path, and why the new shape earns the breakage. Top-level folders are the user's choice, few and stable.
 2. **User approves.** No approval, no move.
 3. **Execute atomically**:
-   - move files
-   - rewrite every inbound link vault-wide (grep old paths across wiki/, since links are file-relative standard markdown and a move changes both directions)
+   - move files (renames go through `obsidian rename` so the app rewrites inbound wikilinks; folder moves may use `mv`)
+   - grep the old path vault-wide and rewrite what still names it (path-qualified wikilinks, and any markdown links in dot-folder or transitional surfaces)
    - regenerate every touched `index.md`
    - update `.state/` records citing old paths
+   - close with `timeout 60 obsidian unresolved` (grep misses path-qualified links to moved pages)
 4. **Log** the migration in the day log with the full mapping. Consider running `vault-snapshot` first so there's a pre-migration point to roll back to.
 
 ## Don'ts

@@ -18,7 +18,7 @@ If the vault comes up empty and the question concerns past work with the agent, 
 
 ### 2. Weight by status
 
-Weight and disclose every page per the status ladder in CLAUDE.md ("Reading wiki pages — status weighting"), the rule's one home, always in context. It covers `pending_review` annexes too. When a non-`verified` page materially shapes the answer, the disclosure goes in the answer itself ("per a draft page, …").
+Weight and disclose every page per the status ladder in CLAUDE.md ("Reading wiki pages: status weighting"), the rule's one home, always in context. It covers `pending_review` annexes too. When a non-`verified` page materially shapes the answer, the disclosure goes in the answer itself ("per a draft page, …").
 
 ### 3. Synthesize with citations
 
@@ -30,7 +30,7 @@ On long multi-page syntheses, place the fetched content above the question in an
 
 ### 4. Write good answers back
 
-If the answer required real synthesis (connected pages, resolved something, filled a gap), file it into the wiki as a new page so explorations compound, with `status: draft`, standard markdown links, and provenance listing every page and source used:
+If the answer required real synthesis (connected pages, resolved something, filled a gap), file it into the wiki as a new page so explorations compound, with `status: draft`, wikilinks by name, and every page and source it used cited inline at the claim it supports:
 
 ```yaml
 ---
@@ -41,8 +41,6 @@ tags: []
 timestamp: <now, ISO 8601>
 status: draft
 verified_at:
-depends_on: [<concept paths the answer rests on>]
-sources: [<pages and sources cited>]
 ---
 ```
 
@@ -57,7 +55,7 @@ Append the paths of draft pages your answer materially relied on to `.state/quer
 If the user **explicitly confirms** a specific cited claim ("yes, that's right", "confirmed"), that is a review event:
 
 1. Set that page's `status: verified` and `verified_at: <now>`.
-2. Add to its `sources:`: `"user confirmed in session, <date>"`.
+2. Write the receipt sentence at the top of its body: "Verified by Alex in session on <date> ([[wiki/log/<date>|day log]])."
 3. Log the promotion in the day log (`wiki/log/<YYYY-MM-DD>.md`).
 
 **Politeness is not assent.** "Thanks!", "great answer", or moving on confirms nothing. The trust ledger records explicit assent only. When unsure whether a reply was confirmation, ask. If the user *corrects* a claim instead, route it as a correction: write their statement to `sources/inbox/` with provenance `"the user, <date>"` and say you've done so. Ingestion reconciles the pages.

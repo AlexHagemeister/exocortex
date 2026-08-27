@@ -66,7 +66,10 @@ if [ -n "$MISSING" ]; then
   echo "WARNING: filing without $MISSING — its index entry will be a bare slug."
 fi
 
-# Old path as cited from wiki pages (vault-relative), before the move.
+# Old path as cited from wiki pages (vault-relative), before the move. Since the
+# 2026-08-17 link convention, wiki bodies cite sources by name ([[stem]]), which
+# keeps resolving after filing. This grep is the safety net for any path-form
+# reference (markdown link, path-qualified wikilink) that named the inbox path.
 OLD_REL="${ITEM#"$VAULT"/}"
 
 mv "$ITEM" "$TARGET"
@@ -77,7 +80,7 @@ echo "HASH:  $HASH (ledger appended)"
 
 STALE=$(grep -rln --include='*.md' -F "$OLD_REL" "$VAULT/wiki" 2>/dev/null || true)
 if [ -n "$STALE" ]; then
-  echo "STALE CITATIONS of $OLD_REL — rewrite these to the filed path:"
+  echo "STALE CITATIONS of $OLD_REL — path-form references; rewrite to [[$(basename "$REL_TARGET" .md)]]:"
   echo "$STALE" | sed "s|^$VAULT/||"
 else
   echo "STALE CITATIONS: none"

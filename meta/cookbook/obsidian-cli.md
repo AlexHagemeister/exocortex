@@ -3,10 +3,12 @@ name: obsidian-cli
 what: Obsidian's official command-line interface as an interactive link-graph, schema-aggregation, and sync-recovery layer for vault maintenance
 type: connector
 requires: Obsidian desktop app with the vault open while the CLI runs; Obsidian Sync for the recovery commands only
-effort: 2 minutes, one settings toggle
+effort: under a minute, one settings toggle
 suggest_when: a link-graph question grep can't answer (alias-aware backlinks, orphan or broken-link sweeps), a frontmatter or tag schema-drift check across the whole vault, or content lost in the gap between vault snapshots
-status: experimental
+status: recommended
 ---
+
+> Since 2026-08-26 enabling the CLI is a standard setup step (SETUP.md § 5 in the program repo), not opt-in discovery: every Obsidian deployment is expected to have it on. This recipe stays the one home for the command list, constraints, and limits.
 
 # Obsidian CLI: the link-graph and recovery layer
 
@@ -20,7 +22,7 @@ Three uses earned the recommendation in real vault work:
 2. **Schema-drift detection in one call.** `properties counts` and `tags counts` made frontmatter drift and tag-vocabulary junk visible across ~200 pages during a whole-system review, work that would otherwise take a custom script per question.
 3. **Recovery between snapshots.** `sync:history`, `sync:deleted`, and `history:restore` reach Obsidian Sync's version history, the only layer that fills gaps between scheduled git snapshots.
 
-The trial also mapped the limits, which the recipe states so you don't relearn them: the link graph is blind to frontmatter-only edges (a `depends_on:` entry produces no backlink), there are no multi-hop or algorithmic queries (a compiled graph layer does that better), and per-page `backlinks` dispatches to the app once per call, too slow for bulk tallies across hundreds of pages.
+The trial also mapped the limits, which the recipe states so you don't relearn them: the link graph sees wikilinks in body and frontmatter alike but is blind to plain-string paths (a `depends_on:` entry written as a bare path produces no backlink; written as `"[[name]]"` it does, verified 2026-08-17), there are no multi-hop or algorithmic queries (a compiled graph layer does that better), and per-page `backlinks` dispatches to the app once per call at about 0.3 s each (measured 2026-08-17: 50 pages in 16 s, so a full-wiki tally is a couple of minutes, fine for a lint pass). The binary reads stdin, so loop with `for f in $(cat list)`, not `while read`, which runs once and swallows the list.
 
 The larger unlock: an agent doing lint, audit, or post-ingest checking gets Obsidian's resolver as ground truth instead of approximating it with regexes, and the vault gains an undo layer independent of git.
 

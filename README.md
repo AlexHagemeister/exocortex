@@ -12,7 +12,7 @@ An agent-maintained personal knowledge system with a constitution.
 
 **TL;DR:** You capture things (articles, meeting notes, decisions, stray thoughts) and write notes however you already do. An AI maintainer compiles everything into a personal wiki, cross-linked, provenance-tracked, and marked with how far to trust each claim. Your notes and the machine's wiki live side by side in one vault, linked page to page. It never edits your words, and your verbatim words outrank its synthesis. The machine does all the maintenance. You keep one job, deciding what enters and what gets believed.
 
-Any agent you connect stops being a smart stranger. Pair the vault with [exocortex-mcp](https://github.com/AlexHagemeister/exocortex-mcp) and your context travels to any agent surface (claude.ai, the mobile app, any MCP client). Connect your other tools the same way (Gmail, calendars, meeting recorders). The agent then captures from every surface and acts on each one with everything it knows about your life.
+In practice this is the closest thing to continuous learning I've found: the vault remembers everything you discuss and everything you tell it, so the agent gets better and smarter the longer you use it. Pair the vault with [exocortex-mcp](https://github.com/AlexHagemeister/exocortex-mcp) and your context travels to any agent surface (claude.ai, the mobile app, any MCP client). Connect your other tools the same way (Gmail, calendars, meeting recorders). The agent then captures from every surface and acts on each one with everything it knows about your life.
 
 Your knowledge is plain markdown in a folder you own. The system is rules the agent reads plus a few small scripts you can audit in a sitting. No app, no database, no lock-in.
 
@@ -22,11 +22,47 @@ Your knowledge is plain markdown in a folder you own. The system is rules the ag
   </a>
 </p>
 
+<p align="center">
+  <img src="docs/images/graph.png" width="720" alt="The vault's knowledge graph in Obsidian">
+</p>
+<p align="center"><em>A lived-in vault's compiled graph. Every edge is a link somebody wrote, and nothing here is maintained by hand.</em></p>
+
+## Quickstart
+
+### Instructions for humans
+
+Open [Claude Code](https://claude.com/claude-code) (or whatever coding agent you use) and paste this:
+
+```
+Clone https://github.com/AlexHagemeister/exocortex, read its INSTALL.md, and help me set up my own exocortex vault on this machine.
+```
+
+That's the whole install. The agent interviews you for the few decisions that are yours (where the vault lives, whether you want Obsidian and a private backup remote), and if you're up for it, adds a short get-to-know-you conversation that becomes your vault's first knowledge. Then it runs the setup, verifies it, and hands you the keys. When it finishes, close that session and open Claude Code in your new vault folder. That's where everything happens from now on. Updating later is one more prompt to your agent ("update my exocortex"). Releases are announced in [CHANGELOG.md](CHANGELOG.md), and watching the repo gets you notified.
+
+Prefer to do it by hand? [SETUP.md](SETUP.md) is the manual guide: clone, run `./tools/bootstrap.sh <vault path>`, fill in your deployment file, then open Claude Code in the vault.
+
+### Instructions for agents
+
+If a human pointed you at this repo and asked you to set them up: [INSTALL.md](INSTALL.md) is your procedure. Interview first, execute, verify. This repo is the program, not a vault. Never treat it as one, and never do vault work inside it.
+
+<p align="center">
+  <img src="docs/images/claude-code-desktop.png" width="900" alt="A vault session in the Claude Code desktop app: maintainer report on the left, a wiki file open in the built-in browser on the right">
+</p>
+<p align="center"><em>What living in it looks like: a vault session in Claude Code desktop, with the constitution open in the file viewer.</em></p>
+
 ## Where this comes from
 
 In April 2026 Karpathy sketched the [**LLM-wiki pattern**](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): a coding agent plus a folder of markdown files, compiling knowledge into a cross-linked wiki it can navigate itself. No knowledge graph, no database, just files an agent reads and writes. In June, Google published the [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog) (OKF v0.1), formalizing what such a bundle of files should look like. A wave of agent-memory and second-brain projects is now building on this pattern, and this system is one of them.
 
-But the pattern has a problem, and you hit it fast when you actually live in one of these systems. **The agent writes far more of the record than you do, and far faster than you can check.** Left alone, it does what LLMs do: it extrapolates from thin evidence and writes the guess in the same confident typography as fact. Call that **laundered inference**. Once it's in the wiki, everything built on top inherits it, silently. A knowledge base whose claims can't be checked isn't knowledge. It's confident text.
+But the pattern has a problem, and you hit it fast when you actually live in one of these systems. **The agent writes far more of the record than you do, and far faster than you can check.** Left alone, it does what LLMs do: it extrapolates from thin evidence and writes the guess in the same confident typography as fact, e.g. **laundered inference**. Once it's in the wiki, everything built on top inherits it, silently. A knowledge base whose claims can't be checked isn't knowledge, just confident text. This is very, very, annoying.
+
+And it's not the only problem. Live in the neighboring systems for a while and the rest of the category's failures find you too:
+
+- **Your notes and the machine's memory live in separate worlds.** Memory products remember for the agent, your notes app remembers for you, and neither reads the other. It's all *your* knowledge, split across systems that can't cite each other.
+- **The memory is opaque.** App-native memory stores a wrong or stale fact (an old job, a misread preference) and silently carries it into every future answer. You can't read what it believes, correct it in place, or see what a correction should ripple into.
+- **The archive is write-only.** Capture feels productive, the pile grows, and nothing is ever metabolized. Ask the PKM world: saving everything and trusting none of it back out is the category's signature failure.
+- **You are the maintenance crew.** Tagging, linking, reorganizing, gardening the graph. The labor lands on the human, and abandoning that labor is how most second brains die.
+- **The memory is trapped in one app.** It works only on that product's surface, every other agent meets you as a stranger, and leaving the product means leaving the memory behind.
 
 So the defining question for the whole category is not "how do we remember everything." It is this. **The agent wrote most of the record, so who decided what is true?**
 
@@ -46,6 +82,10 @@ This system's answer is a constitution.
 8. **Curation cannot be delegated.** The agent absorbs every maintenance job except one: deciding what deserves to enter and what deserves trust. That bottleneck is preserved on purpose. The system's quality is bounded by it, and that's the point.
 
 The constitution also names the failure modes it exists to prevent. Laundered inference is the deadliest, and hand-editing the wiki, silent retractions, and inferring approval from politeness are all in there too. It also defines the boundary that lets this repo exist. The **program** (rules, skills, tooling, this repo) ships publicly with no personal data, while your vault stays yours.
+
+## Feelings
+
+If anything about how this works annoys you, complain to the agent. That's not a coping mechanism, it's the designed input: the whole system is fuzzy and loose on purpose, rules written in markdown an agent reads rather than code, so it can calibrate to your preferences, your workflows, and whatever your actual use case turns out to be. Friction is treated as data about the rules, never about you, and a rule you keep overriding gets flagged for amendment on its own. Some friction is irreducible, because trustworthy knowledge has a price: someone has to review what the machine wrote before it's believed, and that someone is you. Nearly everything else, how it talks, what it surfaces, when things run, how folders are shaped, can bend to fit you.
 
 ## The skills, and the routines
 
@@ -76,19 +116,49 @@ The boundary between the two spaces is law, not etiquette. The maintainer never 
 
 The maintainer also keeps a daily log of its own (`wiki/log/`), a dated record of everything the pipeline did. You journal your days. The system journals its work. Both are files in the same folder tree, open to the same search, the same graph, and the same audit.
 
+The maintainer's side has a fixed shape. The wiki ships with these topic folders, each carrying a README that states its law:
+
+- `concepts/`: ideas, methods, technical and world knowledge. The research brain.
+- `projects/`: anything effort-shaped (see Projects below)
+- `people/`: collaborators and contacts
+- `entities/`: organizations, places, events. Named things in the world that aren't people.
+- `life/`: personal facts and infrastructure an agent needs to act on your behalf
+- `craft/`: how you work (workflows, principles, stack defaults)
+- `agent/`: what the agent's own tools and surfaces can do here, and how to perform recurring tasks. The mechanics behind craft/'s principles.
+- `connections/`: first-class claims that two things relate. The insight surface between notes and wiki.
+- `log/`: the maintainer's dated record of what the pipeline did
+- `chronicle/`: the record of *your* days, one page per day, if you opt in (a cookbook recipe)
+
+`wiki/README.md` in your vault is the living version of this list, with the status-weighting rules for reading what's inside.
+
+## Bundles
+
+A **bundle** is the vault's unit of containment: a folder of related knowledge with an index. The term is fractal, and the same word applies at every scale. The wiki itself is a bundle (the outermost one, and what "the bundle" means unqualified). Each topic folder inside it, like `life/` or `concepts/`, is a bundle. A project folder inside `projects/` is a bundle. Bundles nest freely. The index comes in two kinds: topic folders carry a derived listing the pipeline regenerates, while a project bundle's `index.md` is an authored hub page a maintainer writes and keeps current.
+
+## Projects
+
+`projects/` holds effort-shaped work: anything with a goal, a current state, and decisions piling up over time. A course you're taking, a medical process, a piece of software, an event you're planning. Not a topic (that's `concepts/`) and not a standing fact about your life (that's `life/`). If you'd say you're "working on" it, it's a project.
+
+A small project is a single hub page: goals, current state, key decisions, claims dated and cited. When it grows its first substantial sub-topic, the maintainer converts the page into a project bundle, with the hub as its index and satellite pages for the sub-topics, each linked from the hub with a line of summary so the project stays legible without opening anything. The maintainer proposes or performs this growth on its own, but you never have to wait for it: "set up a project bundle for X" is a normal request, and the natural way to start any effort you already know will accumulate.
+
 ## The graph you never maintain
 
 Knowledge graphs have a maintenance problem. Most graph-backed memory systems store the graph as its own artifact, next to the notes it describes. That makes two copies of the truth, and two copies drift. Every edit has to land in both places, so these systems grow extraction pipelines, sync jobs, and reconciliation logic just to keep the map matching the territory. The graph starts as a feature and becomes a second system to run.
 
-This vault already contains its graph. Wiki pages link to each other through ordinary markdown links in the body, plus typed edges in the frontmatter (`depends_on`, `sources`). So there is nothing to maintain. A small script ([.claude/scripts/vault_graph.py](.claude/scripts/vault_graph.py)) reads every page and redraws the whole map from scratch, in less than a second, whenever the map is needed. Pages become nodes, links become typed edges, and `lint` runs graph queries over the result (dangling links, dependency cycles, verified pages resting on draft foundations, the full downstream walk when a claim gets retracted). Then the map is thrown away. A graph that never persists cannot go stale.
+This vault already contains its graph. Wiki pages link to each other through ordinary links in the body, typed by where the target lives (a link into sources/ is provenance, a link into wiki/ is a dependency). So there is nothing to maintain. A small script ([.claude/scripts/vault_graph.py](.claude/scripts/vault_graph.py)) reads every page and redraws the whole map from scratch, in less than a second, whenever the map is needed. Pages become nodes, links become typed edges, and `lint` runs graph queries over the result (dangling links, dependency cycles, verified pages resting on draft foundations, the full downstream walk when a claim gets retracted). Then the map is thrown away. A graph that never persists cannot go stale.
 
 The result is typed traversals, integrity checks, and blast-radius analysis with no graph database, no embedding index, no extraction pipeline, and no sync machinery. Every edge is a link somebody wrote. The whole apparatus is one script and two Python libraries (networkx, pyyaml). The text stays the only source of truth.
 
 ## How the agent finds anything
 
-Engineers always ask how retrieval works, expecting a search stack. There is no vector database and no embedding search here. Retrieval works by progressive disclosure, the way a person reads a well-kept wiki.
+There is no vector database and no embedding search. Retrieval works by progressive disclosure, the way a person reads a well-kept wiki. Every page's frontmatter carries a `description` written as a retrieval hook: what the page holds and when to fetch it, because in a search result or an index, that one line is often all an agent sees. The working folders keep an `index.md` of their pages, one line each, regenerated at write time rather than derived at query time. Folder READMEs state each zone's law, so a session loads only the rules that bind what it's doing right now.
 
-Every page's frontmatter carries a `description` written as a retrieval hook. It says what the page holds and when to fetch it, because in a search result or an index, that one line is often all an agent sees. The working folders keep an `index.md` of their pages, one line each, regenerated at write time rather than derived at query time. Folder READMEs state each zone's law, so a session loads only the rules that bind what it's doing right now. An agent answering a question starts at the root index, drills down through folder indexes and page descriptions, and opens only the pages that earn it. Links carry it sideways. And since everything is plain text, grep still works underneath it all.
+On top of that structure sits a small toolkit, fully deterministic, reached for in order:
+
+1. **Indexes and descriptions route.** An agent starts at the root index, drills down through folder indexes and page descriptions, and opens only the pages that earn it. Links carry it sideways.
+2. **grep finds content.** Everything is plain text, so keyword and regex sweeps work across any zone, scoped to wiki, sources, or notes as the question demands.
+3. **Obsidian's resolver finds connections.** Backlinks, unresolved links, orphans, and tag counts come from the Obsidian CLI, which searches the vault the way Obsidian resolves it, aliases included.
+4. **The throwaway graph finds structure.** The graph script from the previous section answers link-shape questions: what depends on this page, what dangles, what cycles.
 
 This is also why the system compiles a wiki instead of pointing vector search at raw notes, a distinction Karpathy drew when he sketched the pattern. Retrieval cooks from scratch on every question and accumulates nothing. A compiled wiki is a maintained artifact, so every answer starts from everything already synthesized, and the work of understanding a source is paid once.
 
@@ -114,28 +184,17 @@ On disk, that campaign is one hub page holding state (excerpt of `wiki/projects/
 ---
 type: Project
 status: draft
-sources:
-  - ../../../sources/calls/2026-07-15-imaging-center-scheduling.md
-  - ../../../sources/life/2026-07-02-referral-pdf.md
 ---
 ## Where it stands
-Booked 2026-07-21, 9:40 AM ([07-18 call](../../../sources/calls/2026-07-18-imaging-center-booking.md)).
+Booked 2026-07-21, 9:40 AM ([[2026-07-18-imaging-center-booking|07-18 call]]).
 The stall: the referral PDF prints the fax as …4110. The scheduler's
-working number is …4410 ([07-15 call](../../../sources/calls/2026-07-15-imaging-center-scheduling.md)).
-Open: report routing back to [Dr. Alvarez](../../people/dr-alvarez.md).
+working number is …4410 ([[2026-07-15-imaging-center-scheduling|07-15 call]]).
+Open: report routing back to [[dr-alvarez|Dr. Alvarez]].
 ```
 
-Every claim carries its origin. The page says how much to trust it (`draft` until you promote it). The raw call captures stay frozen forever as the record of what was actually said, which is what made the two fax numbers checkable against each other in the first place. The same shape holds for a contract, a job search, or a lease negotiation. The wiki's job is to hold state that outlasts a sitting, and to notice what no single conversation could.
+Every claim carries its origin, inline, at the sentence it supports. The page says how much to trust it (`draft` until you promote it, and promotion writes one line at the top naming who confirmed it and when). The raw call captures stay frozen forever as the record of what was actually said, which is what made the two fax numbers checkable against each other in the first place. The same shape holds for a contract, a job search, or a lease negotiation. The wiki's job is to hold state that outlasts a sitting, and to notice what no single conversation could.
 
 <!-- screenshots: drop here. Obsidian graph view of a populated vault, a wiki page with status frontmatter, a digest. Shoot from a demo vault, not a real one. -->
-
-## Quick start
-
-Paste this into [Claude Code](https://claude.com/claude-code) (or whatever coding agent you use) with this repo's URL filled in:
-
-> Clone `<this repo's URL>`, read its INSTALL.md, and help me set up my own exocortex vault on this machine.
-
-That's the install. The agent interviews you about vault location, sync, private remote, and scheduling. If you're up for it, it adds a short get-to-know-you conversation that becomes your vault's first knowledge. Then it runs the setup, fills in your deployment bindings, and smoke-tests the pipeline before handing you the keys. [INSTALL.md](INSTALL.md) is its script. [SETUP.md](SETUP.md) is the same procedure as a manual guide. Updating later is one more prompt to your agent. Releases are announced in [CHANGELOG.md](CHANGELOG.md) (watch the repo to get notified). Claude Code is the maintainer runtime the system is built for, and the skills register automatically in its vault sessions, but any capable agent can run the install.
 
 ## Your first five minutes
 
@@ -178,7 +237,7 @@ The memory also outlives the model. Knowledge and inference are separate layers 
 
 The repo ships [meta/cookbook/](meta/cookbook/), eight opt-in recipes for connecting the vault to the tools it will meet most: Granola meeting transcripts, Gmail, Google Calendar, Apple Reminders, iMessage, the Obsidian Web Clipper, the exocortex-mcp server, and a top-of-mind workflow file. Each recipe records what it requires, what setup costs, and when the agent may bring it up. The surfacing rules are strict. A recipe is inert until you opt in, the agent may offer at most one per session and never mid-task, and your silence is a no.
 
-## What to expect, honestly
+## What to expect
 
 This is a design document, not a pitch, so here is what the system's own record says about early use:
 
@@ -239,7 +298,7 @@ Full glossary → [GLOSSARY.md](GLOSSARY.md)
 | [GLOSSARY.md](GLOSSARY.md) | Canonical system vocabulary (term meanings, not procedures) |
 | [ORIENTATION.md](ORIENTATION.md) | The one-page tour of what you can ask for, installed at every vault root |
 | [.claude/skills/](.claude/skills/) | The maintainer skill procedures |
-| [.claude/scripts/](.claude/scripts/) | The four substrate scripts the skills invoke (file-and-freeze, index regeneration, notes-sweep diff, link graph) |
+| [.claude/scripts/](.claude/scripts/) | The five substrate scripts the skills invoke (file-and-freeze, index regeneration, notes-sweep diff, link graph, issue-index regeneration) |
 | [ISSUES.md](ISSUES.md), [.state/README.md](.state/README.md) | Friction-log and bookkeeping conventions |
 | [templates/](templates/) | Note frontmatter template |
 | [meta/](meta/) | The cookbook (eight opt-in connector recipes), the pinned OKF spec, the deployment-bindings template, and the historical design doctrine |
@@ -250,7 +309,7 @@ Full glossary → [GLOSSARY.md](GLOSSARY.md)
 
 ## Deploying by hand
 
-The [Quick start](#quick-start) above is the recommended path. To do it yourself instead ([Obsidian](https://obsidian.md) makes a nice viewer, but the files are the interface):
+The [Quickstart](#quickstart) above is the recommended path. To do it yourself instead ([Obsidian](https://obsidian.md) makes a nice viewer, but the files are the interface):
 
 ```sh
 git clone <this repo>   # somewhere NOT managed by iCloud/Dropbox/etc.

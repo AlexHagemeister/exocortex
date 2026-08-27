@@ -1,7 +1,7 @@
 ---
-updated: 2026-08-08 Sat, Aug 8 — 5:27 PM
+updated: 2026-08-26 Wed, Aug 26 — 6:14 PM
 ---
-# ORIENTATION — what you can ask for
+# ORIENTATION: what you can ask for
 
 This page is the tour of your maintainer's capability surface. Keep it. Nothing here needs memorizing. Every skill answers to plain words or to its slash command (`/digest` and "what needs my review" reach the same procedure), and asking "what can you do?" in any vault session re-opens this tour.
 
@@ -16,6 +16,10 @@ This page is the tour of your maintainer's capability surface. Keep it. Nothing 
 "What needs my review" (`digest`) compiles your review surface: new connections, disputes the maintainer found, drafts ready to promote. Skim it, correct what's wrong (a correction is one sentence to the maintainer), promote what's solid. Promoting a page to `verified` is deliberately yours alone.
 
 Run it as often as you feel like. Daily is normal when a lot is flowing in (an early migration, a busy stretch). Weekly suits a settled vault. The cadence is yours. The experience is the core of the system. This is where the wiki becomes something you trust. Run it by hand at first. Once you know your rhythm, ask to schedule it.
+
+## The map: where compiled knowledge lands
+
+Your captures become pages in `wiki/`, sorted by what they're about: `concepts/` (ideas and world knowledge), `projects/` (your ongoing work), `people/`, `entities/` (organizations, places, events), `life/` (personal facts agents act on), `craft/` (how you work), `agent/` (what the maintainer's own tools can do here, and how it performs recurring tasks), and `connections/` (claims that two things relate). The maintainer's own history lives in `log/`, and `chronicle/` records your days if you opt in. `wiki/README.md` describes each folder in one line and explains the trust statuses. It's the page to skim first.
 
 ## When something is off
 

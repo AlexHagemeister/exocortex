@@ -37,8 +37,8 @@ esac
 # folders match what wiki/README.md declares; keep the two in step.
 mkdir -p "$TARGET/sources/inbox" "$TARGET/notes" "$TARGET/wiki/log" \
          "$TARGET/wiki/concepts" "$TARGET/wiki/projects" "$TARGET/wiki/people" \
-         "$TARGET/wiki/life" "$TARGET/wiki/craft" "$TARGET/wiki/connections" \
-         "$TARGET/wiki/entities" \
+         "$TARGET/wiki/life" "$TARGET/wiki/craft" "$TARGET/wiki/agent" \
+         "$TARGET/wiki/connections" "$TARGET/wiki/entities" \
          "$TARGET/.state/issues" "$TARGET/templates" "$TARGET/meta" \
          "$TARGET/attachments" "$TARGET/staging" "$TARGET/drawings" \
          "$TARGET/.claude/skills" "$TARGET/.claude/scripts"

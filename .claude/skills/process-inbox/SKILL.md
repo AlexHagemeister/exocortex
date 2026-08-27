@@ -36,7 +36,7 @@ The cursor lives at `.state/notes-cursor.txt`: one line per known note, `<sha256
 6. For each cursor entry whose file is gone (no file AND no sync placeholder): record the path in `.state/deleted-notes.txt`. Deletion is withdrawal, a speech act the wiki must hear. `lint` walks the consequences (claims resting solely on a deleted note demote to disputed). A sweep that finds a large share of the cursor deleted at once is almost certainly bugged, not right. Stop and report instead of recording.
 7. Rewrite the cursor with current hashes and read timestamps.
 8. Regenerate `notes/index.md`, the one agent-authored file in notes/: categorized sections of `* [[Note]] - description` lines from note frontmatter.
-   - Wikilinks, not paths (they survive the user moving notes). Path-qualify (`[[notes/path/Name|Name]]`) only names that aren't unique vault-wide. (The wiki's markdown-link rule doesn't apply, because notes/ never ships.)
+   - Wikilinks, not paths (they survive the user moving notes). Path-qualify (`[[notes/path/Name|Name]]`) only names that aren't unique vault-wide. (Same rule as wiki/ since 2026-08-17.)
    - Preserve existing category assignments on regeneration. Slot only new or changed notes. The user may recategorize freely and those choices stick.
    - The index itself is invisible to the sweep: never walked, hashed, or ingested.
 
