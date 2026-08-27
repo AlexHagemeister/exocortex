@@ -1,7 +1,7 @@
 ---
 updated: 2026-08-11
 ---
-# CONSTITUTION — Principles of the Vault System
+# CONSTITUTION: Principles of the Vault System
 
 This is the design-time document: the purpose, roles, and principles from which every operational rule in this system derives. Every agent session loads it automatically (imported by CLAUDE.md). The working rules still live in CLAUDE.md, the skills, and folder READMEs. Return to it when changing the rules (the `amend` skill consults it), when a situation arises that no rule anticipated, or when deciding whether to adopt this system. Lineage: Karpathy's LLM-wiki pattern (Apr 2026) → Google's Open Knowledge Format v0.1 (Jun 2026) → this system.
 
@@ -38,20 +38,20 @@ Everything operational instantiates one of these. When rules conflict or a novel
 Two shippable units, and a boundary rule:
 
 - The **program** is the shippable system markdown listed in MANIFEST, with no personal data: principles (this document), invariants (CLAUDE.md), term meanings (GLOSSARY.md), procedures (.claude/skills/), friction-log conventions (ISSUES.md), bookkeeping conventions (.state/README.md), templates, selected meta/ reference docs, and the substrate scripts those procedures invoke (.claude/scripts/).
-- The **bundle** is wiki/ alone (OKF-conformant). sources/ and notes/ are external referenced resources, so an exported bundle carries dangling references to them by design (OKF consumers must tolerate broken links).
+- The **bundle** is wiki/ alone (OKF-conformant in frontmatter and structure; links are Obsidian wikilinks by name, a documented deviation from OKF §5 recorded in meta/README.md). sources/ and notes/ are external referenced resources, so an exported bundle carries dangling references to them by design (OKF consumers must tolerate broken links).
 - notes/ and .state/ contents never ship. The program may ship .state/README.md (conventions only).
 - The boundary is file-level, not knowledge-level. Wiki pages distill note content, so sharing a bundle publicly is a redaction pass, not a folder exclusion.
 
 ## Anti-patterns (named failure modes, with reasons)
 
-- **Laundered inference** — a guess written with the typography of a fact. The deadliest failure. It propagates silently and poisons everything built on it. Status fields and observation/inference separation exist to prevent it.
+- **Laundered inference**: a guess written with the typography of a fact. The deadliest failure. It propagates silently and poisons everything built on it. Status fields and observation/inference separation exist to prevent it.
 - **Silent judgment**: a judgment call made where the rules ran out, never surfaced. The decision-level analogue of laundered inference, and it costs the Curator the chance to correct the call and calibrate the intent behind it.
-- **Hand-healing** — the Curator editing wiki/ directly. It fixes the symptom, forks the agent's model of its own work, and leaves the upstream cause to reoffend. Root-cause instead. Corrections flow through sources.
-- **Promiscuous capture** — auto-ingesting external content without a curation gate. (The notes and life-data streams are exempt, because the Curator's own speech and scheduled personal exports are pre-curated by definition.)
-- **Silent exception** — an agent quietly complying with a rule-breaking instruction, or quietly reinterpreting it. Either way the Curator's mental model diverges from the system's reality. Translation must be spoken. Overrides must be logged.
-- **Politeness-as-promotion** — inferring verification from friendly acknowledgment. The trust ledger records explicit assent only.
-- **Folder churn** — casual reorganization of wiki/. Identity is path. A rename breaks every inbound link. Refactors are migrations: proposed, approved, executed with a link rewrite, logged.
-- **Silent retraction** — correcting a claim without re-examining what was built on it. Local healing, global poisoning. The retraction walk exists for this.
+- **Hand-healing**: the Curator editing wiki/ directly. It fixes the symptom, forks the agent's model of its own work, and leaves the upstream cause to reoffend. Root-cause instead. Corrections flow through sources.
+- **Promiscuous capture**: auto-ingesting external content without a curation gate. (The notes and life-data streams are exempt, because the Curator's own speech and scheduled personal exports are pre-curated by definition.)
+- **Silent exception**: an agent quietly complying with a rule-breaking instruction, or quietly reinterpreting it. Either way the Curator's mental model diverges from the system's reality. Translation must be spoken. Overrides must be logged.
+- **Politeness-as-promotion**: inferring verification from friendly acknowledgment. The trust ledger records explicit assent only.
+- **Folder churn**: casual reorganization of wiki/. Identity is name. A rename breaks inbound links unless Obsidian performs it, and a folder move breaks the indexes and dated records that name the path. Refactors are migrations: proposed, approved, executed with a link rewrite, logged.
+- **Silent retraction**: correcting a claim without re-examining what was built on it. Local healing, global poisoning. The retraction walk exists for this.
 
 ## Residence map (where everything lives)
 
@@ -62,7 +62,7 @@ Two shippable units, and a boundary rule:
 | Procedures and their rules | the owning skill in .claude/skills/ |
 | Folder-local law (stream modality, connection policy) | that folder's README.md |
 | Principles, rationale, roles, sharing semantics, this map | here |
-| File-format conformance target | meta/OKF-SPEC.md (pinned copy of an external spec; never loaded at runtime — compiled into templates) |
-| Environment bindings (machines, paths, sync, surfaces) | deployment profile — meta/DEPLOYMENT.md (skills reference it, never hardcode; deployment config may point at the program but never contain it) |
+| File-format conformance target | meta/OKF-SPEC.md (pinned copy of an external spec; never loaded at runtime, compiled into templates) |
+| Environment bindings (machines, paths, sync, surfaces) | deployment profile: meta/DEPLOYMENT.md (skills reference it, never hardcode; deployment config may point at the program but never contain it) |
 
 Changing a rule = editing its one home, via `amend`, with the Curator's approval. Changing a principle = editing this document, which should be rare and deliberate. Principles are what the rules are *for*.

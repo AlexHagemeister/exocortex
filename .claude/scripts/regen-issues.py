@@ -25,7 +25,16 @@ import sys
 from pathlib import Path
 
 SCRIPTS = Path(__file__).resolve().parent
-REQUIRED = ("title", "status", "opened", "rule")
+REQUIRED = ("title", "status", "opened", "rule", "kind")
+
+# Open rows are grouped by `kind` (ISSUES.md conventions define the vocabulary).
+# Anything with a missing or unrecognized kind lands in the defect bucket, so a
+# lazily filed issue degrades to the most attention-getting section, never hides.
+SECTIONS = (
+    ("decision", "On your desk"),
+    ("defect", "Defects and other"),
+    ("watch", "Watches accruing evidence"),
+)
 
 
 def _load_parser():
@@ -81,7 +90,7 @@ def main() -> int:
               "the authored header ends.", file=sys.stderr)
         return 1
 
-    rows: list[str] = []
+    grouped: dict[str, list[str]] = {key: [] for key, _ in SECTIONS}
     warnings: list[str] = []
     counts = {"open": 0, "resolved": 0, "wontfix": 0, "other": 0}
     for p in sorted(issues_dir.glob("*.md")):
@@ -100,11 +109,20 @@ def main() -> int:
         suffix = ", ".join(x for x in (fm.get("rule"),
                                        f"opened {fm['opened']}" if fm.get("opened") else "")
                            if x)
-        rows.append(f"{row} — {suffix}" if suffix else row)
+        kind = fm.get("kind", "")
+        bucket = kind if kind in grouped else "defect"
+        grouped[bucket].append(f"{row} — {suffix}" if suffix else row)
 
-    target.write_text("\n".join(header + [""] + rows) + "\n", encoding="utf-8")
+    body: list[str] = []
+    for key, heading in SECTIONS:
+        body.append(f"\n### {heading} — {len(grouped[key])}\n")
+        body.extend(grouped[key])
 
-    print(f"REGENERATED: {target} ({len(rows)} open)")
+    target.write_text("\n".join(header + body) + "\n", encoding="utf-8")
+
+    n_open = sum(len(v) for v in grouped.values())
+    print(f"REGENERATED: {target} ({n_open} open: "
+          + ", ".join(f"{len(grouped[k])} {k}" for k, _ in SECTIONS) + ")")
     print(f"  counted: {counts['open']} open, {counts['resolved']} resolved, "
           f"{counts['wontfix']} wontfix, {counts['other']} unrecognized status")
     if warnings:

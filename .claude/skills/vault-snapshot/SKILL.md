@@ -36,3 +36,5 @@ Read `meta/DEPLOYMENT.md` for the vault path and remote. **If the remote is UNSE
 ## Recovery (the one write-back)
 
 When a deleted page is needed again (e.g., an expired connection the user wants back): retrieve it from git history (`git log --diff-filter=D`, `git show`), restore it through the normal write path (it re-enters as `draft` unless its prior status is being deliberately restored with the user's say-so), and log the recovery. History is never rewritten.
+
+For content lost in the gap between git snapshots (nothing to `git show` yet), Obsidian Sync's own version history can still hold it, when the Obsidian CLI is enabled (`meta/cookbook/obsidian-cli.md`): `sync:history`, `sync:deleted`, `diff`, `history:restore`. Never `delete permanent`. No CLI, no Sync history: the git recovery above is the only path.

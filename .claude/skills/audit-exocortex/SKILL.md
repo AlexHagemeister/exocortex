@@ -10,7 +10,7 @@ The user's attention is the scarce input. Spend it deliberately. One page per tu
 
 ## Queue
 
-Precedence: pages the user names > the open digest's items > pages created or changed since the last review touchpoint. State the queue size up front.
+Precedence: pages the user names > the open digest's items > pages created or changed since the last review touchpoint. State the queue size up front. For a broader sweep with no obvious touchpoint, `obsidian random:read folder=wiki` draws a sample page, when the Obsidian CLI is enabled (`meta/cookbook/obsidian-cli.md`). Otherwise pick by hand.
 
 ## Per page — the reading brief
 
@@ -45,8 +45,8 @@ End with the available moves (correct / add / promote / skip), not a question.
 
 The user replies by item number, and one reply may carry several verdicts ("2: date's wrong — day before. Update, then promote.").
 
-- **Correction or addition**: first check whether the claim also lives on other pages (grep). If it does, route the user's statement through the correction flow (sources/inbox/) so reconciliation reaches all of them. If the page under audit is its only home, apply the edit directly and add provenance `"the user, audit review, <date>"` to `sources:`.
-- **Promotion**: explicit assent only, per page. Set `status: verified`, `verified_at`, add `"user confirmed in audit, <date>"` to `sources:` (in digest context, digest's wording), log in the day log. <!-- constitution: principle 3, gate on status -->
+- **Correction or addition**: first check whether the claim also lives on other pages (grep). If it does, route the user's statement through the correction flow (sources/inbox/) so reconciliation reaches all of them. If the page under audit is its only home, apply the edit directly and cite it inline at the corrected claim: "(Alex, audit review, <date>)".
+- **Promotion**: explicit assent only, per page. Set `status: verified`, `verified_at`, write the receipt sentence at the top of the body: "Verified by Alex in audit on <date> ([[wiki/log/<date>|day log]])." (in digest context, digest's wording), log in the day log. <!-- constitution: principle 3, gate on status -->
 - **Skip**: leave as-is, move on.
 
 ## Exit

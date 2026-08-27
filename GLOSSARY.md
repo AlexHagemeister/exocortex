@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-08 Sat, Aug 8 — 5:28 PM
+updated: 2026-08-26 Wed, Aug 26 — 6:14 PM
 ---
 # GLOSSARY: system vocabulary
 
@@ -127,23 +127,33 @@ _Home:_ `.claude/skills/update-exocortex/`
 
 **draft**: wiki status for hypothesis-grade pages. Usable, but say so when it matters.
 _Avoid:_ unverified (use status labels), guess (use observation/inference sections)
-_Home:_ CLAUDE.md § Reading wiki pages — status weighting
+_Home:_ CLAUDE.md § Reading wiki pages: status weighting
 
 **verified**: wiki status for human-promoted ground truth. Scarce by design.
 _Avoid:_ true, confirmed (unless quoting a source), approved (politeness ≠ assent)
-_Home:_ CLAUDE.md § Reading wiki pages — status weighting
+_Home:_ CLAUDE.md § Reading wiki pages: status weighting
+
+**review receipt**: the sentence at the top of a verified page's body recording who promoted it, in which review, on what date, linking the day log that records the promotion.
+_Avoid:_ sources: (retired 2026-08-17), provenance (provenance is a claim's origin; a review receipt records who promoted the page)
+
+**compaction**: the guarded, unattended re-expression of a verified page for cohesion without changing any claim (ingest step 5). Status untouched. The **fold** is compaction run at the user's confirmation of annex entries, which integrates them into the core.
+_Avoid:_ consolidation (the neuroscience analogy, and the ordinary word; the vault operation is compaction), merge (a fold integrates; retitling a heading is not a merge)
+_Home:_ `.claude/skills/ingest/SKILL.md` step 5
+
+**compaction receipt**: the sentence beside a page's review receipt recording a compaction: date, what the guards checked, and the last curator review it rests on.
+_Home:_ `.claude/skills/ingest/SKILL.md` step 5
 
 **stale**: wiki status for a page past its review half-life. Re-verify before relying on it.
 _Avoid:_ old, outdated (use status)
-_Home:_ CLAUDE.md § Reading wiki pages — status weighting; `.claude/skills/lint/` check 2
+_Home:_ CLAUDE.md § Reading wiki pages: status weighting; `.claude/skills/lint/` check 2
 
 **disputed**: wiki status for a page with contradictory evidence. Do not build on it.
 _Avoid:_ wrong, deprecated
-_Home:_ CLAUDE.md § Reading wiki pages — status weighting
+_Home:_ CLAUDE.md § Reading wiki pages: status weighting
 
-**pending_review**: frontmatter flag for a page with a verified core plus draft-grade "Unreviewed additions" sections.
+**pending_review**: frontmatter flag for a page with a verified core plus one draft-grade "Unreviewed additions" section of dated entries awaiting the fold.
 _Avoid:_ draft (the core may still be verified)
-_Home:_ CLAUDE.md § Reading wiki pages — status weighting
+_Home:_ CLAUDE.md § Reading wiki pages: status weighting
 
 **scope**: a page's boundary contract, carried in its `scope:` frontmatter field: what belongs, what is excluded, and where each exclusion lives instead. Serves filing (where a new fact goes), retrieval (an agent can skip and reroute without loading the body), and audit (the fixed standard that body drift is measured against). Mandatory on every wiki page and every skill (for skills it is maintainer-facing: a calibration and split signal, not router input). Distinct from `description`, the one-line retrieval attractor. Sources and notes never carry it.
 _Avoid:_ packing exclusions into `description`
@@ -171,6 +181,10 @@ _Home:_ sources/inbox/README.md; `.claude/skills/ingest/` step 2
 _Avoid:_ ticket, bug (unless quoting an external tracker)
 _Home:_ ISSUES.md; `.state/README.md`
 
+**kind**: an issue's species, frontmatter `kind: watch|decision|defect`, so the open list reads as three queues (watches accruing evidence, decisions on the user's desk, defects fixable by agent work).
+_Avoid:_ type (already means a wiki page's frontmatter `type:`), category
+_Home:_ ISSUES.md conventions
+
 **day log**: dated pipeline history at wiki/log/<YYYY-MM-DD>.md.
 _Avoid:_ journal, changelog (program changes use public CHANGELOG.md)
 _Home:_ wiki/log/
@@ -178,6 +192,14 @@ _Home:_ wiki/log/
 **claim-neutral edit**: a user-directed wiki edit that changes no claim (style, structure, formatting, link fixes). Applied directly on in-chat approval and day-logged. No knowledge enters, so no pipeline is bypassed.
 _Avoid:_ correction (that flow is for wrong claims), override (this is rule-following, not an exception)
 _Home:_ CLAUDE.md, single-pipeline rule
+
+**wikilink**: the vault's link form since 2026-08-17: `[[name]]`, resolved by file basename across the whole vault, or path-qualified `[[folder/name]]` when the name is not unique (index, README, collisions). Alias with `|`. Obsidian sees, follows, and repairs these; a page's name is its identity.
+_Avoid:_ markdown link, relative link, path link (the pre-2026-08-17 form; still correct for links into dot-folders, which Obsidian cannot wikilink)
+_Home:_ `.claude/skills/ingest/` link rule; lint check 1 enforces
+
+**chronicle**: the agent-compiled record of the user's days in `wiki/chronicle/`: one page per day (04:00-to-04:00), five fixed sections (reported, observed, inferred, coverage, the agent's read), weekly roll-ups after each Sunday. Distinct from the day log, which records what the pipeline did. Never a citation target: wiki claims cite the underlying sources, not chronicle entries. Opt-in via the cookbook recipe.
+_Avoid:_ diary, journal (those imply the user wrote it), day log (that is the pipeline's book)
+_Home:_ `wiki/chronicle/README.md` folder law; `.claude/skills/chronicle/` procedure; `meta/cookbook/chronicle.md` adoption
 
 **self-interview**: the digest's 1–3 question-shaped items about the user per cycle. The kinds are blind-spot (receipted hypothesis awaiting verdict), disclosure (the system doesn't know, asks), and negative-space (neither knows). The user's verdict completes all bookkeeping.
 _Avoid:_ survey, personality quiz, blind-spot report

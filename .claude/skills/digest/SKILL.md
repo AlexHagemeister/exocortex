@@ -1,6 +1,6 @@
 ---
 name: digest
-scope: "Compiling the review surface and closing its loop: triage scoring, the decision budget, staged-addition merges, interview verdicts, and review markers. The per-page brief and verdict mechanics live in audit-exocortex, and the adjudication items it compiles come from lint's queue, never its own detection."
+scope: "Compiling the review surface and closing its loop: triage scoring, the decision budget, annex-entry verdicts (the fold itself lives in ingest), interview verdicts, and review markers. The per-page brief and verdict mechanics live in audit-exocortex, and the adjudication items it compiles come from lint's queue, never its own detection."
 description: Compile the review surface: new connections, disputes, promotion shortlist, self-interview, friction log. Run on the deployment schedule or when the user asks "what needs my review" or wants the digest.
 ---
 
@@ -22,8 +22,8 @@ Write to `.state/digests/<YYYY-MM-DD>.md` and present it in full to the user:
 
 1. **Recap**: a few lines: what entered the wiki since last review (ingests, syntheses, notable log entries).
 2. **New connection pages**: every `wiki/connections/` page created since last review, with its one-line description. Also note connections one review short of lint check 7's expiry bar (last call).
-3. **Disputes and withdrawals**: everything in `.state/lint/queue.md`: contradiction pairs, deleted-note demotions, judgment calls. These need adjudication.
-3b. **Verified pages with unreviewed additions**: every `pending_review: true` page, with one line per staged addition (and any flagged contradictions with the core called out).
+3. **Disputes and withdrawals**: everything in `.state/lint/queue.md`: contradiction pairs, deleted-note demotions, judgment calls, and compactions the guards refused since the last review, with their guard reports. These need adjudication.
+3b. **Verified pages with unreviewed additions**: one item per `pending_review: true` page: the page, and its annex entries as a numbered claim list with citations (any flagged contradictions with the core called out). Verdicts are per claim (confirm, correct, reject) or per page ("all confirmed"). The user reviews claims, never prose.
 4. **Promotion shortlist**: see triage below. **Hard cap: 5–10 items.**
 4b. **Self-interview**: 1–3 question-shaped items about the user as a person, counted inside the decision budget. Three flavors:
    - **blind-spot**: an unconfirmed pattern-claim with cited receipts. Behavioral traces license behavior-only phrasing: state the pattern, leave the interpretation to the user.
@@ -46,11 +46,11 @@ Take the top 5–10, never more. Everything below the cap **stays draft indefini
 
 ## Review
 
-Run the shortlist through the `audit-exocortex` skill's loop: one page per turn, its brief format and verdict mechanics. Promotions in digest context record `"user confirmed in digest review, <date>"` as the `sources:` line.
+Run the shortlist through the `audit-exocortex` skill's loop: one page per turn, its brief format and verdict mechanics. Promotions in digest context write the receipt sentence at the top of the page body: "Verified by Alex in the digest review of <date> ([[wiki/log/<date>|day log]])."
 
-For each **staged addition** the user confirms: merge it into the page's core prose (integrated, not appended), delete the annex section, clear `pending_review` when no annex sections remain, log. If the user corrects it instead, route their statement through the correction flow. If they reject it, delete the annex section and log the rejection. Explicit assent only. A nod at the digest as a whole promotes nothing. Disputes: apply whatever the user adjudicates (which claim wins, what demotes), via the correction flow where their ruling is new speech (write it to `sources/inbox/` with provenance `"the user, <date>"`).
+For each **annex entry** the user confirms: run the fold (ingest step 5, Compaction): the confirmed claims are integrated into the core by a guarded whole-body rewrite, the entries deleted from the section, `pending_review` cleared when the section is empty, and the fold logged. Retitling an annex heading is not a merge. If the user corrects it instead, route their statement through the correction flow. If they reject it, delete the entry and log the rejection. Explicit assent only. A nod at the digest as a whole promotes nothing. Disputes: apply whatever the user adjudicates (which claim wins, what demotes), via the correction flow where their ruling is new speech (write it to `sources/inbox/` with provenance `"the user, <date>"`).
 
-**Interview verdicts** (items from 4b): confirm → the claim enters `wiki/life/self-model.md` with provenance `"user confirmed in digest review, <date>"`; correct → route through the correction flow; reject → record the rejection on the page (the verdict is itself self-knowledge); "not that topic" → add the topic to the page's Off limits section and never re-ask it. The verdict completes all bookkeeping. An interview item never produces a follow-up reading surface.
+**Interview verdicts** (items from 4b): confirm → the claim enters `wiki/life/self-model.md` cited inline as "(Alex, digest review, <date>)"; correct → route through the correction flow; reject → record the rejection on the page (the verdict is itself self-knowledge); "not that topic" → add the topic to the page's Off limits section and never re-ask it. The verdict completes all bookkeeping. An interview item never produces a follow-up reading surface.
 
 **When the user finishes reviewing** (says so, or has acted on the items): write the marker `.state/review-markers/<YYYY-MM-DD>` (second review same day: `-2`, then `-3`, …). This review event is what connection-expiry and draft-lifecycle clocks count. Never write a marker for an unreviewed digest. If act-evidence shows a review that never got its marker (`verified_at` stamps or day-log review entries since the last marker), write it retroactively, dated to the acts and noted as reconstructed. Unattended runs surface the evidence in the digest instead of writing the marker.
 

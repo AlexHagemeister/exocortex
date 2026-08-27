@@ -1,13 +1,27 @@
 #!/usr/bin/env python3
 """vault_graph — compile the exocortex vault into a typed NetworkX graph and run lint/analysis queries.
 
-Read-only over the vault. Pilot version: report to stdout.
+Read-only over the vault. Pilot version: report to stdout. Writes nothing.
+
+Usage: vault_graph.py [--vault PATH]   (default: the vault this script lives in)
 
 Node id = path relative to vault root (e.g. "wiki/concepts/x.md").
 Node kinds: wiki (parsed pages), source/note/other (link targets outside wiki/, added as stubs).
-Edge kinds: depends_on, source (frontmatter sources:), body (markdown/wiki links in body).
+Edge kinds: body (markdown/wiki links in body). Every body link into wiki/ is a dependency edge.
+
+Resolution (link convention approved 2026-08-17):
+  body [[wikilink]]      stem match across the whole vault (non-dot folders, case-insensitive):
+                         one hit -> "wikilink-name"; several -> "ambiguous-name(N)" (a finding);
+                         none -> vault-relative path, with or without .md -> "wikilink-path";
+                         else "dangling". A target containing "/" tries the path first.
+  body [md](link)        file-relative, then vault-relative. No basename fallback. Else "dangling".
+
+The frontmatter fields `sources:` and `depends_on:` were retired 2026-08-17: provenance and
+dependencies now live as inline links in the body. A page still carrying either field is reported
+under "Retired fields still present", not walked for edges.
 """
 
+import argparse
 import re
 import sys
 from collections import Counter, defaultdict
@@ -17,15 +31,40 @@ from urllib.parse import unquote
 import networkx as nx
 import yaml
 
-# vault root = two levels up from this script (.claude/scripts/vault_graph.py)
+# vault root = two levels up from this script (.claude/scripts/vault_graph.py); --vault overrides
 VAULT = Path(__file__).resolve().parents[2]
 WIKI = VAULT / "wiki"
+
+
+def set_vault(root: Path):
+    global VAULT, WIKI
+    VAULT = root.resolve()
+    WIKI = VAULT / "wiki"
+
 
 FM_RE = re.compile(r"^---\n(.*?)\n---\n?(.*)", re.S)
 # markdown links [text](target) — skip images ![...], external URLs, anchors
 MD_LINK_RE = re.compile(r"(?<!\!)\[[^\]]*\]\(([^)\s]+)\)")
 WIKILINK_RE = re.compile(r"\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]")
 CODE_FENCE_RE = re.compile(r"```.*?```", re.S)
+INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
+
+
+def is_dot_rel(rel: Path) -> bool:
+    return any(part.startswith(".") for part in rel.parts)
+
+
+def scan_vault_files():
+    """Every file under non-dot folders of the vault, as vault-relative posix paths."""
+    out = []
+    for p in VAULT.rglob("*"):
+        if not p.is_file():
+            continue
+        rel = p.relative_to(VAULT)
+        if is_dot_rel(rel):
+            continue
+        out.append(rel.as_posix())
+    return out
 
 
 def parse_file(path: Path):
@@ -42,37 +81,64 @@ def parse_file(path: Path):
         return None, m.group(2), f"YAML error: {str(e).splitlines()[0]}"
 
 
-def classify_format(raw: str) -> str:
-    """Which of the coexisting path formats is this entry written in?"""
-    r = raw.strip().strip('"')
-    if r.startswith("[["):
-        return "wikilink"
-    if r.startswith(("wiki/", "sources/", "notes/", "attachments/", "meta/")):
-        return "vault-relative"
-    if r.startswith(("./", "../")):
-        return "file-relative"
-    if "/" in r:
-        return "subpath"  # e.g. projects/x.md — relative but with folders
-    return "bare"
-
-
 class Resolver:
     """Resolve a link/path string to a canonical vault-relative path."""
 
-    def __init__(self, wiki_pages):
-        self.by_base = defaultdict(list)
-        for p in wiki_pages:
-            self.by_base[p.name].append(p)
+    def __init__(self, vault_files):
+        # vault-wide maps for wikilinks: lower stem -> [rel] (.md files),
+        # lower filename -> [rel] (non-md), lower rel path sans .md -> rel
+        self.md_by_stem = defaultdict(list)
+        self.other_by_name = defaultdict(list)
+        self.by_relpath = {}
+        for rel in vault_files:
+            rp = Path(rel)
+            self.by_relpath[rel.lower()] = rel
+            if rp.suffix.lower() == ".md":
+                self.md_by_stem[rp.stem.lower()].append(rel)
+                self.by_relpath[rel[:-3].lower()] = rel
+            else:
+                self.other_by_name[rp.name.lower()].append(rel)
+
+    def resolve_wikilink(self, raw: str):
+        """[[name]] / [[name|alias]] / [[name#h]] (target already isolated by WIKILINK_RE)."""
+        t = unquote(raw.strip())
+        if not t:
+            return None, "anchor-only"
+        if t.startswith(("http://", "https://", "mailto:", "obsidian://")):
+            return None, "external"
+        t = t.rstrip("/") if t.endswith("/") and t.count("/") > 1 else t
+        low = t.lower()
+
+        def by_path():
+            hit = self.by_relpath.get(low)
+            if hit is None and low.endswith(".md"):
+                hit = self.by_relpath.get(low[:-3])
+            return hit
+
+        if "/" in t:
+            hit = by_path()
+            if hit:
+                return hit, "wikilink-path"
+        name = Path(t).name
+        stem = name[:-3] if name.lower().endswith(".md") else name
+        hits = self.md_by_stem.get(stem.lower(), [])
+        if not hits and Path(name).suffix:  # [[scan.pdf]]: non-md by full filename
+            hits = self.other_by_name.get(name.lower(), [])
+        if "/" not in t:
+            if len(hits) == 1:
+                return hits[0], "wikilink-name"
+            if len(hits) > 1:
+                return None, f"ambiguous-name({len(hits)})"
+            hit = by_path()  # root-level file with an odd extension, etc.
+            if hit:
+                return hit, "wikilink-path"
+        return None, "dangling"
 
     def resolve(self, raw: str, from_file: Path):
         r = raw.strip().strip('"')
         r = re.sub(r"^\[\[|\]\]$", "", r)  # tolerate wikilink syntax
         if r.startswith(("http://", "https://", "mailto:", "obsidian://")):
             return None, "external"
-        # provenance prose, not a path: "user confirmed in digest review, 2026-07-16"
-        if ".md" not in r and not r.rstrip("/").endswith((".png", ".jpg", ".pdf", ".canvas")):
-            if "/" not in r or " " in r.split("/")[0]:
-                return None, "provenance-note"
         # strip trailing annotation: "notes/x.md (read 2026-07-17T19:00Z)"
         if ".md" in r:
             r = r[: r.index(".md") + 3]
@@ -89,40 +155,30 @@ class Resolver:
             # 1. relative to the linking file's directory
             p = (from_file.parent / name).resolve()
             if p.exists() and p.is_file():
+                if not p.is_relative_to(VAULT):
+                    return None, "out-of-vault"
                 return p.relative_to(VAULT).as_posix(), "file-relative"
             # 2. relative to vault root
             p = (VAULT / name).resolve()
             if p.exists() and p.is_file():
+                if not p.is_relative_to(VAULT):
+                    return None, "out-of-vault"
                 return p.relative_to(VAULT).as_posix(), "vault-relative"
-        # 3. unique basename match within wiki/
-        base = Path(cand_names[0]).name
-        hits = self.by_base.get(base, [])
-        if len(hits) == 1:
-            return hits[0].relative_to(VAULT).as_posix(), "basename-unique"
-        if len(hits) > 1:
-            return None, f"ambiguous-basename({len(hits)})"
         return None, "dangling"
-
-
-def listify(v):
-    if v is None:
-        return []
-    if isinstance(v, str):
-        return [v]
-    if isinstance(v, list):
-        return [x for x in v if isinstance(x, str)]
-    return []
 
 
 def build():
     G = nx.MultiDiGraph()
     wiki_pages = sorted(WIKI.rglob("*.md"))
-    resolver = Resolver(wiki_pages)
+    vault_files = scan_vault_files()
+    resolver = Resolver(vault_files)
     problems = {
         "yaml_errors": [],       # (page, msg)
         "no_frontmatter": [],
         "dangling": [],          # (page, field, raw, why)
-        "formats": Counter(),    # (field, format) -> count
+        "retired_fields": [],    # page paths still carrying sources:/depends_on:
+        "body_kinds": Counter(), # resolved_via for body links -> count
+        "vault_files": vault_files,
     }
 
     for path in wiki_pages:
@@ -143,25 +199,22 @@ def build():
             title=fm.get("title"), tags=fm.get("tags") or [],
             pending_review=fm.get("pending_review", False),
         )
-        body_clean = CODE_FENCE_RE.sub("", body or "")
-
-        for field, kind in (("depends_on", "depends_on"), ("sources", "source")):
-            for raw in listify(fm.get(field)):
-                problems["formats"][(field, classify_format(raw))] += 1
-                target, how = resolver.resolve(raw, path)
-                if target is None:
-                    if how not in ("external", "provenance-note", "folder"):
-                        problems["dangling"].append((rel, field, raw, how))
-                    continue
-                if not G.has_node(target):
-                    G.add_node(target, kind=target.split("/")[0].rstrip("s") if not target.startswith("wiki/") else "wiki")
-                G.add_edge(rel, target, kind=kind, raw=raw, resolved_via=how)
+        if (fm.get("depends_on") or fm.get("sources")) and not rel.startswith(("wiki/log/", "wiki/chronicle/")):
+            # dated records written before 2026-08-17 keep their fields as written
+            problems["retired_fields"].append(rel)
+        body_clean = INLINE_CODE_RE.sub("", CODE_FENCE_RE.sub("", body or ""))
 
         seen = set()
-        for raw in MD_LINK_RE.findall(body_clean) + WIKILINK_RE.findall(body_clean):
-            target, how = resolver.resolve(raw, path)
+        body_links = [(raw, "md") for raw in MD_LINK_RE.findall(body_clean)] + \
+                     [(raw, "wiki") for raw in WIKILINK_RE.findall(body_clean)]
+        for raw, syntax in body_links:
+            if syntax == "wiki":
+                target, how = resolver.resolve_wikilink(raw)
+            else:
+                target, how = resolver.resolve(raw, path)
+            problems["body_kinds"][how] += 1
             if target is None:
-                if how not in ("external", "anchor-only", "provenance-note", "folder"):
+                if how not in ("external", "anchor-only", "folder"):
                     problems["dangling"].append((rel, "body", raw, how))
                 continue
             if target == rel or (rel, target) in seen:
@@ -191,9 +244,12 @@ def report(G, problems):
     P(f"Nodes: {G.number_of_nodes()} ({n_wiki} wiki pages, {G.number_of_nodes()-n_wiki} external stubs)")
     P(f"Edges: {G.number_of_edges()}  {dict(kinds)}\n")
 
-    P("## Frontmatter edge-format inventory (migration recon)")
-    for (field, fmt), c in sorted(problems["formats"].items()):
-        P(f"  {field:11s} {fmt:15s} {c}")
+    P("## Retired fields still present (sources:/depends_on: removed 2026-08-17)")
+    if not problems["retired_fields"]:
+        P("  none")
+    else:
+        for rel in problems["retired_fields"]:
+            P(f"  {rel}")
 
     P("\n## Parse problems")
     for rel, err in problems["yaml_errors"]:
@@ -203,61 +259,78 @@ def report(G, problems):
     if not problems["yaml_errors"] and not problems["no_frontmatter"]:
         P("  none")
 
+    P("\n## Body-link resolution inventory (how each body link resolved)")
+    for how, c in sorted(problems["body_kinds"].items(), key=lambda x: -x[1]):
+        P(f"  {c:5d}  {how}")
+
     P("\n## Dangling links")
+    dangling_by_field = Counter(field for _, field, _, _ in problems["dangling"])
     if not problems["dangling"]:
         P("  none")
+    else:
+        P("  counts: " + ", ".join(f"{f}={c}" for f, c in sorted(dangling_by_field.items())))
     for rel, field, raw, why in problems["dangling"]:
         P(f"  {rel} [{field}] -> {raw!r} ({why})")
 
-    P("\n## Basename-fallback exposure (edges one filename collision from breaking)")
-    # An edge written as a bare basename or an unrooted subpath resolves only
-    # because exactly one file in wiki/ carries that name. Creating any second
-    # file with the same basename anywhere in wiki/ silently kills it — which is
-    # what happened on 2026-08-01 when a pattern hub took the name of the
-    # concept page it enumerates, breaking three edges that had resolved since
-    # 2026-07-16. This count is the population at risk; it is not an error list.
-    fallback = Counter()
-    by_target = Counter()
-    for _u, v, d in G.edges(data=True):
-        if d.get("resolved_via") == "basename-unique":
-            fallback[d.get("kind", "?")] += 1
-            by_target[Path(v).name] += 1
-    total = sum(fallback.values())
-    if not total:
-        P("  none — every edge resolves by an explicit path")
-    else:
-        P(f"  {total} edges resolve by unique-basename fallback:")
-        for kind, c in sorted(fallback.items(), key=lambda x: -x[1]):
-            P(f"    {c:4d}  {kind}")
-        P("  most-depended basenames (a new file with this name breaks all of them):")
-        for name, c in by_target.most_common(8):
-            P(f"    {c:4d}  {name}")
-    ambiguous = [(rel, field, raw, why) for rel, field, raw, why in problems["dangling"]
-                 if why.startswith("ambiguous-basename")]
-    if ambiguous:
-        P(f"  ALREADY BROKEN — {len(ambiguous)} edge(s) hit a basename collision:")
-        for rel, field, raw, why in ambiguous:
-            P(f"    {rel}  [{field}]  {raw}  ({why})")
-
-    P("\n## Status-integrity: page depends_on a weaker-status page")
-    rank = {"verified": 3, "draft": 2, "stale": 1, "disputed": 0, None: 2}
-    hits = 0
-    for u, v, d in G.edges(data=True):
-        if d["kind"] != "depends_on":
+    P("\n## Basename collisions (wiki pages sharing a stem with any vault file)")
+    # Under the wikilink convention a bare [[name]] only resolves when the stem is
+    # unique across every non-dot folder. Each stem below forces path-qualified
+    # links; a body [[name]] that hit one is listed as an ambiguous finding.
+    by_stem = defaultdict(list)
+    for rel in problems["vault_files"]:
+        if rel.lower().endswith(".md"):
+            by_stem[Path(rel).stem.lower()].append(rel)
+    groups = {"wiki-vs-wiki": [], "wiki-vs-notes": [], "wiki-vs-other": []}
+    for stem, paths in sorted(by_stem.items()):
+        if len(paths) < 2 or not any(p.startswith("wiki/") for p in paths):
             continue
-        su, sv = G.nodes[u].get("status"), G.nodes[v].get("status")
-        if sv in ("disputed", "stale") or (su == "verified" and rank.get(sv, 2) < 3):
-            P(f"  {u} ({su}) -> {v} ({sv})")
-            hits += 1
-    if not hits:
-        P("  none")
+        zones = {p.split("/", 1)[0] for p in paths}
+        if zones == {"wiki"}:
+            groups["wiki-vs-wiki"].append((stem, paths))
+        elif zones - {"wiki"} == {"notes"}:
+            groups["wiki-vs-notes"].append((stem, paths))
+        else:
+            groups["wiki-vs-other"].append((stem, paths))
+    for grp, items in groups.items():
+        P(f"  {grp} ({len(items)})")
+        for stem, paths in items:
+            P(f"    {stem}: " + ", ".join(sorted(paths)))
+    ambiguous_wl = [(rel, raw, why) for rel, field, raw, why in problems["dangling"]
+                    if field == "body" and why.startswith("ambiguous-name")]
+    P(f"  ambiguous body wikilinks (bare [[name]] hitting a collision): {len(ambiguous_wl)}")
+    for rel, raw, why in ambiguous_wl:
+        P(f"    {rel}  [[{raw}]]  ({why})")
 
-    P("\n## depends_on cycles")
-    dep = nx.DiGraph((u, v) for u, v, d in G.edges(data=True) if d["kind"] == "depends_on")
-    cycles = list(nx.simple_cycles(dep))
-    for c in cycles:
-        P(f"  {' -> '.join(c)}")
-    if not cycles:
+    P("\n## Status-integrity")
+    P("  verified pages ranked by distinct body-link targets (any body link into wiki/) whose status is draft/stale/disputed:")
+    weak = Counter()
+    for u, v, d in G.edges(data=True):
+        if d["kind"] != "body" or not v.startswith("wiki/"):
+            continue
+        if G.nodes[u].get("status") == "verified" and G.nodes[v].get("status") in ("draft", "stale", "disputed"):
+            weak[(u, v)] += 1
+    per_page = Counter(u for (u, _v) in weak)
+    n_verified = sum(1 for _n, d in wiki_nodes(G) if d.get("status") == "verified")
+    P(f"    total: {sum(per_page.values())} weak targets across {len(per_page)} of {n_verified} verified pages")
+    for u, c in per_page.most_common(20):
+        P(f"    {c:4d}  {u}")
+    if not per_page:
+        P("    none")
+
+    P("\n## Link cycles (wiki-internal body links; strongly connected components of size > 1)")
+    # Body links are dense enough that enumerating simple cycles is exponential
+    # (it hung on 2026-08-17). SCCs answer the same question in linear time:
+    # every page in a component of size > 1 sits on at least one cycle. Report
+    # only: cross-linking between wiki pages is normal, not a finding.
+    dep = nx.DiGraph((u, v) for u, v, d in G.edges(data=True)
+                      if d["kind"] == "body" and u.startswith("wiki/") and v.startswith("wiki/"))
+    sccs = sorted((c for c in nx.strongly_connected_components(dep) if len(c) > 1), key=len, reverse=True)
+    if sccs:
+        P(f"  {len(sccs)} component(s); sizes: {', '.join(str(len(c)) for c in sccs[:10])}")
+        for c in sccs:
+            if len(c) <= 6:
+                P(f"  {' <-> '.join(sorted(c))}")
+    else:
         P("  none")
 
     P("\n## Typed-graph orphans (content pages, no typed edges in or out, incl. body links)")
@@ -290,7 +363,7 @@ def report(G, problems):
         for n in sorted(deps):
             P(f"    {n}")
     else:
-        P("  (no depends_on edges reference it)")
+        P("  (no incoming body links reference it)")
 
     P("\n## Communities (greedy modularity on undirected wiki-internal projection)")
     content = {n for n, _ in wiki_nodes(G)}  # excludes log/, index.md, README.md
@@ -307,5 +380,13 @@ def report(G, problems):
 
 
 if __name__ == "__main__":
+    ap = argparse.ArgumentParser(description="Read-only vault graph report (writes nothing).")
+    ap.add_argument("--vault", default=None, help="vault root (default: the vault this script lives in)")
+    args = ap.parse_args()
+    if args.vault:
+        set_vault(Path(args.vault))
+    if not WIKI.is_dir():
+        sys.exit(f"no wiki/ under {VAULT}")
+    print(f"Vault: {VAULT}\n")
     G, problems = build()
     report(G, problems)

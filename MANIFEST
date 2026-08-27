@@ -12,12 +12,13 @@
 #   .claude/skills/publish-program/   (creator tooling)
 #   .claude/skills/review-system/     (pending review)
 #   .claude/skills/pattern-pass/      (pilot — ships only if it graduates)
-#   .claude/skills/chronicle/         (pilot — promotion target is a cookbook recipe, not default system)
 #   .claude/skills/groom-issues/      (trial — migrated from a task prompt 2026-08-11; ships only if it graduates)
+#   .claude/skills/krux-copy/         (client-specific writing rules — personal, never ships)
 #   .claude/scripts/imessage-window.py (chronicle pilot utility — machine-local Messages db)
 #   .claude/scripts/snapshot-lite.sh  (machine automation)
+#   .claude/scripts/migrate-links-pass1.py  (one-time migration, links-by-name amendment 2026-08-17)
+#   .claude/scripts/migrate-fields-pass3.py (one-time migration, same amendment)
 #   wiki/patterns/README.md            (pattern-hubs pilot folder law)
-#   wiki/chronicle/README.md           (chronicle pilot folder law)
 
 README.md
 CLAUDE.md
@@ -44,9 +45,11 @@ wiki/projects/README.md
 wiki/people/README.md
 wiki/life/README.md
 wiki/craft/README.md
+wiki/agent/README.md
 wiki/connections/README.md
 wiki/entities/README.md
 wiki/log/README.md
+wiki/chronicle/README.md
 .state/README.md
 .claude/skills/ingest/
 .claude/skills/process-inbox/
@@ -58,11 +61,15 @@ wiki/log/README.md
 .claude/skills/vault-snapshot/
 .claude/skills/amend/
 .claude/skills/update-exocortex/
+.claude/skills/chronicle/
 .claude/scripts/vault_graph.py
 .claude/scripts/notes-cursor-diff.py
 .claude/scripts/regen-index.py
 .claude/scripts/ingest-file.sh
 .claude/scripts/regen-issues.py
+.claude/scripts/digest-nudge.sh
+.claude/scripts/compaction-guard.py
+.claude/scripts/style-sweep-guard.py
 meta/README.md
 meta/HANDOFF.md
 meta/VAULT-DOCTRINE.md
