@@ -6,15 +6,16 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.13.0] — 2026-08-26
+
 ### Added
 - **Chronicle graduates from pilot to cookbook recipe** (`meta/cookbook/chronicle.md`, experimental). The `chronicle` skill and `wiki/chronicle/README.md` folder law now ship; the feature stays opt-in — nothing runs until you follow the recipe (create the folder, author your surface registry at `meta/chronicle-surfaces.md`, add the step to your maintenance chain). New GLOSSARY entry **chronicle**.
 - **Top-of-mind session import is pre-wired.** Shipped CLAUDE.md now carries the `@artifacts/top-of-mind.md` import — inert until the file exists, so nothing changes for deployments without one. The recipe (`meta/cookbook/top-of-mind-file.md`) drops its wiring step and gains two maintenance rules: an update is a sweep, not an append (prune passed entries before stamping `updated:`), and entries that grow state belonging on their linked hub are drift to push back out.
 - **Digest-nudge recipe** (`meta/cookbook/digest-nudge.md`, recommended) with its shipped script `.claude/scripts/digest-nudge.sh`: a SessionStart hook that stays completely silent until the gap since the last completed digest review passes a threshold (default 7 days), then tells the agent once, at session start, to gently offer the digest. Deterministic, zero context cost under threshold, reads the review markers the digest skill already writes.
 - **Message-timestamp hook recipe** (`meta/cookbook/message-timestamps.md`, recommended, referenced from SETUP.md § 6). One `UserPromptSubmit` hook running `date`, so every user message re-anchors the agent's clock and dated writes stop drifting in long sessions. One settings edit, zero maintenance; existing deployments can ask their maintainer to apply it.
 - **Obsidian CLI enablement is now a setup step** (SETUP.md § 5). Existing Obsidian deployments: toggle it on (Settings → General) so lint, audit, and snapshot recovery use Obsidian's own link resolver instead of the fallbacks. One toggle, under a minute; details in `meta/cookbook/obsidian-cli.md`.
-
-### Added
 - **`wiki/agent/` joins the shipped scaffold**: agent capability self-knowledge and operating instructions: what the agent's tools and surfaces can do on a deployment, and how it should perform recurring tasks. The folder-law README ships (admission rules, the boundary with `craft/`, with skills, and with the rules layer); pages accrue per deployment through the pipeline. Bootstrap scaffolds the folder with a derived-listing index stub (entities/ gains its missing stub in the same pass).
+- **Claim-neutrality guard scripts ship**: `.claude/scripts/compaction-guard.py` (the mechanical half of ingest's compaction guard, previously a shipped-ingest dependency that did not ship) and `.claude/scripts/style-sweep-guard.py` (the bulk style-sweep check that links, dates, quotes, and numbers survive a rewrite).
 
 ### Changed
 - **CLAUDE.md opens with a deployed-vault check**: a session started in the program repo (or an unfinished install, detected by a missing or unfilled `meta/DEPLOYMENT.md`) now refuses vault work and redirects to INSTALL.md or the user's real vault, instead of playing maintainer over scaffolding. Inert in any deployed vault. INSTALL.md's verify and hand-off steps now state the session handoff explicitly: the install session ends, and every exocortex session opens inside the vault directory.
