@@ -235,7 +235,7 @@ The memory also outlives the model. Knowledge and inference are separate layers 
 
 ## The cookbook
 
-The repo ships [meta/cookbook/](meta/cookbook/), eight opt-in recipes for connecting the vault to the tools it will meet most: Granola meeting transcripts, Gmail, Google Calendar, Apple Reminders, iMessage, the Obsidian Web Clipper, the exocortex-mcp server, and a top-of-mind workflow file. Each recipe records what it requires, what setup costs, and when the agent may bring it up. The surfacing rules are strict. A recipe is inert until you opt in, the agent may offer at most one per session and never mid-task, and your silence is a no.
+The repo ships [meta/cookbook/](meta/cookbook/), opt-in recipes for connecting the vault to the tools it will meet most (see the folder for the current list). Each recipe records what it requires, what setup costs, and when the agent may bring it up. The surfacing rules are strict. A recipe is inert until you opt in, the agent may offer at most one per session and never mid-task, and your silence is a no.
 
 ## What to expect
 
@@ -298,10 +298,10 @@ Full glossary → [GLOSSARY.md](GLOSSARY.md)
 | [GLOSSARY.md](GLOSSARY.md) | Canonical system vocabulary (term meanings, not procedures) |
 | [ORIENTATION.md](ORIENTATION.md) | The one-page tour of what you can ask for, installed at every vault root |
 | [.claude/skills/](.claude/skills/) | The maintainer skill procedures |
-| [.claude/scripts/](.claude/scripts/) | The five substrate scripts the skills invoke (file-and-freeze, index regeneration, notes-sweep diff, link graph, issue-index regeneration) |
+| [.claude/scripts/](.claude/scripts/) | The substrate scripts the skills and hooks invoke: source filing, index regeneration, the notes-sweep diff, the link graph, guards and nudges. MANIFEST lists what ships |
 | [ISSUES.md](ISSUES.md), [.state/README.md](.state/README.md) | Friction-log and bookkeeping conventions |
 | [templates/](templates/) | Note frontmatter template |
-| [meta/](meta/) | The cookbook (eight opt-in connector recipes), the pinned OKF spec, the deployment-bindings template, and the historical design doctrine |
+| [meta/](meta/) | The cookbook (opt-in connector recipes, see meta/cookbook/ for the current list), the pinned OKF spec, the deployment-bindings template, and the historical design doctrine |
 | [INSTALL.md](INSTALL.md) | Agent-guided setup. One prompt to your coding agent installs the system |
 | [SETUP.md](SETUP.md), [tools/](tools/) | Manual deployment guide, vault bootstrap script, and the maintainer's publish tooling |
 

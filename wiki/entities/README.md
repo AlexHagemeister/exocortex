@@ -1,6 +1,6 @@
 ---
 type: Meta
-title: Entities — named things in the world that aren't people
+title: "Entities: named things in the world that aren't people"
 description: Organizations, places, events, and artworks the user's life and work touch; one page per entity.
 scope: "Folder law for entities/ only: admission, grain, sibling boundaries. General scoping tests live in CLAUDE.md; split mechanics in ingest."
 status: draft

@@ -30,13 +30,14 @@ On long multi-page syntheses, place the fetched content above the question in an
 
 ### 4. Write good answers back
 
-If the answer required real synthesis (connected pages, resolved something, filled a gap), file it into the wiki as a new page so explorations compound, with `status: draft`, wikilinks by name, and every page and source it used cited inline at the claim it supports:
+If the answer required real synthesis (connected pages, resolved something, filled a gap), file it into the wiki as a new page so explorations compound, with `status: draft`, wikilinks by name, a `scope:` boundary contract (field law in `ingest`), and every page and source it used cited inline at the claim it supports:
 
 ```yaml
 ---
 type: Synthesis
 title: <question, as a topic>
 description: <one sentence>
+scope: "<boundary contract: what belongs, what is excluded and where it lives instead>"
 tags: []
 timestamp: <now, ISO 8601>
 status: draft

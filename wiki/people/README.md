@@ -1,6 +1,6 @@
 ---
 type: Meta
-title: People — collaborators and contacts
+title: "People: collaborators and contacts"
 description: Who someone is, shared context, and history; the memory brain's relational half.
 scope: "Folder law for people/ only: admission, grain, sensitivity. General scoping tests live in CLAUDE.md; split mechanics in ingest."
 status: draft

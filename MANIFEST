@@ -13,12 +13,29 @@
 #   .claude/skills/review-system/     (pending review)
 #   .claude/skills/pattern-pass/      (pilot — ships only if it graduates)
 #   .claude/skills/groom-issues/      (trial — migrated from a task prompt 2026-08-11; ships only if it graduates)
-#   .claude/skills/krux-copy/         (client-specific writing rules — personal, never ships)
 #   .claude/scripts/imessage-window.py (chronicle pilot utility — machine-local Messages db)
 #   .claude/scripts/snapshot-lite.sh  (machine automation)
 #   .claude/scripts/migrate-links-pass1.py  (one-time migration, links-by-name amendment 2026-08-17)
 #   .claude/scripts/migrate-fields-pass3.py (one-time migration, same amendment)
 #   wiki/patterns/README.md            (pattern-hubs pilot folder law)
+#   meta/CLAIM-SPEC.md                 (claim-conventions trial 2026-09-01; ships only if it graduates)
+#   .claude/scripts/claim_extract.py   (claim extractor, read-only measurement; same trial, amend-gated with its fixtures)
+#   .claude/scripts/tests/              (extractor fixtures and tests; same trial)
+#   .claude/skills/email-triage/      (morning email pass, trial from 2026-08-27; ships only if it graduates)
+#   .claude/skills/school-brief/      (daily school brief, trial from 2026-09-04; ships only if it graduates)
+#   .claude/scripts/yaml-frontmatter-check.sh   (enforcement-hooks trial 2026-08-27; deployment-local until the trial review)
+#   .claude/scripts/frozen-zone-check.sh        (same trial)
+#   .claude/scripts/verified-promotion-check.sh (same trial)
+#   .claude/scripts/issues-check.sh             (same trial)
+#   .claude/scripts/session-nudges.sh           (same trial)
+#   .claude/scripts/sources-move-check.sh       (same trial)
+#   .claude/skills/register/          (register skill trial, since 2026-09-03; ships only if it graduates)
+#   .claude/scripts/register-inject.sh (register skill hook, same trial)
+#   .claude/scripts/register-reset.sh (register skill hook, same trial)
+#   .claude/skills/spaced-repetition/ (chat-native flashcard trial, since 2026-09-02; ships only if it graduates)
+#   .claude/scripts/srs.py            (spaced-repetition scheduler, same trial)
+#   .claude/scripts/subagent-brief-check.sh (enforcement-hooks trial, added 2026-09-04; same trial as the other six)
+#   .claude/scripts/move-filed-source.py (stream-to-stream source mover, added 2026-09-04; private)
 
 README.md
 CLAUDE.md
@@ -39,6 +56,7 @@ sources/articles/README.md
 sources/sessions/README.md
 sources/meetings/README.md
 sources/life/README.md
+sources/research/README.md
 wiki/README.md
 wiki/concepts/README.md
 wiki/projects/README.md

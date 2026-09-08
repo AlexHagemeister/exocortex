@@ -1,6 +1,6 @@
 ---
 type: Meta
-title: Vault wiki — start here
+title: "Vault wiki: start here"
 description: One-screen orientation to what this vault is, how it's organized, and how to read it. For a fast lay-of-the-land, especially on mobile/lightweight clients.
 status: draft
 updated: 2026-08-26

@@ -64,5 +64,6 @@ Two shippable units, and a boundary rule:
 | Principles, rationale, roles, sharing semantics, this map | here |
 | File-format conformance target | meta/OKF-SPEC.md (pinned copy of an external spec; never loaded at runtime, compiled into templates) |
 | Environment bindings (machines, paths, sync, surfaces) | deployment profile: meta/DEPLOYMENT.md (skills reference it, never hardcode; deployment config may point at the program but never contain it) |
+| Substrate machinery (graph, guards, extractors, regenerators): what exists and what it does | .claude/scripts/ (each script's docstring describes it; skills name the scripts they invoke). Before asserting that the vault lacks some machinery, read this folder: rule surfaces bind behavior and never inventory capability (added 2026-09-06). |
 
 Changing a rule = editing its one home, via `amend`, with the Curator's approval. Changing a principle = editing this document, which should be rare and deliberate. Principles are what the rules are *for*.

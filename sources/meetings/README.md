@@ -23,3 +23,4 @@ A transcript is a **machine-transcribed record of what was spoken** — closer t
 - **Principals** (e.g. the project counterpart he reports to): evidence of direction, decisions, and commitments — as reported speech.
 - **Interested parties** (vendors, salespeople, anyone pitching): evidence only that the party said it. Self-descriptions are sales claims; corroboration comes from outside evidence, never from the pitch itself.
 - A transcript evidences what was said in the meeting — never that the content is true.
+- A generated summary or next-steps block (the part above the transcript in a Granola file) evidences only that the capture tool produced it, never that anyone said it. Any name, quote, or attribution taken from that block gets checked against the transcript body before it leaves the file.

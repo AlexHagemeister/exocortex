@@ -8,7 +8,7 @@ The vault's evidence layer. Everything here is a record of speech — what someo
 How this folder works:
 
 - **[inbox/](inbox/README.md)** is the single entry point. Items there are pre-pipeline and freely editable; the freeze happens when `ingest` files them into a stream.
-- **Streams** are the permanent subfolders — [articles/](articles/README.md), [sessions/](sessions/README.md), [meetings/](meetings/README.md), [life/](life/README.md) — each with a README declaring its evidential modality: what kind of claim its contents can support. Read the stream README before filing into it; a filed item may carry its own `modality:` frontmatter when the stream default would mislabel it (rule: `.claude/skills/ingest/` step 2).
+- **Streams** are the permanent subfolders — [articles/](articles/README.md), [research/](research/README.md), [sessions/](sessions/README.md), [meetings/](meetings/README.md), [life/](life/README.md) — each with a README declaring its evidential modality: what kind of claim its contents can support. Read the stream README before filing into it; a filed item may carry its own `modality:` frontmatter when the stream default would mislabel it (rule: `.claude/skills/ingest/` step 2). A capture the user typed or dictated themselves (a statement, a phone note, a correction) files to sessions/: a conversation of one, whose verbatim tier is the user's own words (the user's ruling, 2026-09-06).
 - **Filed means frozen.** Never edit or delete a filed source. Corrections arrive as new speech: a new file through inbox/, reconciled by ingest.
 - Each stream's `index.md` is derived; the pipeline regenerates it.
 

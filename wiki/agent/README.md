@@ -1,6 +1,6 @@
 ---
 type: Meta
-title: Agent — how agents work here
+title: "Agent: how agents work here"
 description: "Agent capability self-knowledge and operating instructions: what Claude's surfaces and tools can do on this deployment, and how agents should perform recurring tasks. The instantiation layer of craft/'s principles."
 scope: "Folder law for agent/ only: admission, grain, boundary with craft/, with skills, and with the rules layer. General scoping tests live in CLAUDE.md. Split mechanics live in ingest."
 status: draft

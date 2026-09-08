@@ -7,7 +7,7 @@ status: draft
 
 # What this folder is
 
-The permanent home for session captures — summaries of conversations the user chose to preserve (via the `session-capture` skill), moved here from inbox/ by `ingest`.
+The permanent home for session captures — summaries of conversations the user chose to preserve (via the `session-capture` skill), moved here from inbox/ by `ingest`. Captures the user typed or dictated themselves (statements, phone notes, corrections) belong here too: a conversation of one, read under the verbatim tier below (the user's ruling, 2026-09-06; the sole fresh-install repro of the stream taxonomy, closed by this line rather than a new stream).
 
 # Rules
 

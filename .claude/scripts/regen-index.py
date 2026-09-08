@@ -123,17 +123,22 @@ def read_frontmatter(path: Path) -> dict:
         if m:
             val = m.group(2).strip()
             if len(val) >= 2 and val[0] == val[-1] and val[0] in "\"'":
+                quote = val[0]
                 val = val[1:-1]
+                if quote == '"':
+                    val = val.replace('\\"', '"').replace('\\\\', '\\')
             fm[m.group(1)] = val
     return fm
 
 
 def stamp() -> str:
-    # Bare date, nothing else (ingest step 5, amendment 2026-08-04: binds every
-    # write path that touches frontmatter). The prose stamp this replaced was
-    # hand-corrected on sight and reverted on the next run, which cost agents
-    # their only in-band evidence that a generator had produced the file.
-    return f"{datetime.datetime.now():%Y-%m-%d}"
+    # Date plus 12-hour time, nothing else (ingest step 5, amendments 2026-08-04
+    # and 2026-08-27: binds every write path that touches frontmatter). The prose
+    # stamp this replaced was hand-corrected on sight and reverted on the next
+    # run, which cost agents their only in-band evidence that a generator had
+    # produced the file.
+    now = datetime.datetime.now()
+    return f"{now:%Y-%m-%d} {now.strftime('%I:%M %p').lstrip('0').lower()}"
 
 
 def main() -> int:
