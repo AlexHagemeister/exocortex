@@ -1,7 +1,7 @@
 ---
 type: Meta
 title: Chronicle — the agent-written record of the user's days
-description: One page per day, compiled retrospectively each morning by the chronicle skill; weekly roll-ups after each Sunday. Evidence first, inference marked, the agent's read last.
+description: One page per day, compiled retrospectively each morning by the chronicle skill; weekly roll-ups after each Sunday. Evidence first, inference marked, the agent's read last. Fetch first for any question about how the user spent a past day or week (what did I do last Tuesday), before wiki/log/, which records the pipeline's acts, not the user's.
 scope: "Daily and weekly chronicle entries only, written by the chronicle skill. Records of the user's activity with marked agent inference — not claim-bearing pages: wiki claims cite the underlying sources, never these entries, and nothing here is promoted."
 status: draft
 ---
@@ -20,7 +20,7 @@ Opt-in feature: adopted via the cookbook recipe `meta/cookbook/chronicle.md` (pi
   1. **Reported** — what the user said they did, quoted or cited from the day's sessions and notes. Highest trust.
   2. **Observed** — mechanical traces: calendar events, Reminders completions, git activity, session existence and duration, meeting records. Records, not claims.
   3. **Inferred shape of the day** — the reconstruction. Every line cites the evidence it extends; an inference resting on a prior entry's inference (rather than evidence) says so inline.
-  4. **Coverage** — witnesses consulted, witnesses that returned nothing, gaps and uncovered hours. The honest blindness map.
+  4. **Coverage** — witnesses consulted, witnesses that returned nothing, witnesses that could not be reached (a failed tool is not an empty record), gaps and uncovered hours. The honest blindness map.
   5. **The agent's read** — the agent's own synthesis and judgment of the day: alignment with stated intentions, patterns, anything the evidence provokes. Explicitly attributed agent judgment, written freely.
 - **Entries are living pages** (the user's ruling, 2026-08-08): the compile run writes the first version, but later information is welcome — a newly activated surface, a late-arriving source, the user's own additions. Substantive later material lands as a dated addition ("Added <date>:") so compile-time record and later enrichment stay distinguishable; small factual fixes may edit in place. The user's corrections still flow through the normal corrections path (sources/inbox/) when they change claims, and enrichment writes happen through the chronicle skill or the user's direction in chat.
 - **Provenance class**: maintainer-authored observation and inference about the user. Born `draft`, no promotion cycle — an entry is a record, not a claim awaiting verification. Readers weight sections 3 and 5 as draft-grade agent inference, always.

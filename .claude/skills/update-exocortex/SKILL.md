@@ -1,6 +1,6 @@
 ---
 name: update-exocortex
-scope: "Applying upstream program releases to this vault: version check, user gate, reconciliation of local amendments, and the usage-terms introduction. Program files only, never vault data. The vault-to-repo direction is publish-program, and local rule changes go through amend."
+scope: "Applying upstream program releases to this vault: version check, user gate, reconciliation of local amendments, and the usage-terms introduction. Program files only, never vault data. The vault-to-repo direction is the creator-side publishing skill, and local rule changes go through amend."
 description: Pull the latest exocortex program release and apply it to this vault, reconciling local amendments and never touching data. Use when the user asks to update their exocortex, update this system's rules and skills, or check for exocortex updates.
 ---
 
@@ -15,7 +15,7 @@ Read `meta/DEPLOYMENT.md`:
 - **Program repo clone**: local path + upstream URL. If UNSET, help the user clone the program repo to a stable path and record it, then continue.
 - **Program version**: the installed release. If the row is absent, derive it from the clone's current HEAD before pulling, and add the row when done.
 
-If this vault is the program's *source* (publish-program is configured here), stop. You are upstream, and updates flow the other way.
+If this vault is the program's *source* (a check both this skill and digest make, based on the deployment's publishing configuration), stop. You are upstream, and updates flow the other way.
 
 ## Procedure
 

@@ -1,7 +1,7 @@
 ---
 name: audit-exocortex
-scope: "The interactive page-review loop and its brief format. Vault content review only: system-level review lives in review-system; mechanical health detection in lint."
-description: Interactive one-page-at-a-time review of wiki pages: a reading brief per page, the user corrects and promotes, then the next page. Use when the user says "let's audit" or "audit now", wants to review pages a recent ingest or session created, or when a digest review begins.
+scope: "The interactive page-review loop and its brief format. Vault content review only: whole-system review is a separate concern outside this skill; mechanical health detection lives in lint."
+description: "Interactive one-page-at-a-time review of wiki pages: a reading brief per page, the user corrects and promotes, then the next page. Use when the user says \"let's audit\" or \"audit now\", wants to review pages a recent ingest or session created, or when a digest review begins."
 ---
 
 # Audit — one page at a time
@@ -45,7 +45,7 @@ End with the available moves (correct / add / promote / skip), not a question.
 
 The user replies by item number, and one reply may carry several verdicts ("2: date's wrong — day before. Update, then promote.").
 
-- **Correction or addition**: first check whether the claim also lives on other pages (grep). If it does, route the user's statement through the correction flow (sources/inbox/) so reconciliation reaches all of them. If the page under audit is its only home, apply the edit directly and cite it inline at the corrected claim: "(Alex, audit review, <date>)".
+- **Correction or addition**: first check whether the claim also lives on other pages (grep). If it does, route the user's statement through the correction flow (sources/inbox/) so reconciliation reaches all of them. Either way, route the user's statement through the correction flow (sources/inbox/, provenance "the user, audit review, <date>") and delegate immediate ingest per the remember flow, so the page heals in the same sitting without a hand edit. (Amendment 2026-09-04: the single-home shortcut was removed; CLAUDE.md § Corrections binds unconditionally.)
 - **Promotion**: explicit assent only, per page. Set `status: verified`, `verified_at`, write the receipt sentence at the top of the body: "Verified by Alex in audit on <date> ([[wiki/log/<date>|day log]])." (in digest context, digest's wording), log in the day log. <!-- constitution: principle 3, gate on status -->
 - **Skip**: leave as-is, move on.
 

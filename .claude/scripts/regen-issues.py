@@ -80,7 +80,8 @@ def main() -> int:
         elif in_frontmatter and line.strip() == "---":
             in_frontmatter = False
         elif in_frontmatter and line.startswith("updated:"):
-            line = f"updated: {datetime.datetime.now():%Y-%m-%d}"
+            now = datetime.datetime.now()
+            line = f"updated: {now:%Y-%m-%d} {now.strftime('%I:%M %p').lstrip('0').lower()}"
         header.append(line)
         if line.strip() == "## Open":
             found_open = True

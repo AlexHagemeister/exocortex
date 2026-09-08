@@ -1,6 +1,6 @@
 ---
 type: Meta
-title: Connections — first-class relationship claims
+title: "Connections: first-class relationship claims"
 description: Pages asserting that two things relate; the insight surface between notes, sources, and wiki.
 status: draft
 ---

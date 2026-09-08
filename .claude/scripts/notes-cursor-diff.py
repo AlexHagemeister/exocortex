@@ -75,6 +75,8 @@ def main() -> int:
             continue  # the derived index is invisible to the sweep
         if rel == "README.md":
             continue  # folder law, not a note (process-inbox pass 2, step 1)
+        if p.name in ("README.md", "SKILL.md"):
+            continue  # repo scaffolding under notes/, invisible (pass 2, step 1; amendment 2026-09-06)
         if p.name.startswith(".") and p.suffix == ".icloud":
             evicted.append(rel)
             continue

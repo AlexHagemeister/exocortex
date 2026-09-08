@@ -1,6 +1,6 @@
 ---
 type: Meta
-title: Life — personal facts and infrastructure
+title: "Life: personal facts and infrastructure"
 description: Health, home, routines, accounts, and the practical facts agents need to act on the user's behalf.
 scope: "Folder law for life/ only: admission, grain, staleness half-life, the self-model page law. General scoping tests live in CLAUDE.md; split mechanics in ingest."
 status: draft

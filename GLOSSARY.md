@@ -1,5 +1,5 @@
 ---
-updated: 2026-08-26 Wed, Aug 26 — 6:14 PM
+updated: 2026-09-06 Sun, Sep 6 — 5:46 PM
 ---
 # GLOSSARY: system vocabulary
 
@@ -37,7 +37,7 @@ _Home:_ wiki/README.md
 _Avoid:_ truth claim, "the wiki says"
 _Home:_ CLAUDE.md § Zones; sources/inbox/README.md (freeze-at-filing)
 
-**attachment set**: several inbox items that are one source, a primary item plus the attachments it explicitly cites at capture. Each member files separately. One summary page cites them all.
+**attachment set**: several inbox items that are one source, a primary item plus the attachments it explicitly cites at capture. Each member files separately; together they feed the page that owns their subject (since 2026-09-06 that is the general rule for any sources sharing a subject, so the term names a filing shape, not an exception).
 _Avoid:_ bundle (a folder of wiki knowledge), "related captures" (topical similarity is not membership)
 _Home:_ `.claude/skills/ingest/` step 4
 
@@ -170,6 +170,14 @@ _Home:_ stream README (e.g. sources/meetings/README.md); `.claude/skills/ingest/
 **freeze**: the moment ingest files a source. Path and content become immutable records of what was said.
 _Avoid:_ lock, archive
 _Home:_ sources/inbox/README.md; `.claude/skills/ingest/`
+
+**load-bearing claim**: a wiki claim of one of CLAIM-SPEC's types (v1: quote, fluent, supersession), and therefore machine-checkable. Everything else is free prose with no parse expectation. The definition is operational: the types list, not judgment, decides membership.
+_Avoid:_ important claim, key fact (importance is not the test; type is)
+_Home:_ meta/CLAIM-SPEC.md (deployment-local trial 2026-09-01, ships only if it graduates)
+
+**fluent**: a current-state claim that can stop being true, expected to be anchored to a literal date it was true as of (an undated fluent is still a fluent, warn-grade). Contrast with an event, whose happening never becomes false.
+_Avoid:_ fact (unanchored), status (that word is taken by the page lattice)
+_Home:_ meta/CLAIM-SPEC.md (deployment-local trial 2026-09-01, ships only if it graduates)
 
 ## Operations
 

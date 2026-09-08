@@ -128,6 +128,12 @@ class Resolver:
             if len(hits) == 1:
                 return hits[0], "wikilink-name"
             if len(hits) > 1:
+                # A bare name that exactly matches a vault-root file is already its
+                # path-qualified form (the name and the path coincide there), and
+                # Obsidian resolves it to the root file. Not a collision. (2026-09-04)
+                root = [h for h in hits if "/" not in h]
+                if len(root) == 1:
+                    return root[0], "wikilink-root"
                 return None, f"ambiguous-name({len(hits)})"
             hit = by_path()  # root-level file with an odd extension, etc.
             if hit:

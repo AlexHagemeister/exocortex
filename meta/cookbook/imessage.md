@@ -1,6 +1,6 @@
 ---
 name: imessage
-what: Agent access to Messages on a Mac: find, read, and draft texts in conversation
+what: "Agent access to Messages on a Mac: find, read, and draft texts in conversation"
 type: connector
 requires: a Mac with Messages signed in; the Claude desktop app's iMessage extension (or an equivalent local MCP)
 effort: ~5 minutes; grant the macOS permissions it requests

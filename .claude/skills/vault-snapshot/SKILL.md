@@ -1,6 +1,6 @@
 ---
 name: vault-snapshot
-scope: "The private vault repo's git history: commit and push, the credential scan, remote-capture consumption, and recovery from history. Observational only, nothing in the pipeline gates on it. The public program repo is publish-program's, on its own remote."
+scope: "The private vault repo's git history: commit and push, the credential scan, remote-capture consumption, and recovery from history. Observational only, nothing in the pipeline gates on it. The public program repo is a separate concern, on its own remote."
 description: Commit and push the vault's git history for diffs, recovery, and remote capture consumption. Run on schedule, before risky operations (migrations, bulk changes), or when the user asks for a backup.
 ---
 

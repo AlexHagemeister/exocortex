@@ -21,7 +21,10 @@ Run `.claude/scripts/vault_graph.py` on its venv at `.claude/scripts/graph-venv/
 - YAML parse failures (feeds check 1)
 - dangling, ambiguous-name, and malformed body links, plus vault-wide basename collisions (feeds check 8)
 - the verified→draft link count per verified page, ranked (report only), and link cycles (report only)
+- pages still carrying the retired `sources:`/`depends_on:` fields (feeds check 1)
 - transitive dependents for check 6's walk
+
+If this deployment carries a claim extractor and its conventions file, run it read-only on the same venv. Its output feeds check 11 and one finding class: attributed blockquotes (dash-led signature or in-section framing) whose evidence link is missing within scope, unresolved, or wiki-to-wiki where a frozen record was required (feeds check 1's quote provenance). Unattributed blockquotes are untyped there, never findings. Without it, skip: check 11's three counts do not depend on this output and stay functional regardless, and only the quote-provenance finding class is unavailable that cycle.
 
 The script emits facts. Judgment stays with the checks below. If it fails, note that in the report and run the checks manually.
 
@@ -32,21 +35,21 @@ Fix mechanical violations (missing field with an obvious value). Queue judgment 
 
 **Frontmatter:**
 - Parseable YAML, non-empty `type`, `status` one of draft/verified/stale/disputed, at least one inline citation in the body (or body explicitly marks inference-only).
-- `sources:` or `depends_on:` present: a finding (retired 2026-08-17). Move any surviving entry inline at the claim it supports, or delete it when it is a review receipt already carried by the receipt sentence, and remove the field.
+- Retired `sources:`/`depends_on:` findings come from check 0. Remediation: move a surviving entry inline at the claim it supports, or delete it when it is a review receipt already carried by the receipt sentence, then remove the field.
 - **`scope:` presence** (folder READMEs included, despite the exemption above): missing on a page created after 2026-08-08 is a finding. Queue it, never fabricate the contract yourself. Missing on an older page is a coverage count only, reported per run until the backfill strategy is decided (see the scoping amendment's monitoring issue).
-- **"Parseable" means a real YAML parser accepts it** (`python3 -c "import yaml"` if available, else a strict scan: flag any unquoted scalar value containing `": "` or starting with a YAML-special character), because regex-only validation once passed frontmatter that Obsidian rejected.
+- Parse failures come from check 0's script and the write-time hook, both real YAML parsers (regex-only validation once passed frontmatter that Obsidian rejected).
 
-**Links:** wiki bodies use wikilinks by name (ingest's link rule). Flag any markdown link whose target is a vault file outside a dot-folder, any `.md` inside wikilink brackets, any leading-slash target, and any bare `[[name]]` whose name is not unique vault-wide (check 0 lists these as `ambiguous-name`; repair by path-qualifying, claim-neutral). Markdown links into `.state/` or `.claude/` are correct as written, since Obsidian cannot wikilink into dot-folders. Wikilinks in `wiki/log/` and `wiki/chronicle/` entries written before 2026-08-17 are not expected; those are dated records and keep their markdown links.
+**Links:** wiki bodies use wikilinks by name (ingest's link rule). Flag any markdown link whose target is a vault file outside a dot-folder, any `.md` inside wikilink brackets, any leading-slash target, and any bare `[[name]]` whose name is not unique vault-wide (check 0 lists these as `ambiguous-name`; repair by path-qualifying, claim-neutral). Markdown links into `.state/` or `.claude/` are correct as written, since Obsidian cannot wikilink into dot-folders. Wikilinks in `wiki/log/` and `wiki/chronicle/` entries written before 2026-08-17 are not expected; those are dated records and keep their markdown links. Dangling targets inside `wiki/log/` are never findings: log links are frozen with their entries (wiki/log/README.md), so exclude that folder from the dangling count in check 0 and check 9.
 
 **Raw HTML in prose:** flag inline HTML tags in wiki bodies. Obsidian renders them literally in Live Preview, and an OKF consumer is promised standard markdown only (spec §4.2), so nothing guarantees they render anywhere else. `<q>…</q>` strips mechanically (drop the tags, keep the quote marks); other tags queue.
 
-**Quote provenance:** flag any blockquote carrying a speech attribution (a `— the user, <date>` signature or in-section said/wrote framing) with no source link in its section (enforces ingest's inline-quote-provenance rule. Editorial callout boxes that merely mention the user are not quotes).
+**Quote provenance:** findings come from check 0's extractor (attributed blockquotes lacking in-scope evidence; unattributed blockquotes are untyped, not findings). Queue each finding for the source to be located. Never fabricate a source link. (Parser-grade since 2026-09-01, replacing the section-scope grep.)
 
 **Review receipts:** every `status: verified` page carries a receipt sentence at the top of its body ("Verified by Alex in ..."). A verified page without one is a finding: queue it (the record of the promotion is in the day log, never fabricate the sentence).
 
 **Bundle membership:** a page inside a bundle folder belongs on that hub's satellite list. This is derivable from the path alone, so append missing entries unsupervised, each summarized from the satellite's own `description` line (hub law requires the summary). Append, never regenerate, because the hub is prose. Cross-folder relationship links stay gated. Check 8 stays report-only.
 
-**Staged section:** `pending_review: true` and the presence of the one `## Unreviewed additions` section must imply each other. Fix drift mechanically in either direction (set the missing flag, or clear a flag whose section is gone). A second `## Unreviewed additions` heading on a page is a finding to compile into the first (ingest step 5, Compaction). Every verified page carrying the flag goes to `.state/lint/queue.md` so the digest surfaces it.
+**Staged section** (verified pages only; on a draft page the heading is a finding to fold into the body per ingest step 5, and the flag is cleared): `pending_review: true` and the presence of the one `## Unreviewed additions` section must imply each other. Fix drift mechanically in either direction (set the missing flag, or clear a flag whose section is gone). A second `## Unreviewed additions` heading on a page is a finding to compile into the first (ingest step 5, Compaction). Every verified page carrying the flag goes to `.state/lint/queue.md` so the digest surfaces it.
 
 **Type hygiene** (lifecycle policy attaches to `type`, never to folder):
 - **Type/folder mismatch** (e.g. a non-Connection page in wiki/connections/): flag for the user's review. Never apply a folder's lifecycle to a mismatched page. Location can be wrong, but the frontmatter is the claim.
@@ -80,6 +83,8 @@ Also report check 0's **basename collisions** every run: any wiki page whose bas
 ### 9. Surface consistency
 Skim CLAUDE.md, GLOSSARY.md, the skill files, and folder READMEs against CONSTITUTION.md's principles and against each other. A derived surface contradicting the constitution, or two surfaces contradicting each other, is a bug. Report it and file it as an issue (per ISSUES.md). Fixing rules goes through `amend`, never a silent edit. Glossary `_Home:_` pointers should resolve to real surfaces.
 
+The wiki root index (`wiki/index.md`) is authored, not derived (the regen script refuses it): check that every top-level `wiki/` folder has a line and that no listed folder is gone. Fixing a missing or dead line is mechanical.
+
 Also regenerate any `index.md` that has drifted from its folder's actual contents (indexes are derived, so regenerate freely, but an `index.md` carrying **page** frontmatter (`type`/`title`/`status`) is an authored bundle hub (hub law: wiki/projects/README.md). Never regenerate it as a listing. A derived index's `updated:` stamp is not page frontmatter).
 
 ### 10. Bundle and merge candidates
@@ -88,3 +93,6 @@ For each flat `type: Project` hub page (no folder of its own): if edits since th
 The reverse check, for each satellite inside a bundle: if it has stayed thin (a screenful or less) and unchanged since the review marker before last, queue it in `.state/lint/queue.md` as a merge-back candidate. Its claims may belong on the hub. Merging existing prose is the user's call, same as splitting. Never merge unprompted.
 
 Also queue any verified page whose annex section holds three or more entries, or that an audit or digest flagged incohesive, as a compaction candidate for ingest's next touch (ingest step 5, Compaction: guarded, unattended, status untouched). Report pages over that trigger that carry no compaction receipt. Never queue on length: compaction is not a word-count operation, and drafts are out of its scope.
+
+### 11. Entropy scorecard (report only)
+Three counts in every report, compared against the previous report's, using the exact commands recorded in the 2026-09-01 compilable-knowledge monitor issue (copy them forward into each report so cycles compare like with like; changing a command is an amendment): instruction-layer lines; enforcement scripts; open issues (`status: open`), with the `kind: watch` subset stated separately. No judgment, no queue: the trend is the finding, and the amendment that moves instruction lines up without retiring anything should be visible here. (Added 2026-09-01; baselines in the same issue.)

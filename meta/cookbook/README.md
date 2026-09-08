@@ -5,7 +5,7 @@ updated: 2026-08-06
 
 A curated library of optional add-ons: external tools to connect, prompts to run, workflows and automations to adopt. Everything here ships with the program and does nothing until the user opts in. Each recipe is an earned recommendation: it exists because it proved useful in real vault use, and it says so.
 
-This folder is program content, not vault knowledge. Never sweep, ingest, cite as evidence, or index anything here. Recipes make no claims about the world; they describe things the user can choose to set up.
+This folder is program content, not vault knowledge. Never sweep, ingest, or index anything here, and never cite a recipe as evidence of what anyone said (it evidences only that it existed and what it instructed at the time; the user's ruling, 2026-09-04). Recipes make no claims about the world; they describe things the user can choose to set up.
 
 ## What a recipe is
 

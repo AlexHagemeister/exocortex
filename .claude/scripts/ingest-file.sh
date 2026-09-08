@@ -10,22 +10,28 @@
 # Exit codes: 0 filed clean · 1 usage/error · 2 duplicate (nothing moved)
 #             3 missing title:/description: (nothing moved — add them and retry,
 #               or pass --allow-missing-frontmatter to file as-is)
+#             4 sources/inbox/ path reference inside the item (nothing moved —
+#               rewrite each to a basename wikilink and retry, or pass
+#               --allow-inbox-paths for a legitimate path mention, e.g. inside
+#               a verbatim quote)
 set -euo pipefail
 
 VAULT="$(cd "$(dirname "$0")/../.." && pwd)"
 LEDGER="$VAULT/.state/ingest-hashes.txt"
 
 ALLOW_MISSING=0
+ALLOW_INBOX_PATHS=0
 ARGS=()
 for a in "$@"; do
   case "$a" in
     --allow-missing-frontmatter) ALLOW_MISSING=1 ;;
+    --allow-inbox-paths) ALLOW_INBOX_PATHS=1 ;;
     *) ARGS+=("$a") ;;
   esac
 done
 set -- ${ARGS+"${ARGS[@]}"}
 
-[ $# -ge 2 ] || { echo "usage: ingest-file.sh [--allow-missing-frontmatter] <inbox-item> <stream-folder> [target-filename]" >&2; exit 1; }
+[ $# -ge 2 ] || { echo "usage: ingest-file.sh [--allow-missing-frontmatter] [--allow-inbox-paths] <inbox-item> <stream-folder> [target-filename]" >&2; exit 1; }
 
 ITEM="$1"
 STREAM="${2%/}"
@@ -64,6 +70,29 @@ if [ -n "$MISSING" ]; then
     exit 3
   fi
   echo "WARNING: filing without $MISSING — its index entry will be a bare slug."
+fi
+
+# A capture that names a sibling by its sources/inbox/ path freezes with a
+# dead pointer, because filing moves the sibling and filed sources are never
+# edited (paths die at filing; basenames survive). Checked before the move so
+# the item is still an editable inbox file when the check fires. Rewriting is
+# the agent's judgment (a verbatim quote containing a path is legitimate and
+# files with --allow-inbox-paths); references to the item's own path are not
+# counted.
+SELF_BASE="$(basename "$ITEM")"
+INBOX_REFS=$(grep -noE 'sources/inbox/[A-Za-z0-9._/-]+\.md' "$ITEM" | grep -vF "/$SELF_BASE" || true)
+if [ -n "$INBOX_REFS" ]; then
+  if [ "$ALLOW_INBOX_PATHS" -eq 0 ]; then
+    echo "REFUSED: $ITEM references sources/inbox/ paths (line:match below)" >&2
+    echo "$INBOX_REFS" >&2
+    echo "Rewrite each to a basename wikilink ([[<name-without-.md>]]) now: inbox items" >&2
+    echo "are freely editable until filing, and a filed inbox path is a dead pointer" >&2
+    echo "the moment its target is filed. For a legitimate path mention (e.g. inside" >&2
+    echo "a verbatim quote): ingest-file.sh --allow-inbox-paths ..." >&2
+    exit 4
+  fi
+  echo "WARNING: filing with sources/inbox/ path references (--allow-inbox-paths):"
+  echo "$INBOX_REFS"
 fi
 
 # Old path as cited from wiki pages (vault-relative), before the move. Since the

@@ -1,6 +1,6 @@
 ---
 type: Meta
-title: Concepts — research brain
+title: "Concepts: research brain"
 description: Ideas, methods, technical and world knowledge, mostly distilled from external sources.
 scope: "Folder law for concepts/ only: admission, grain, and the new-page trigger. General scoping tests live in CLAUDE.md; split mechanics in ingest."
 status: draft

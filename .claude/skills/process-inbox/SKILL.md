@@ -8,7 +8,7 @@ description: Drain sources/inbox/ and sweep notes/ for new or changed content. R
 
 Two passes: ingest everything waiting in the inbox, then diff `notes/` against the last sweep and ingest what changed. Read the README of any folder you write to. Success criterion: empty inbox, current cursor.
 
-**Unattended (scheduled) runs**: read CLAUDE.md at the vault root first if it isn't already in your context. Its rules bind the run. Acquire and release `.state/maintainer.lock` per the protocol in `.state/README.md`, the first and last action of the run. Cap the notes sweep at ~20 notes per run (prefer recent and substantive, the cursor carries the rest forward). Decide conservatively, never wait for input, flag judgment calls in the log.
+**Unattended (scheduled) runs**: read CLAUDE.md at the vault root first if it isn't already in your context. Its rules bind the run. Acquire and release `.state/maintainer.lock` per the protocol in `.state/README.md`, the first and last action of the run. Cap the notes sweep at ~20 notes per run (prefer recent and substantive, the cursor carries the rest forward). Decide conservatively, never wait for input, flag judgment calls in the log. Conservative means following each skill's explicit procedure: it does not license skipping a step the owning skill says runs unattended (ingest's compaction triggers included, whose guards are the conservatism).
 
 ## Pass 1 — inbox
 
@@ -24,10 +24,10 @@ Run the `ingest` skill on each remaining item, oldest first. If a session is int
 
 The cursor lives at `.state/notes-cursor.txt`: one line per known note, `<sha256>  <read-timestamp ISO 8601>  <path relative to notes/>`. Create it on first run. `.claude/scripts/notes-cursor-diff.py` performs the mechanical walk and diff below (steps 1–4 plus the hash compare), and `--write` rewrites the cursor (step 7). Use it instead of re-inventing the walk each sweep. Recording deletions (step 6), the mass-deletion judgment, ingest decisions, and all write-back stay with you.
 
-1. Walk `notes/` recursively. OS artifacts (`.DS_Store`, `Thumbs.db`, `desktop.ini`) and `notes/README.md` (folder law, not a note) are invisible to the sweep: never walked, ingested, or carried in the cursor.
+1. Walk `notes/` recursively. OS artifacts (`.DS_Store`, `Thumbs.db`, `desktop.ini`), `notes/README.md` (folder law, not a note), and any `README.md` or `SKILL.md` deeper in the tree (repo scaffolding that happens to live under notes/, matching pass 1's exclusion; amendment 2026-09-06) are invisible to the sweep: never walked, ingested, or carried in the cursor.
 2. **Sync eviction is not deletion.** A sync-layer placeholder (e.g. `.<name>.icloud`) means the file is evicted but present. Record it as "evicted, unchanged" and skip. Never treat it as new, changed, or deleted. (None should appear on the current deployment. If one does, flag it to the user.)
 3. Skip sync-conflict filenames (same patterns as above). Flag, don't ingest.
-4. **Respect the opt-out:** any note carrying the `#no-ingest` tag (inline or in frontmatter `tags:`, check both) is skipped entirely. That tag is the user's only curation gate on this stream, in both directions. Honor it absolutely, and never impose your own. Untagged notes ingest regardless of subject matter.
+4. **Respect the opt-out:** any note carrying the `#no-ingest` tag (inline or in frontmatter `tags:`, check both) is skipped entirely. That tag is the user's only curation gate on this stream, in both directions. Honor it absolutely, and never impose your own. Untagged notes ingest regardless of subject matter. The tag gates ingestion and the cursor, not the index: a #no-ingest note is still listed in notes/index.md (step 8), because the index is the user's browsing surface and the opt-out is about the wiki (the user's ruling, 2026-09-04).
 5. For each new or changed file (hash differs from cursor):
    - Run `ingest` on the delta, citing `notes/<path>` plus the read timestamp.
    - Then write back frontmatter metadata: `related:` wikilinks (tags where apt) to the wiki pages the note fed or clearly relates to, and fill `description:` if blank and obvious.
@@ -38,6 +38,7 @@ The cursor lives at `.state/notes-cursor.txt`: one line per known note, `<sha256
 8. Regenerate `notes/index.md`, the one agent-authored file in notes/: categorized sections of `* [[Note]] - description` lines from note frontmatter.
    - Wikilinks, not paths (they survive the user moving notes). Path-qualify (`[[notes/path/Name|Name]]`) only names that aren't unique vault-wide. (Same rule as wiki/ since 2026-08-17.)
    - Preserve existing category assignments on regeneration. Slot only new or changed notes. The user may recategorize freely and those choices stick.
+   - The index walk covers every note on disk, #no-ingest notes included (the user's ruling, 2026-09-04). On regeneration, drop entries whose note no longer exists on disk; that is the only removal path.
    - The index itself is invisible to the sweep: never walked, hashed, or ingested.
 
 ## Close out
