@@ -36,6 +36,10 @@
 #   .claude/scripts/srs.py            (spaced-repetition scheduler, same trial)
 #   .claude/scripts/subagent-brief-check.sh (enforcement-hooks trial, added 2026-09-04; same trial as the other six)
 #   .claude/scripts/move-filed-source.py (stream-to-stream source mover, added 2026-09-04; private)
+#   CLAUDE.local.md                    (deployment-local session context; never ships, classified 2026-09-08)
+#   meta/DEPLOYMENT.md                 (this deployment's bindings; sync.sh refuses it, classified 2026-09-08)
+#   meta/chronicle-surfaces.md         (deployment-local chronicle surface registry, classified 2026-09-08)
+#   artifacts/cs170/cards/README.md    (spaced-repetition trial folder law, same trial as the skill)
 
 README.md
 CLAUDE.md
@@ -52,6 +56,7 @@ artifacts/README.md
 notes/README.md
 sources/README.md
 sources/inbox/README.md
+sources/inbox/quarantine/README.md
 sources/articles/README.md
 sources/sessions/README.md
 sources/meetings/README.md

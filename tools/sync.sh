@@ -42,6 +42,9 @@ if [ "${1:-}" = "--push" ]; then
   exit 0
 fi
 
+# --- conformance gate: nothing copies until every shippable kind is classified
+"$REPO_ROOT/tools/conformance.sh" || die "conformance check failed: classify the entries above in MANIFEST first"
+
 # --- sync: copy manifest entries from the vault ----------------------------
 while IFS= read -r entry; do
   case "$entry" in ''|\#*) continue ;; esac

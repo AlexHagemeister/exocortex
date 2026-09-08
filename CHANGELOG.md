@@ -6,6 +6,10 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+### Changed
+- **Conformance check is a script.** `tools/conformance.sh` classifies every shippable kind in the vault (root docs, skills, scripts, agents, every README at any depth, meta docs, templates) against MANIFEST and exits nonzero on anything unclassified; `tools/sync.sh` runs it before copying, so a publish cannot skip it. publish-program step 0 now runs the script and judges its hits instead of walking a hand-enumerated list of places (which is how `sources/research/README.md` went unclassified in 0.14.0). The reference scan and a `--drift` listing are in the same script.
+- **`sources/inbox/quarantine/README.md` ships.** The folder is named by the shipped process-inbox and ingest skills; its folder law was never on MANIFEST.
+
 ## [0.14.0] — 2026-09-07
 
 ### Added
