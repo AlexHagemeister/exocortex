@@ -10,7 +10,7 @@ You are the vault's immune system. Run every check below, fix what is mechanical
 
 **Unattended (scheduled) runs**: read CLAUDE.md at the vault root first if it isn't already in your context. Its rules bind the run. Acquire and release `.state/maintainer.lock` per the protocol in `.state/README.md`, as the run's first and last action.
 
-Output: report to `.state/lint/<YYYY-MM-DD>.md` (findings + actions), items needing the user to `.state/lint/queue.md` (append, consumed by digest), one summary line to the day log (`wiki/log/<YYYY-MM-DD>.md`).
+Output: report to `.state/lint/<YYYY-MM-DD>.md` (findings + actions), items needing the user to `.state/lint/queue.md` (append, consumed by digest), one summary line to the day log, via `.claude/scripts/day-log.sh`.
 
 **Eviction guard, applies to every check:** a sync-layer placeholder file (e.g. `.<name>.icloud`) means the content was evicted. The file is *present*, just not local. Treat it as existing-but-unreadable, never as deleted, never as empty. If placeholders block a check, note it in the report and tell the user which files. None should appear on the current deployment.
 
@@ -34,7 +34,7 @@ Fix mechanical violations (missing field with an obvious value). Queue judgment 
 **Scope:** every `wiki/**/*.md` except `log.md`/`log/`/`README.md`/derived `index.md` listings. An `index.md` carrying page frontmatter is an authored bundle hub (check 9's discriminator), so check it like any page. Folder READMEs are Meta documentation, not claim-bearing pages, and exempt from the inline-citation requirement. The YAML parse test also applies to `.state/issues/*.md`, along with the presence of `title`, `status`, `opened` and `rule`, because both issue indexes are derived from those fields and a missing one renders as a defective row.
 
 **Frontmatter:**
-- Parseable YAML, non-empty `type`, `status` one of draft/verified/stale/disputed, at least one inline citation in the body (or body explicitly marks inference-only).
+- Parseable YAML, non-empty `type`, `status` one of draft/verified/stale/disputed, at least one inline citation in the body (or body explicitly marks inference-only). A "Built on [[x]]" pointer to a source-summary page that itself cites the frozen record satisfies this for synthesis pages (transitive citation, one hop); hub pages still carry at least one direct source link (amendment 2026-09-09).
 - Retired `sources:`/`depends_on:` findings come from check 0. Remediation: move a surviving entry inline at the claim it supports, or delete it when it is a review receipt already carried by the receipt sentence, then remove the field.
 - **`scope:` presence** (folder READMEs included, despite the exemption above): missing on a page created after 2026-08-08 is a finding. Queue it, never fabricate the contract yourself. Missing on an older page is a coverage count only, reported per run until the backfill strategy is decided (see the scoping amendment's monitoring issue).
 - Parse failures come from check 0's script and the write-time hook, both real YAML parsers (regex-only validation once passed frontmatter that Obsidian rejected).
@@ -49,7 +49,7 @@ Fix mechanical violations (missing field with an obvious value). Queue judgment 
 
 **Bundle membership:** a page inside a bundle folder belongs on that hub's satellite list. This is derivable from the path alone, so append missing entries unsupervised, each summarized from the satellite's own `description` line (hub law requires the summary). Append, never regenerate, because the hub is prose. Cross-folder relationship links stay gated. Check 8 stays report-only.
 
-**Staged section** (verified pages only; on a draft page the heading is a finding to fold into the body per ingest step 5, and the flag is cleared): `pending_review: true` and the presence of the one `## Unreviewed additions` section must imply each other. Fix drift mechanically in either direction (set the missing flag, or clear a flag whose section is gone). A second `## Unreviewed additions` heading on a page is a finding to compile into the first (ingest step 5, Compaction). Every verified page carrying the flag goes to `.state/lint/queue.md` so the digest surfaces it.
+**Staged section** (verified pages only; on a draft page the heading is a finding to fold into the body per ingest step 5, and the flag is cleared): `pending_review: true` and the presence of the one `Unreviewed additions` heading (any level, `#+ Unreviewed additions`; amendment 2026-09-18) must imply each other. Fix drift mechanically in either direction (set the missing flag, or clear a flag whose section is gone). A second `Unreviewed additions` heading on a page, at any level, is a finding to compile into the first (ingest step 5, Compaction). Every verified page carrying the flag goes to `.state/lint/queue.md` so the digest surfaces it.
 
 **Type hygiene** (lifecycle policy attaches to `type`, never to folder):
 - **Type/folder mismatch** (e.g. a non-Connection page in wiki/connections/): flag for the user's review. Never apply a folder's lifecycle to a mismatched page. Location can be wrong, but the frontmatter is the claim.

@@ -45,7 +45,7 @@ verified_at:
 ---
 ```
 
-Place it in a topic folder (usually `wiki/concepts/`), per `wiki/index.md`, and **never in `wiki/connections/`**. That folder is for `type: Connection` pages only (atomic relationship claims between two endpoints, which carry an expiry lifecycle), and a Synthesis answering the user's question is neither an atomic relationship claim nor expirable. Regenerate the touched folder's index, and log one line in the day log (`wiki/log/<YYYY-MM-DD>.md`). Skip write-back for lookups that added nothing beyond what one page already says.
+Place it in a topic folder (usually `wiki/concepts/`), per `wiki/index.md`, and **never in `wiki/connections/`**. That folder is for `type: Connection` pages only (atomic relationship claims between two endpoints, which carry an expiry lifecycle), and a Synthesis answering the user's question is neither an atomic relationship claim nor expirable. Regenerate the touched folder's index, and log one line in the day log, via `.claude/scripts/day-log.sh`. Skip write-back for lookups that added nothing beyond what one page already says.
 
 ### 5. Record draft citations
 
@@ -57,6 +57,6 @@ If the user **explicitly confirms** a specific cited claim ("yes, that's right",
 
 1. Set that page's `status: verified` and `verified_at: <now>`.
 2. Write the receipt sentence at the top of its body: "Verified by Alex in session on <date> ([[wiki/log/<date>|day log]])."
-3. Log the promotion in the day log (`wiki/log/<YYYY-MM-DD>.md`).
+3. Log the promotion in the day log, via `.claude/scripts/day-log.sh`.
 
 **Politeness is not assent.** "Thanks!", "great answer", or moving on confirms nothing. The trust ledger records explicit assent only. When unsure whether a reply was confirmation, ask. If the user *corrects* a claim instead, route it as a correction: write their statement to `sources/inbox/` with provenance `"the user, <date>"` and say you've done so. Ingestion reconciles the pages.

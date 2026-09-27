@@ -24,7 +24,7 @@ The rules are a pact the user authored and may renegotiate, never a cage and nev
 4. **Execute**: edit the one home. If the change introduces or renames system jargon, update GLOSSARY.md in the same pass. Grep the vault for traceability anchors (`<!-- constitution:`) and restatements of the old rule. Update every echo. Keep runtime vocabulary universal: "you" and "the user", no role nouns.
 5. **Guard the budget**: CLAUDE.md has a hard budget of one page. If an amendment grows it past that, something on it belongs in a skill or README instead. Move it, don't squeeze it.
 6. **Verify**: run lint's surface-consistency check (check 9) over the touched surfaces.
-7. **Log** the amendment in the day log, `wiki/log/<YYYY-MM-DD>.md` (what changed, why, who approved), and close any issues it resolves per ISSUES.md.
+7. **Log** the amendment in the day log, via `.claude/scripts/day-log.sh` (what changed, why, who approved), and close any issues it resolves per ISSUES.md.
 8. **Monitor.** A shipped amendment is a hypothesis, not a settled fact. For any change with observable downstream behavior, open a tracking issue in `.state/issues/` (frontmatter `kind: watch`) linking the day-log entry and the issues or sources where the objectives were first stated. The issue covers:
    - the amended text, quoted from the file it lives in
    - what evidence of working looks like and where it accrues (day logs, lint reports)

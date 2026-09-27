@@ -1,6 +1,6 @@
 ---
 name: process-inbox
-scope: "The queue orchestrator: inbox draining order, the notes sweep with its cursor and frontmatter write-back, deletion recording, and notes/index.md. Turning each item into wiki pages lives in ingest, and the consequences of recorded deletions live in lint."
+scope: "The queue orchestrator: inbox draining order, recovery of sources a crashed run filed but never synthesized, the notes sweep with its cursor and frontmatter write-back, deletion recording, and notes/index.md. Turning each item into wiki pages lives in ingest, and the consequences of recorded deletions live in lint."
 description: Drain sources/inbox/ and sweep notes/ for new or changed content. Run on schedule (daily-ish) or when the user asks to process captures, catch up the pipeline, or sweep notes.
 ---
 
@@ -19,6 +19,8 @@ List `sources/inbox/`, excluding:
 - READMEs.
 
 Run the `ingest` skill on each remaining item, oldest first. If a session is interactive and items need judgment calls (which stream, junk-or-not), ask. Scheduled runs decide conservatively and log.
+
+Then run `.claude/scripts/stranded-sources.py`. It lists filed sources no wiki page mentions, the residue of a run that died after filing and before synthesis. Finish each listed source's ingest from step 3 on (it is already filed and ledgered). Name each one in the close-out line as recovered.
 
 ## Pass 2 — notes sweep
 
@@ -43,4 +45,4 @@ The cursor lives at `.state/notes-cursor.txt`: one line per known note, `<sha256
 
 ## Close out
 
-Log one summary line in the day log (`wiki/log/<YYYY-MM-DD>.md`: items ingested, quarantined, notes swept, deletions recorded, conflicts flagged). Zero-friction is this stream's point. Never ask the user to pre-sort notes or the inbox.
+Log one summary line in the day log via `.claude/scripts/day-log.sh` (items ingested, quarantined, notes swept, deletions recorded, conflicts flagged), dated by the script, which applies the 04:00 local day boundary `wiki/chronicle/README.md` defines (a run before 04:00 logs to the previous day's file). Zero-friction is this stream's point. Never ask the user to pre-sort notes or the inbox.

@@ -6,7 +6,24 @@ To update an installed vault, tell your maintainer "update my exocortex" (the `u
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-09-26
+
+### Added
+- **`.claude/scripts/day-log.sh`**: appends one day-log entry in a single write and finds the day's file itself (a day runs 04:00 to 04:00 local, as in the chronicle). Every skill that logs now goes through it. Day logs are append-only in the order written (`wiki/log/README.md`). Newest-first ordering is gone: only a read-then-rewrite could produce it, and that rewrite let concurrent writers erase each other's entries.
+- **`.claude/scripts/lock.sh`** (acquire, touch, release, check) for `maintainer.lock`. The lock binds every run of a skill that takes it, interactive runs included. Runs heartbeat at each step boundary and at least every 10 minutes, and a live holder means stand down, never wait in a loop. `.state/README.md` keeps only the judgment the script cannot make.
+- **`.claude/scripts/stranded-sources.py`** and a recovery pass in process-inbox: it lists filed sources that no wiki page mentions (the residue of a run that died between filing and synthesis), and the drain finishes their ingest.
+- **CLAUDE.md: rules carry their why.** Before a correction becomes a rule, the agent echoes the reason it infers in one sentence and shows the exact rule text, then writes it on the user's yes with the why beside it. A skill rule that would shrink or delay what the user just asked for is raised as a conflict, with its why, instead of applied silently. A question put to the user is restated where it is asked, never by pointing at an earlier message or a file.
+- **Session capture delegates ingest at once**: a background subagent ingests the capture as soon as it is written (honoring the lock), so a same-day session reads current pages instead of waiting for the next drain.
+- **Ingest treats a source's own flags as lookups, not claims.** "Possible tension," "unresolved," and the like are checked against the vault first, then written as settled (naming the pages that settle them) or open (naming the check that came up empty).
+- **GLOSSARY entry for laundered inference.**
+
 ### Changed
+- **Digest review runs in rounds** of at most three items, opened by a three-line TLDR and the file's link, instead of posting the whole file. Decision items open with a plain "Is X true?" or "Should X happen?" question, carry everything needed to answer, say where and when a quoted phrase was said, and check the record before asking. A verified page's unreviewed additions that are the user's own sourced words fold on one yes per page. A closed project's pages drop off the promotion shortlist unless a live page depends on them.
+- **Audit briefs are questions.** The agent verifies record-checkable claims itself, and only what the user alone can answer becomes the brief, one plain question per claim. Item keys are unique across the sitting (1a, 1b, 2a).
+- **Lint**: a "Built on" pointer to a source-summary page satisfies the citation check for synthesis pages (one hop, hubs still need a direct source link). The staged-section check accepts the "Unreviewed additions" heading at any level.
+- **Chronicle**: an email collector that finds a fact new to the vault writes one inbox capture, attributed as an observed email and never as the user's words. Meeting transcripts are never read by this skill.
+- **`em-dash-hook.md` recipe** skips the frozen-record zones (sources/, notes/, attachments/), which keep speech as written.
+- **`tools/sync.sh` leak scan** runs byte-wise and treats a `sed` failure as fatal. Before, a file with stray bytes made `sed` die, which the scan read as "no hits."
 - **Conformance check is a script.** `tools/conformance.sh` classifies every shippable kind in the vault (root docs, skills, scripts, agents, every README at any depth, meta docs, templates) against MANIFEST and exits nonzero on anything unclassified; `tools/sync.sh` runs it before copying, so a publish cannot skip it. publish-program step 0 now runs the script and judges its hits instead of walking a hand-enumerated list of places (which is how `sources/research/README.md` went unclassified in 0.14.0). The reference scan and a `--drift` listing are in the same script.
 - **`sources/inbox/quarantine/README.md` ships.** The folder is named by the shipped process-inbox and ingest skills; its folder law was never on MANIFEST.
 

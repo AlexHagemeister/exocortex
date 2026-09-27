@@ -10,7 +10,7 @@ status: recommended
 
 # Em dash hook: enforcement at write time, not review time
 
-A style rule stated in instructions ("no em dashes") degrades over a long session: the model drifts, and the dashes land in files where the user finds them later. This recipe moves enforcement from instructions to the harness. A `PostToolUse` hook on the `Write` and `Edit` tools inspects only the new text an edit introduces. When that text contains an em dash (U+2014), the hook returns a blocking message that lands in the agent's context immediately, telling it to replace the dash (comma, parentheses, colon, or two sentences) and continue. Clean edits pass silently at zero token cost, and em dashes already sitting in a file never fire it, so there is no nagging about legacy prose.
+A style rule stated in instructions ("no em dashes") degrades over a long session: the model drifts, and the dashes land in files where the user finds them later. This recipe moves enforcement from instructions to the harness. A `PostToolUse` hook on the `Write` and `Edit` tools inspects only the new text an edit introduces. When that text contains an em dash (U+2014), the hook returns a blocking message that lands in the agent's context immediately, telling it to replace the dash (comma, parentheses, colon, or two sentences) and continue. Clean edits pass silently at zero token cost, and em dashes already sitting in a file never fire it, so there is no nagging about legacy prose. Writes under `sources/`, `notes/`, or `attachments/` are exempt: those zones hold frozen records of what someone said, and a verbatim capture must keep its em dashes (added 2026-09-11 after the hook fired on quoted essays and Signal messages).
 
 ## Why this is here
 
@@ -31,6 +31,11 @@ Agent-driven, two steps. Machine-wide means the user-level surfaces (`~/.claude/
 # PostToolUse hook (Write|Edit): nudge the agent when an edit introduces an em dash.
 # Checks only the new text being written, so pre-existing em dashes in a file don't fire it.
 input=$(cat)
+# Frozen-record zones keep speech as written, em dashes included.
+file_path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // ""')
+case "$file_path" in
+  */sources/*|*/notes/*|*/attachments/*) exit 0 ;;
+esac
 new_text=$(printf '%s' "$input" | jq -r '[.tool_input.new_string, .tool_input.content, (.tool_input.edits // [] | .[].new_string)] | map(select(. != null)) | join("\n")')
 case "$new_text" in
   *—*)

@@ -1,5 +1,5 @@
 ---
-updated: 2026-09-06 Sun, Sep 6 — 5:46 PM
+updated: 2026-09-09 Wed, Sep 9 — 4:46 PM
 ---
 # GLOSSARY: system vocabulary
 
@@ -178,6 +178,8 @@ _Home:_ meta/CLAIM-SPEC.md (deployment-local trial 2026-09-01, ships only if it 
 **fluent**: a current-state claim that can stop being true, expected to be anchored to a literal date it was true as of (an undated fluent is still a fluent, warn-grade). Contrast with an event, whose happening never becomes false.
 _Avoid:_ fact (unanchored), status (that word is taken by the page lattice)
 _Home:_ meta/CLAIM-SPEC.md (deployment-local trial 2026-09-01, ships only if it graduates)
+
+- **laundered inference**: a guess written with the typography of a fact, so it propagates as if verified. The constitution's named deadliest anti-pattern (CONSTITUTION.md § Anti-patterns). The instances the vault has recorded live on wiki/concepts/laundered-inference.md. Status fields and observation/inference separation exist to prevent it. (Entry added 2026-09-09.)
 
 ## Operations
 

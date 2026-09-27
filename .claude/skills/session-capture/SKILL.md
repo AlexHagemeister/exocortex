@@ -1,6 +1,6 @@
 ---
 name: session-capture
-scope: "Writing one session's durable knowledge as a single inbox source, verbatim quotes preserved. Wiki pages come later through ingest, and corrections to a filed capture arrive as new inbox sources, never edits."
+scope: "Writing one session's durable knowledge as a single inbox source, verbatim quotes preserved, and handing it to a delegated ingest at once. Wiki pages come through that ingest, and corrections to a filed capture arrive as new inbox sources, never edits."
 description: Preserve the current session's durable knowledge as an inbox source. Use when the user says "capture this session", "save this conversation", or wants the decisions, facts, or reasoning from this chat kept in the vault.
 ---
 
@@ -33,6 +33,6 @@ Body: summary first, then a `# Verbatim quotes` section, then `# Open questions`
 
 4. **Add an ingest brief when the session had wiki pages in play.** End the capture with an `# Ingest brief` section, written while you still hold the routing knowledge: which wiki pages were read or discussed this session, which claims on which page this capture supersedes or extends (one line per page), and whether anything warrants a new page (proposed name, home folder, one-line scope). Head it `*Agent routing notes, <date>: a recommendation to ingest, not a claim about the world.*` Never name a page you didn't actually have in context; a guessed route is worse than none. Skip the section entirely when the session touched no existing pages.
 
-5. Tell the user it's in the inbox and will enter the wiki on the next ingest, or run `ingest` now if they want it immediately (a capture with an ingest brief is cheap to ingest on the spot or delegate to a subagent, since the routing is already written).
+5. **Delegate `ingest` on the capture at once** (amendment 2026-09-24, the user's approval in chat): one subagent, launched as soon as the file is written, running in the background so the session and the user carry on. It honors `.state/maintainer.lock` (stands down and leaves the item for the next drain if held) and reports where it filed the capture. Tell the user the capture's basename. If the user says to hold it, skip the delegation and say so. Why: a same-day session reads vault pages that a morning-only drain has not yet caught up, and the user was bridging that by hand. The other half of the bridge is the session-start nudge that lists today's un-ingested captures, which covers the cases where the delegated ingest stood down or the capturing session was closed before it finished. A hand-off message to another session names the capture by basename, never by inbox path, and says it may already be filed under `sources/sessions/` when read: a filed capture is frozen, so the content is the same either way.
 
 Inbox items are pre-pipeline, so the user may edit the capture freely until it's filed. If the user later says a filed capture misstated something, their correction enters the inbox as a new source. The filed capture is never edited.

@@ -117,9 +117,13 @@ while IFS= read -r f; do
     scan_failed=1
   fi
   [ "$f" = "LICENSE" ] && continue
-  if sed -E "s#(${PUBLIC_ALLOWLIST})##g" "$REPO_ROOT/$f" | grep -niEf "$PATTERNS" >/dev/null 2>&1; then
+  # Byte-wise locale: the patterns are ASCII and a UTF-8 locale makes sed die on stray bytes.
+  # A sed failure is fatal here, never "no hits": capture its output first, then grep it.
+  stripped="$(LC_ALL=C sed -E "s#(${PUBLIC_ALLOWLIST})##g" "$REPO_ROOT/$f")" \
+    || die "leak scan: sed failed on $f (fix the file or the locale); scan result untrusted"
+  if printf '%s\n' "$stripped" | LC_ALL=C grep -niEf "$PATTERNS" >/dev/null 2>&1; then
     echo "LEAK (private pattern) in $f:"
-    sed -E "s#(${PUBLIC_ALLOWLIST})##g" "$REPO_ROOT/$f" | grep -niEf "$PATTERNS" | head -5
+    printf '%s\n' "$stripped" | LC_ALL=C grep -niEf "$PATTERNS" | head -5
     scan_failed=1
   fi
 done <<< "$files"

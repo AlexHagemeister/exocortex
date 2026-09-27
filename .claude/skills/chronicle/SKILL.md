@@ -47,7 +47,7 @@ Registering a new surface: when the user asks to add one (or accepts an offer af
 - **The agent's read is yours.** Synthesis, judgment, alignment with stated intentions, patterns worth naming. It is explicitly attributed agent judgment, so write it freely and plainly — the user corrects it in conversation, and those corrections are themselves data that arrive through the normal corrections path.
 - Style: plain prose the user can skim, under the deployment's style bindings (`meta/DEPLOYMENT.md` Style banlist row).
 
-**Step 3 — close out.** Regenerate `wiki/chronicle/index.md` (oldest first, one line per entry from its `description`). One line in the maintainer day log. Nothing else: no wiki-page updates, no captures. Anything that looks like it should enter the wiki goes through the normal pipeline, not this skill.
+**Step 3 — close out.** Regenerate `wiki/chronicle/index.md` (oldest first, one line per entry from its `description`). One line in the maintainer day log, via `.claude/scripts/day-log.sh`. Nothing else: no wiki-page updates, no captures, with one exception (the user, 2026-09-09): a collector on an email surface that finds a fact new to the vault and worth keeping writes one inbox capture shaped "the user got an email about X, noteworthy and not yet in the vault," attributed as an observed email, never as the user's words. Meeting transcripts (Granola) are never read by this skill; they enter the vault only when the user brings one in with context. Anything that looks like it should enter the wiki goes through the normal pipeline, not this skill.
 
 ## Weekly procedure (Mondays, after the daily has covered Sunday)
 

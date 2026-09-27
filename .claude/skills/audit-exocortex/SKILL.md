@@ -14,18 +14,15 @@ Precedence: pages the user names > the open digest's items > pages created or ch
 
 ## Per page — the reading brief
 
-Not a summary. The user reads the page. The brief bounds where their judgment is needed:
+Not a summary, and not a reading assignment. Before the brief, sort the page's claims by who can check them. Record-checkable claims (a transcript, a filed source, a URL) the agent verifies against the source and reports as done or corrected. Only-the-user-knows claims become the brief: each as one plain-worded question, "Is X true?" or "Did X happen?", in the user's vocabulary, never the page's. When a claim is an agent's paraphrase of a document rather than the user's own words, the question says so ("the page reads your proposal note as saying X"), because that is where mis-paraphrasings hide. "Whole page needed" is stated as an exception with a reason, not assumed. (Amendment 2026-09-09, from the digest review of that day.)
 
 **N of M — [link] (status, last touched)**: one line on what the page is. Where the page carries `scope:`, quote it beneath this line. Body content falling outside it is a needs-you item (the fix may be a split, a move, or a scope correction, and the user picks the seam).
 
-Then the items, numbered continuously, **sorted into two classes by who the decision belongs to, needs-you items first**:
+Then the items, keyed uniquely across the sitting (1a, 1b, 2a), **sorted into two classes by who the decision belongs to, needs-you items first**:
 
-**Needs-you**: a real tradeoff, a fact only the user holds, or anything touching promotion:
+**Needs-you**: a question only the user can answer, a real tradeoff, or anything touching promotion:
 
-> **k. § [heading] › block [j]**, opens "[first ~3 words]"
-> - **Look at:** "[verbatim quote]"
-> - **Why:** why this needs the user's eyes (inferred vs. stated, single-source, contradicts something, gap only the user can fill).
-> - **Rec:** the recommendation with its reason, plus the live alternative in one clause. Never a bare "your call" with equal-weight options.
+> **k. Is X true? / Did X happen?** One claim, plain words. If the page paraphrased a document, say so. Then **Rec:** the recommendation with its reason, plus the live alternative in one clause. Never a bare "your call" with equal-weight options.
 
 **Recommend-and-run**: the fix is mechanical or the evidence points one way. Compressed, often one line each:
 
@@ -51,4 +48,4 @@ The user replies by item number, and one reply may carry several verdicts ("2: d
 
 ## Exit
 
-Queue empty or the user stops. Day-log what was audited (pages, verdicts). Review markers are digest-only: an audit running inside a digest review follows digest's marker rule. Ad-hoc audits never write markers. They stamp `verified_at`, which digest's marker-reconstruction logic already counts.
+Queue empty or the user stops. Day-log what was audited (pages, verdicts) via `.claude/scripts/day-log.sh`. Review markers are digest-only: an audit running inside a digest review follows digest's marker rule. Ad-hoc audits never write markers. They stamp `verified_at`, which digest's marker-reconstruction logic already counts.

@@ -34,12 +34,18 @@
 #   .claude/scripts/register-reset.sh (register skill hook, same trial)
 #   .claude/skills/spaced-repetition/ (chat-native flashcard trial, since 2026-09-02; ships only if it graduates)
 #   .claude/scripts/srs.py            (spaced-repetition scheduler, same trial)
+#   .claude/scripts/cards-nudge.sh    (spaced-repetition SessionStart nudge, same trial)
 #   .claude/scripts/subagent-brief-check.sh (enforcement-hooks trial, added 2026-09-04; same trial as the other six)
 #   .claude/scripts/move-filed-source.py (stream-to-stream source mover, added 2026-09-04; private)
+#   .claude/scripts/day-log-guard.sh   (enforcement-hooks trial, added 2026-09-26; same trial as the other seven)
 #   CLAUDE.local.md                    (deployment-local session context; never ships, classified 2026-09-08)
 #   meta/DEPLOYMENT.md                 (this deployment's bindings; sync.sh refuses it, classified 2026-09-08)
 #   meta/chronicle-surfaces.md         (deployment-local chronicle surface registry, classified 2026-09-08)
 #   artifacts/cs170/cards/README.md    (spaced-repetition trial folder law, same trial as the skill)
+#   .claude/skills/blackboard/         (live math-and-doodle board trial, since 2026-09-08; ships only if it graduates)
+#   artifacts/blackboard/README.md     (blackboard renderer folder law, same trial)
+#   artifacts/cs170/approach-drill/README.md (CS 170 study folder law; personal coursework, classified 2026-09-26)
+#   artifacts/cs170/quiz1-graph/README.md    (CS 170 study folder law; personal coursework, classified 2026-09-26)
 
 README.md
 CLAUDE.md
@@ -89,6 +95,9 @@ wiki/chronicle/README.md
 .claude/scripts/notes-cursor-diff.py
 .claude/scripts/regen-index.py
 .claude/scripts/ingest-file.sh
+.claude/scripts/day-log.sh
+.claude/scripts/lock.sh
+.claude/scripts/stranded-sources.py
 .claude/scripts/regen-issues.py
 .claude/scripts/digest-nudge.sh
 .claude/scripts/compaction-guard.py
