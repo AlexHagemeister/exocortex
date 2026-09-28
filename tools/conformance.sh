@@ -197,7 +197,7 @@ if [ "$drift" -eq 1 ]; then
       [ "$a" = "$b" ] || { echo "  $m (convention section)"; dhits=$((dhits + 1)); }
     elif [ -d "$src" ]; then
       if ! diff -rq "$src" "$dst" >/dev/null 2>&1; then
-        echo "  $m/"; diff -rq "$src" "$dst" 2>&1 | head -5 | sed 's/^/    /'; dhits=$((dhits + 1))
+        echo "  $m/"; diff -rq "$src" "$dst" 2>&1 | head -5 | sed 's/^/    /' || true; dhits=$((dhits + 1))
       fi
     elif ! cmp -s "$src" "$dst"; then
       echo "  $m"; dhits=$((dhits + 1))
